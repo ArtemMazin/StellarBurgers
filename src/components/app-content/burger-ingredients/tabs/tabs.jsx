@@ -1,26 +1,21 @@
-/* eslint-disable jsx-a11y/anchor-is-valid */
 import React from 'react';
+import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
 import styles from './tabs.module.css';
 
 function Tabs() {
+  const [current, setCurrent] = React.useState('one');
   return (
-    <ul className={styles.tabs}>
-      <li>
-        <a href="#" className={`${styles.tab} pt-4 pb-4 pl-10 pr-10`}>
-          <span>Булки</span>
-        </a>
-      </li>
-      <li>
-        <a href="#" className={`${styles.tab} pt-4 pb-4 pl-10 pr-10`}>
-          <span className="text_color_inactive">Соусы</span>
-        </a>
-      </li>
-      <li>
-        <a href="#" className={`${styles.tab} pt-4 pb-4 pl-10 pr-10`}>
-          <span className="text_color_inactive">Начинки</span>
-        </a>
-      </li>
-    </ul>
+    <div className={styles.tabs}>
+      <Tab value="one" active={current === 'one'} onClick={setCurrent}>
+        Булки
+      </Tab>
+      <Tab value="two" active={current === 'two'} onClick={setCurrent}>
+        Соусы
+      </Tab>
+      <Tab value="three" active={current === 'three'} onClick={setCurrent}>
+        Начинки
+      </Tab>
+    </div>
   );
 }
 

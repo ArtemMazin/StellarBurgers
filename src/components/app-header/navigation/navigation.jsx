@@ -15,7 +15,7 @@ function Navigation() {
         </li>
 
         <li>
-          <a href="#" className={`${styles.link} pl-5 pr-5 pb-4 pt-4`}>
+          <a href="#" className={`${styles.link} pl-5 pr-5 pb-4 pt-4 ml-2`}>
             <components.ListIcon type="primary" />
             <span className="text text_type_main-default text_color_inactive ml-2">
               Лента заказов
@@ -24,7 +24,7 @@ function Navigation() {
         </li>
 
         <li>
-          <a href="#" className={`${styles.link} pl-5 pr-5 pb-4 pt-4`}>
+          <a href="#" className={`${styles.link} pl-5 pr-5 pb-4 pt-4 ml-2`}>
             <components.ProfileIcon type="primary" />
             <span className="text text_type_main-default text_color_inactive ml-2">
               Личный кабинет
