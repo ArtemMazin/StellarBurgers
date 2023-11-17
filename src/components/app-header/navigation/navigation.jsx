@@ -7,15 +7,15 @@ function Navigation() {
   return (
     <nav className={styles.nav}>
       <ul className={styles.links}>
-        <li className="pl-5 pr-5 pb-4 pt-4 ml-2">
-          <a href="#" className={styles.link}>
+        <li>
+          <a href="#" className={`${styles.link} pl-5 pr-5 pb-4 pt-4`}>
             <components.BurgerIcon type="primary" />
             <span className="text text_type_main-default ml-2">Конструктор</span>
           </a>
         </li>
 
-        <li className="pl-5 pr-5 pb-4 pt-4 ml-2">
-          <a href="#" className={styles.link}>
+        <li>
+          <a href="#" className={`${styles.link} pl-5 pr-5 pb-4 pt-4`}>
             <components.ListIcon type="primary" />
             <span className="text text_type_main-default text_color_inactive ml-2">
               Лента заказов
@@ -23,8 +23,8 @@ function Navigation() {
           </a>
         </li>
 
-        <li className="pl-5 pr-5 pb-4 pt-4 ml-2">
-          <a href="#" className={styles.link}>
+        <li>
+          <a href="#" className={`${styles.link} pl-5 pr-5 pb-4 pt-4`}>
             <components.ProfileIcon type="primary" />
             <span className="text text_type_main-default text_color_inactive ml-2">
               Личный кабинет

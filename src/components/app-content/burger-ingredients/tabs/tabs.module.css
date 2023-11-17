@@ -1,0 +1,13 @@
+.tabs {
+  display: flex;
+  padding: 0;
+  list-style-type: none;
+}
+
+.tab {
+  display: block;
+  width: 120px;
+  color: var(--text-primary-light-standart-text);
+  text-align: center;
+  text-decoration: none;
+}
