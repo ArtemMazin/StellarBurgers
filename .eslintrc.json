@@ -9,9 +9,9 @@
     "plugin:react/recommended",
     "plugin:react-hooks/recommended",
     "plugin:jsx-a11y/recommended",
-    "plugin:import/recommended",
-    "prettier",
-    "airbnb"
+    // "plugin:import/recommended",
+    // "airbnb",
+    "prettier"
   ],
   "parser": "@typescript-eslint/parser",
   "parserOptions": {
