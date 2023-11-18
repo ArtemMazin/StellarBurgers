@@ -3,6 +3,7 @@ import React, { useContext, useMemo, useState } from 'react';
 import DATA from '@/utils/data';
 import IngredientsContext from '@/contexts/IngredientsContext';
 import CardList from '@/components/card-list/card-list';
+import styles from './ingredient-list.module.css';
 
 function IngedientList({ children }) {
   const [buns, setBuns] = useState([]);
@@ -27,7 +28,7 @@ function IngedientList({ children }) {
 
   return (
     <IngredientsContext.Provider value={{ buns, sauces, main }}>
-      <ul>{children}</ul>
+      <ul className={styles.list}>{children}</ul>
     </IngredientsContext.Provider>
   );
 }

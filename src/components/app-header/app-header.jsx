@@ -6,11 +6,13 @@ import Navigation from './navigation/navigation';
 function AppHeader() {
   return (
     <header className={styles.header}>
-      <div className={styles.logo}>
-        <Logo />
-      </div>
+      <div className={`${styles.wrapper} container`}>
+        <div className={styles.logo}>
+          <Logo />
+        </div>
 
-      <Navigation />
+        <Navigation />
+      </div>
     </header>
   );
 }

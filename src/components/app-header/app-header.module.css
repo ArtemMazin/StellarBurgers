@@ -1,8 +1,11 @@
 .header {
+  background-color: var(--interface-modal-bg);
+}
+
+.wrapper {
   position: relative;
   display: flex;
   width: 100%;
-  background-color: var(--interface-modal-bg);
 }
 
 .logo {
@@ -19,7 +22,7 @@
     transform: none;
   }
 
-  .header {
+  .wrapper {
     justify-content: space-between;
   }
 }

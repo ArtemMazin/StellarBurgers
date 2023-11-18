@@ -5,7 +5,7 @@ import styles from './tabs.module.css';
 function Tabs() {
   const [current, setCurrent] = React.useState('Булки');
   return (
-    <div className={styles.tabs}>
+    <div className={`${styles.tabs} mb-10`}>
       <Tab value="Булки" active={current === 'Булки'} onClick={setCurrent}>
         Булки
       </Tab>
