@@ -1,0 +1,34 @@
+.components {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.list {
+  /* stylelint-disable-next-line property-no-unknown */
+  composes: components;
+  max-height: 46vh;
+  padding: 0;
+  margin: 0;
+  list-style-type: none;
+  overflow-y: auto;
+}
+
+.component {
+  display: flex;
+  align-items: center;
+  padding: 0 16px;
+  gap: 8px;
+}
+
+.list::-webkit-scrollbar {
+  width: 8px;
+}
+
+.list::-webkit-scrollbar-track {
+  background: #2f2f37;
+}
+
+.list::-webkit-scrollbar-thumb {
+  background: #8585ad;
+}
