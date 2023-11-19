@@ -1,30 +1,12 @@
 /* eslint-disable react/prop-types */
-import React, { useContext, useMemo, useState } from 'react';
-import DATA from '@/utils/data';
+import React, { useContext } from 'react';
 import IngredientsContext from '@/contexts/IngredientsContext';
 import CardList from '@/components/card-list/card-list';
 import styles from './ingredient-list.module.css';
+import useFilteredIngredients from '@/hooks/useFilteredIngredients';
 
 function IngedientList({ children }) {
-  const [buns, setBuns] = useState([]);
-  const [sauces, setSauces] = useState([]);
-  const [main, setMain] = useState([]);
-
-  useMemo(() => {
-    DATA.filter((item) => {
-      switch (item.type) {
-        case 'bun':
-          setBuns((prev) => [...prev, item]);
-          break;
-        case 'sauce':
-          setSauces((prev) => [...prev, item]);
-          break;
-        case 'main':
-          setMain((prev) => [...prev, item]);
-          break;
-      }
-    });
-  }, []);
+  const { buns, sauces, main } = useFilteredIngredients();
 
   return (
     <IngredientsContext.Provider value={{ buns, sauces, main }}>

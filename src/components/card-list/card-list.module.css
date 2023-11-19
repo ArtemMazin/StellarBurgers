@@ -1,6 +1,6 @@
 .list {
   display: flex;
   flex-wrap: wrap;
-  gap: 24px;
+  gap: 32px 24px;
   list-style-type: none;
 }
