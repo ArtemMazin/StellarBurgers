@@ -3,11 +3,13 @@ import PropTypes from 'prop-types';
 import useFilteredIngredients from '@/hooks/useFilteredIngredients';
 import { ConstructorElement, DragIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import styles from './components.module.css';
-import ComponentsContext from '@/contexts/ComponentsContext';
+import ComponentsContext from '@/contexts/componentsContext';
 import Bun from './bun.jsx/bun';
+import initialIngredientsContext from '@/contexts/initialIngredientsContext';
 
 export default function Components({ children }) {
-  const { buns, sauces, main } = useFilteredIngredients();
+  const initialIngredients = useContext(initialIngredientsContext);
+  const { buns, sauces, main } = useFilteredIngredients(initialIngredients);
 
   return (
     <ComponentsContext.Provider value={{ buns, sauces, main }}>
