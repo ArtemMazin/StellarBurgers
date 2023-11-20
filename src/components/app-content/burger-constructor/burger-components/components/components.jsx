@@ -42,15 +42,15 @@ Components.Ingredients = function Ingredients() {
   const { sauces, main } = useContext(ComponentsContext);
 
   return (
-    <ul className={`${styles.list}`}>
+    <ul className={`${styles.list} custom-scroll`}>
       {sauces.map((item) => (
-        <li className={styles.component} key={item._id}>
+        <li className={`${styles.component} pl-3 pr-2`} key={item._id}>
           <DragIcon type="primary" />
           <ConstructorElement text={item.name} price={item.price} thumbnail={item.image} />
         </li>
       ))}
       {main.map((item) => (
-        <li className={styles.component} key={item._id}>
+        <li className={`${styles.component} pl-3 pr-2`} key={item._id}>
           <DragIcon type="primary" />
           <ConstructorElement text={item.name} price={item.price} thumbnail={item.image} />
         </li>

@@ -5,7 +5,7 @@ import styles from './bun.module.css';
 
 export default function Bun({ array, type, text }) {
   return (
-    <div className={`${styles.component} ml-8`}>
+    <div className={`${styles.component} ml-8 pl-3 pr-2`}>
       {array.length > 0 && (
         <ConstructorElement
           type={type}

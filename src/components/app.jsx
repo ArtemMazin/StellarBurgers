@@ -1,23 +1,9 @@
-import React, { useEffect, useState } from 'react';
+import React, { useMemo, useState } from 'react';
 import initialIngredientsContext from '@/contexts/initialIngredientsContext';
 import AppHeader from './app-header/app-header';
 import AppContent from './app-content/app-content';
-import URL from '@/utils/constants';
-
-function getResponseData(res) {
-  if (!res.ok) {
-    throw new Error('Ошибка');
-  }
-  return res.json();
-}
-async function request(url) {
-  const res = await fetch(url);
-  return getResponseData(res);
-}
-
-export function getIngredients() {
-  return request(URL);
-}
+import getIngredients from '@/utils/api';
+import ErrorBoundary from './error-boundary/error-boendary';
 
 export default function App() {
   const [initialIngredients, setInitialIngredients] = useState([]);
@@ -27,14 +13,20 @@ export default function App() {
     setInitialIngredients(data);
   }
 
-  useEffect(() => {
-    getData();
+  useMemo(() => {
+    try {
+      getData();
+    } catch (error) {
+      console.error(error);
+    }
   }, []);
 
   return (
     <initialIngredientsContext.Provider value={initialIngredients}>
-      <AppHeader />
-      <AppContent />
+      <ErrorBoundary>
+        <AppHeader />
+        <AppContent />
+      </ErrorBoundary>
     </initialIngredientsContext.Provider>
   );
 }

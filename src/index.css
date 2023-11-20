@@ -10,12 +10,6 @@ body {
   text-size-adjust: 100%;
 }
 
-:root {
-  --interface-bg: #131316;
-  --interface-modal-bg: #1c1c21;
-  --text-primary-light-standart-text: #f2f2f3;
-}
-
 .container {
   max-width: 1280px;
   margin: 0 auto;

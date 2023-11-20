@@ -17,18 +17,5 @@
 .component {
   display: flex;
   align-items: center;
-  padding: 0 16px;
   gap: 8px;
-}
-
-.list::-webkit-scrollbar {
-  width: 8px;
-}
-
-.list::-webkit-scrollbar-track {
-  background: #2f2f37;
-}
-
-.list::-webkit-scrollbar-thumb {
-  background: #8585ad;
 }

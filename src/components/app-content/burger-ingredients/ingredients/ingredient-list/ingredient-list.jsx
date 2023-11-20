@@ -12,7 +12,7 @@ function IngedientList({ children }) {
 
   return (
     <IngredientsContext.Provider value={{ buns, sauces, main }}>
-      <ul className={styles.list}>{children}</ul>
+      <ul className={`${styles.list} custom-scroll`}>{children}</ul>
     </IngredientsContext.Provider>
   );
 }
