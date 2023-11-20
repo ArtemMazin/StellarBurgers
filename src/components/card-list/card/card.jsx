@@ -1,9 +1,9 @@
-/* eslint-disable react/prop-types */
 import React from 'react';
 import styles from './card.module.css';
 import { Counter, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
+import ingredientPropTypes from '@/utils/prop-types';
 
-const Card = ({ item }) => {
+export default function Card({ item }) {
   return (
     <div className={`${styles.card}`}>
       <Counter count={1} size="default" extraClass="" />
@@ -15,6 +15,8 @@ const Card = ({ item }) => {
       <h3 className="text text_type_main-default">{item.name}</h3>
     </div>
   );
-};
+}
 
-export default Card;
+Card.propTypes = {
+  item: ingredientPropTypes,
+};

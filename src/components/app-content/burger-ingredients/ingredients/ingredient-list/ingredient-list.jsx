@@ -1,5 +1,5 @@
-/* eslint-disable react/prop-types */
 import React, { useContext } from 'react';
+import PropTypes from 'prop-types';
 import IngredientsContext from '@/contexts/IngredientsContext';
 import CardList from '@/components/card-list/card-list';
 import styles from './ingredient-list.module.css';
@@ -14,6 +14,14 @@ function IngedientList({ children }) {
     </IngredientsContext.Provider>
   );
 }
+
+IngedientList.propTypes = {
+  children: PropTypes.oneOfType([
+    PropTypes.arrayOf(PropTypes.element),
+    PropTypes.element,
+    PropTypes.elementType,
+  ]).isRequired,
+};
 
 IngedientList.Buns = function Buns() {
   const { buns } = useContext(IngredientsContext);

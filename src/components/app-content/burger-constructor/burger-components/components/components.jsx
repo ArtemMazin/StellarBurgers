@@ -1,8 +1,8 @@
-/* eslint-disable react/prop-types */
+import React, { useContext } from 'react';
+import PropTypes from 'prop-types';
 import useFilteredIngredients from '@/hooks/useFilteredIngredients';
 import { ConstructorElement, DragIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import styles from './components.module.css';
-import React, { useContext } from 'react';
 import ComponentsContext from '@/contexts/ComponentsContext';
 import Bun from './bun.jsx/bun';
 
@@ -15,6 +15,14 @@ export default function Components({ children }) {
     </ComponentsContext.Provider>
   );
 }
+
+Components.propTypes = {
+  children: PropTypes.oneOfType([
+    PropTypes.arrayOf(PropTypes.element),
+    PropTypes.element,
+    PropTypes.elementType,
+  ]).isRequired,
+};
 
 Components.TopBun = function TopBun() {
   const { buns } = useContext(ComponentsContext);

@@ -1,7 +1,7 @@
-/* eslint-disable react/prop-types */
+import React from 'react';
+import PropTypes from 'prop-types';
 import { ConstructorElement } from '@ya.praktikum/react-developer-burger-ui-components';
 import styles from './bun.module.css';
-import React from 'react';
 
 export default function Bun({ array, type, text }) {
   return (
@@ -18,3 +18,9 @@ export default function Bun({ array, type, text }) {
     </div>
   );
 }
+
+Bun.propTypes = {
+  array: PropTypes.array.isRequired,
+  type: PropTypes.oneOf(['top', 'bottom', undefined]),
+  text: PropTypes.string,
+};
