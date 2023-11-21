@@ -54,7 +54,7 @@ ModalComponents.Container = function Container({ children }) {
 };
 
 ModalComponents.Header = function Header({ children }) {
-  return <div className={styles.header}>{children}</div>;
+  return <div className={`${styles.header} mb-4`}>{children}</div>;
 };
 
 ModalComponents.Title = function Title({ title }) {
