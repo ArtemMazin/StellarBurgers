@@ -1,0 +1,40 @@
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  display: flex;
+  width: 100%;
+  height: 100%;
+  align-items: center;
+  justify-content: center;
+  background: rgb(0 0 0 / 60%);
+  opacity: 0;
+  transition: var(--common-transition);
+  visibility: hidden;
+}
+
+.container {
+  position: relative;
+  overflow: auto;
+  width: 100%;
+  max-width: 720px;
+  border-radius: var(--common-border-radius-s);
+  background: var(--background);
+  box-shadow: 0 0 25px rgb(0 0 0 / 15%);
+}
+
+.opened {
+  z-index: 99;
+  opacity: 1;
+  visibility: visible;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  gap: 36px;
+}
+
+.title {
+  width: 100%;
+}
