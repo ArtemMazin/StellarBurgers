@@ -1,5 +1,5 @@
-/* eslint-disable react/prop-types */
 import React from 'react';
+import PropTypes from 'prop-types';
 import ModalComponents from './modal-components/modal-components';
 
 const Modal = ({ isOpen, onClose, title, children }) => {
@@ -16,6 +16,17 @@ const Modal = ({ isOpen, onClose, title, children }) => {
       </ModalComponents.Overlay>
     </ModalComponents>
   );
+};
+
+Modal.propTypes = {
+  isOpen: PropTypes.bool.isRequired,
+  onClose: PropTypes.func.isRequired,
+  title: PropTypes.string,
+  children: PropTypes.oneOfType([
+    PropTypes.arrayOf(PropTypes.element),
+    PropTypes.element,
+    PropTypes.elementType,
+  ]),
 };
 
 export default Modal;

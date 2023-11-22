@@ -17,9 +17,11 @@ function BurgerOrder() {
       <Button htmlType="button" type="primary" size="large" onClick={handleOpen}>
         Оформить заказ
       </Button>
-      <Modal isOpen={isModalOpen} onClose={handleClose}>
-        <OrderDetails />
-      </Modal>
+      {isModalOpen && (
+        <Modal isOpen={isModalOpen} onClose={handleClose}>
+          <OrderDetails />
+        </Modal>
+      )}
     </div>
   );
 }

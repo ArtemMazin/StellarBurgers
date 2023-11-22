@@ -1,12 +1,12 @@
-/* eslint-disable jsx-a11y/no-static-element-interactions */
-/* eslint-disable jsx-a11y/click-events-have-key-events */
-/* eslint-disable react/prop-types */
-
-import React, { useContext, useEffect } from 'react';
-import styles from './modal-components.module.css';
+import React, { useEffect } from 'react';
+import PropTypes from 'prop-types';
 import ModalContext from '@/contexts/modalContext';
 import { createPortal } from 'react-dom';
-import { CloseIcon } from '@ya.praktikum/react-developer-burger-ui-components';
+import Overlay from './modal-overlay/modal-overlay';
+import Container from './modal-container/modal-container';
+import Header from './modal-header/modal-header';
+import Title from './modal-header/title/title';
+import ButtonClose from './modal-header/button/button';
 
 const modalRoot = document.getElementById('modals');
 
@@ -40,28 +40,19 @@ export default function ModalComponents({ isOpen, onClose, children }) {
   );
 }
 
-ModalComponents.Overlay = function Overlay({ children }) {
-  const { isOpen, handleOverlay } = useContext(ModalContext);
-  return (
-    <div className={`${styles.modal} ${isOpen && styles.opened}`} onClick={handleOverlay}>
-      {children}
-    </div>
-  );
-};
+ModalComponents.Overlay = Overlay;
+ModalComponents.Container = Container;
+ModalComponents.Header = Header;
+ModalComponents.Title = Title;
+ModalComponents.ButtonClose = ButtonClose;
 
-ModalComponents.Container = function Container({ children }) {
-  return <div className={`${styles.container} pl-10 pr-10 pt-10`}>{children}</div>;
-};
-
-ModalComponents.Header = function Header({ children }) {
-  return <div className={`${styles.header} mb-4`}>{children}</div>;
-};
-
-ModalComponents.Title = function Title({ title }) {
-  return <h2 className={`${styles.title} text text_type_main-large`}>{title}</h2>;
-};
-
-ModalComponents.ButtonClose = function ButtonClose() {
-  const { onClose } = useContext(ModalContext);
-  return <CloseIcon type="primary" onClick={onClose} />;
+ModalComponents.propTypes = {
+  isOpen: PropTypes.bool.isRequired,
+  onClose: PropTypes.func.isRequired,
+  title: PropTypes.string,
+  children: PropTypes.oneOfType([
+    PropTypes.arrayOf(PropTypes.element),
+    PropTypes.element,
+    PropTypes.elementType,
+  ]),
 };

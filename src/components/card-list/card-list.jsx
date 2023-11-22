@@ -1,10 +1,11 @@
-/* eslint-disable react/prop-types */
 import React from 'react';
+import PropTypes from 'prop-types';
 import Card from './card/card';
 import styles from './card-list.module.css';
 import useModal from '@/hooks/useModal';
 import Modal from '../modal/modal';
 import IngredientDetails from '../modal/ingredient-details/ingredient-details';
+import ingredientPropTypes from '@/utils/prop-types';
 
 const CardList = ({ array }) => {
   const { isModalOpen, handleOpen, handleClose, cardData } = useModal();
@@ -19,11 +20,17 @@ const CardList = ({ array }) => {
             </li>
           ))}
       </ul>
-      <Modal isOpen={isModalOpen} onClose={handleClose} title={'Детали ингредиента'}>
-        <IngredientDetails card={cardData} />
-      </Modal>
+      {isModalOpen && (
+        <Modal isOpen={isModalOpen} onClose={handleClose} title={'Детали ингредиента'}>
+          <IngredientDetails card={cardData} />
+        </Modal>
+      )}
     </>
   );
+};
+
+CardList.propTypes = {
+  array: PropTypes.arrayOf(ingredientPropTypes).isRequired,
 };
 
 export default CardList;

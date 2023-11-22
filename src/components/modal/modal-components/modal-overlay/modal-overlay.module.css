@@ -13,29 +13,8 @@
   visibility: hidden;
 }
 
-.container {
-  position: relative;
-  overflow: auto;
-  width: 100%;
-  max-width: 720px;
-  border-radius: var(--common-border-radius-s);
-  background: var(--background);
-  box-shadow: 0 0 25px rgb(0 0 0 / 15%);
-}
-
 .opened {
   z-index: 99;
   opacity: 1;
   visibility: visible;
-}
-
-.header {
-  display: flex;
-  height: 64px;
-  align-items: center;
-  gap: 36px;
-}
-
-.title {
-  width: 100%;
 }
