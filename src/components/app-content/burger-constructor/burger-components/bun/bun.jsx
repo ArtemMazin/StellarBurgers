@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { ConstructorElement } from '@ya.praktikum/react-developer-burger-ui-components';
 import styles from './bun.module.css';
+import ingredientPropTypes from '@/utils/prop-types';
 
 export default function Bun({ array, type, text }) {
   return (
@@ -20,7 +21,7 @@ export default function Bun({ array, type, text }) {
 }
 
 Bun.propTypes = {
-  array: PropTypes.array.isRequired,
+  array: PropTypes.arrayOf(ingredientPropTypes).isRequired,
   type: PropTypes.oneOf(['top', 'bottom', undefined]),
   text: PropTypes.string,
 };
