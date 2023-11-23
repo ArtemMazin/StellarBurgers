@@ -7,7 +7,7 @@ import Modal from '../modal/modal';
 import IngredientDetails from '../modal/ingredient-details/ingredient-details';
 import ingredientPropTypes from '@/utils/prop-types';
 
-const CardList = ({ array }) => {
+export default function CardList({ array }) {
   const { isModalOpen, handleOpen, handleClose, cardData } = useModal();
 
   return (
@@ -27,10 +27,8 @@ const CardList = ({ array }) => {
       )}
     </>
   );
-};
+}
 
 CardList.propTypes = {
   array: PropTypes.arrayOf(ingredientPropTypes).isRequired,
 };
-
-export default CardList;

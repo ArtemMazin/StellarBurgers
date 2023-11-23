@@ -1,30 +1,24 @@
-import React from 'react';
-import IngedientList from './ingredient-list/ingredient-list';
+import React, { useContext } from 'react';
 import styles from './ingredients.module.css';
+import useFilteredIngredients from '@/hooks/useFilteredIngredients';
+import initialIngredientsContext from '@/contexts/initialIngredientsContext';
+import GroupsOfIngredients from './groups-of-ingredients/groups-of-ingredients';
 
-function Ingredients() {
+export default function Ingredients() {
+  const initialIngredients = useContext(initialIngredientsContext);
+  const { buns, sauces, main } = useFilteredIngredients(initialIngredients);
+
   return (
-    <IngedientList>
+    <ul className={`${styles.list} custom-scroll`}>
       <li>
-        <ul className={`${styles.ingredients} mb-10`}>
-          <h2 className="text text_type_main-medium">Булки</h2>
-          <IngedientList.Buns />
-        </ul>
+        <GroupsOfIngredients array={buns} title={'Булки'} />
       </li>
       <li>
-        <ul className={`${styles.ingredients} mb-10`}>
-          <h2 className="text text_type_main-medium">Соусы</h2>
-          <IngedientList.Sauces />
-        </ul>
+        <GroupsOfIngredients array={sauces} title={'Соусы'} />
       </li>
       <li>
-        <ul className={`${styles.ingredients} mb-10`}>
-          <h2 className="text text_type_main-medium">Начинки</h2>
-          <IngedientList.Main />
-        </ul>
+        <GroupsOfIngredients array={main} title={'Начинки'} />
       </li>
-    </IngedientList>
+    </ul>
   );
 }
-
-export default Ingredients;

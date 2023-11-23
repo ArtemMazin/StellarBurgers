@@ -2,11 +2,6 @@ import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import ModalContext from '@/contexts/modalContext';
 import { createPortal } from 'react-dom';
-import Overlay from './modal-overlay/modal-overlay';
-import Container from './modal-container/modal-container';
-import Header from './modal-header/modal-header';
-import Title from './modal-header/title/title';
-import ButtonClose from './modal-header/button/button';
 
 const modalRoot = document.getElementById('modals');
 
@@ -39,12 +34,6 @@ export default function ModalComponents({ isOpen, onClose, children }) {
     </>
   );
 }
-
-ModalComponents.Overlay = Overlay;
-ModalComponents.Container = Container;
-ModalComponents.Header = Header;
-ModalComponents.Title = Title;
-ModalComponents.ButtonClose = ButtonClose;
 
 ModalComponents.propTypes = {
   isOpen: PropTypes.bool.isRequired,
