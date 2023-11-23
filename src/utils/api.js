@@ -1,4 +1,4 @@
-import URL from '@/utils/constants';
+import BASE_INGREDIENTS_URL from '@/utils/constants';
 
 function getResponseData(res) {
   if (!res.ok) {
@@ -12,5 +12,5 @@ async function request(url) {
 }
 
 export default function getIngredients() {
-  return request(URL);
+  return request(BASE_INGREDIENTS_URL);
 }
