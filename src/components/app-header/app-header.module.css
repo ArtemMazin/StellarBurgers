@@ -1,0 +1,28 @@
+.header {
+  background-color: var(--background);
+}
+
+.wrapper {
+  position: relative;
+  display: flex;
+  width: 100%;
+}
+
+.logo {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+@media (width < 1200px) {
+  .logo {
+    position: static;
+    margin-left: 20px;
+    transform: none;
+  }
+
+  .wrapper {
+    justify-content: space-between;
+  }
+}

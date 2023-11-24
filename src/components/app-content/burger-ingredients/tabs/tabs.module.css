@@ -1,0 +1,12 @@
+.tabs {
+  display: flex;
+  justify-content: center;
+}
+
+.tab {
+  display: flex;
+  overflow: hidden;
+  width: 100%;
+  max-width: 200px;
+  justify-content: center;
+}

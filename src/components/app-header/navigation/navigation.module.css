@@ -1,0 +1,28 @@
+.nav {
+  width: 100%;
+}
+
+.links {
+  display: flex;
+  align-items: center;
+  padding: 0;
+  margin: 0;
+  list-style-type: none;
+}
+
+.link {
+  display: flex;
+  align-items: center;
+  color: var(--text-primary-color);
+  text-decoration: none;
+}
+
+.nav li:last-child {
+  margin-left: auto;
+}
+
+@media (width < 1200px) {
+  .nav {
+    width: auto;
+  }
+}
