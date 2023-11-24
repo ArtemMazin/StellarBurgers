@@ -6,15 +6,21 @@ function Tabs() {
   const [current, setCurrent] = React.useState('Булки');
   return (
     <div className={`${styles.tabs} mb-10`}>
-      <Tab value="Булки" active={current === 'Булки'} onClick={setCurrent}>
-        Булки
-      </Tab>
-      <Tab value="Соусы" active={current === 'Соусы'} onClick={setCurrent}>
-        Соусы
-      </Tab>
-      <Tab value="Начинки" active={current === 'Начинки'} onClick={setCurrent}>
-        Начинки
-      </Tab>
+      <div className={styles.tab}>
+        <Tab value="Булки" active={current === 'Булки'} onClick={setCurrent}>
+          Булки
+        </Tab>
+      </div>
+      <div className={styles.tab}>
+        <Tab value="Соусы" active={current === 'Соусы'} onClick={setCurrent}>
+          Соусы
+        </Tab>
+      </div>
+      <div className={styles.tab}>
+        <Tab value="Начинки" active={current === 'Начинки'} onClick={setCurrent}>
+          Начинки
+        </Tab>
+      </div>
     </div>
   );
 }
