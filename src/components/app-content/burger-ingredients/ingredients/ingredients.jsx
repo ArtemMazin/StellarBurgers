@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import React, { useContext } from 'react';
 import styles from './ingredients.module.css';
 import useFilteredIngredients from '@/hooks/useFilteredIngredients';
@@ -10,13 +11,13 @@ export default function Ingredients() {
 
   return (
     <ul className={`${styles.list} custom-scroll`}>
-      <li>
+      <li id="Булки">
         <GroupsOfIngredients array={buns} title={'Булки'} />
       </li>
-      <li>
+      <li id="Соусы">
         <GroupsOfIngredients array={sauces} title={'Соусы'} />
       </li>
-      <li>
+      <li id="Начинки">
         <GroupsOfIngredients array={main} title={'Начинки'} />
       </li>
     </ul>

@@ -6,7 +6,7 @@ import ingredientPropTypes from '@/utils/prop-types';
 
 export default function Bun({ array, type, text }) {
   return (
-    <div className={`${styles.component} ml-8 pl-3 pr-2`}>
+    <div className={`${styles.component} ml-8 mr-3 pl-3 pr-2`}>
       {array.length > 0 && (
         <ConstructorElement
           type={type}
