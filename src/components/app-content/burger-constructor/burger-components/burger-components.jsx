@@ -1,12 +1,12 @@
-import React, { useContext } from 'react';
+import React from 'react';
+import { useSelector } from 'react-redux';
 import styles from './burger-components.module.css';
-import initialIngredientsContext from '@/contexts/initialIngredientsContext';
 import useFilteredIngredients from '@/hooks/useFilteredIngredients';
 import Bun from './bun/bun';
 import Ingredients from './ingredients/ingredients';
 
 export default function BurgerComponents() {
-  const initialIngredients = useContext(initialIngredientsContext);
+  const initialIngredients = useSelector((state) => state.entities);
   const { buns, sauces, main } = useFilteredIngredients(initialIngredients);
 
   return (
