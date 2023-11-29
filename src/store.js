@@ -1,7 +1,8 @@
 import { configureStore } from '@reduxjs/toolkit';
-import { ingredientsSlice } from './services/ingredients-slice';
+import ingredientsReducer from './services/ingredients-slice';
+import constructorReducer from './services/constructor-slice';
 
 export default configureStore({
-  reducer: ingredientsSlice.reducer,
+  reducer: { initialIngredients: ingredientsReducer, constructorIngredients: constructorReducer },
   devTools: true,
 });

@@ -6,8 +6,8 @@ import GroupsOfIngredients from './groups-of-ingredients/groups-of-ingredients';
 import { getIngredientsThunk } from '@/services/ingredients-slice';
 
 export default function Ingredients() {
-  const initialIngredients = useSelector((state) => state.entities);
-  const { buns, sauces, main } = useFilteredIngredients(initialIngredients);
+  const { ingredients } = useSelector((state) => state.initialIngredients);
+  const { buns, sauces, main } = useFilteredIngredients(ingredients);
 
   const dispatch = useDispatch();
 
