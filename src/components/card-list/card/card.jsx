@@ -1,15 +1,19 @@
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
-import React from 'react';
+import React, { useMemo, useState } from 'react';
 import PropTypes from 'prop-types';
 import styles from './card.module.css';
 import { Counter, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import ingredientPropTypes from '@/utils/prop-types';
 import { useDrag } from 'react-dnd';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { addIngredient, chooseBun } from '@/services/constructor-slice';
+import useCounter from '@/hooks/useCounter';
 
 export default function Card({ item, handleOpen }) {
+  const { bun, ingredients } = useSelector((state) => state.constructorIngredients);
+  const count = useCounter(bun, ingredients, item);
+
   const dispatch = useDispatch();
 
   const [{ isDragging }, drag] = useDrag(() => ({
@@ -33,7 +37,7 @@ export default function Card({ item, handleOpen }) {
 
   return (
     <div className={`${styles.card}`} ref={drag} style={{ opacity }}>
-      <Counter count={1} size="default" extraClass="" />
+      {count > 0 && <Counter count={count} size="default" extraClass="" />}
       <div onClick={() => handleOpen(item)}>
         <img src={item.image} alt={item.name} />
       </div>

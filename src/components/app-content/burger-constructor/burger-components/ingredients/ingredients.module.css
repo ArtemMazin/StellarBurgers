@@ -1,5 +1,6 @@
 .list {
   display: flex;
+  width: 100%;
   max-height: 46vh;
   flex-direction: column;
   padding: 0;

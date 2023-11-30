@@ -6,11 +6,14 @@ import useModal from '@/hooks/useModal';
 import OrderDetails from '@/components/modal/order-details/order-details';
 import { useDispatch, useSelector } from 'react-redux';
 import { createOrderThunk } from '@/services/order-slice';
+import useTotalPrice from '@/hooks/useTotalPrice';
 
 function BurgerOrder() {
-  const { ingredients } = useSelector((state) => state.constructorIngredients);
+  const { ingredients, bun } = useSelector((state) => state.constructorIngredients);
   const { order } = useSelector((state) => state.order);
+
   const { isModalOpen, handleOpen, handleClose } = useModal();
+  const totalPrice = useTotalPrice(ingredients, bun);
 
   const dispatch = useDispatch();
 
@@ -28,7 +31,7 @@ function BurgerOrder() {
   return (
     <div className={`${styles.order} pr-4`}>
       <div>
-        <span className="text text_type_digits-medium pr-2">123</span>
+        <span className="text text_type_digits-medium pr-2">{totalPrice}</span>
         <CurrencyIcon type="primary" />
       </div>
       <Button htmlType="button" type="primary" size="large" onClick={handleOrder}>
