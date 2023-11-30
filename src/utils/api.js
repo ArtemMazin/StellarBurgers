@@ -6,11 +6,21 @@ function getResponseData(res) {
   }
   return res.json();
 }
-async function request(url) {
-  const res = await fetch(url);
+async function request(url, options) {
+  const res = await fetch(url, options);
   return getResponseData(res);
 }
 
-export default function getIngredients() {
-  return request(BASE_INGREDIENTS_URL);
+export function getIngredients() {
+  return request(`${BASE_INGREDIENTS_URL}/ingredients`);
+}
+
+export function createOrder(itemsID) {
+  return request(`${BASE_INGREDIENTS_URL}/orders`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({ ingredients: itemsID }),
+  });
 }

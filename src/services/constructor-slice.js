@@ -13,8 +13,11 @@ export const constructorSlice = createSlice({
     chooseBun: (state, action) => {
       state.bun = action.payload;
     },
+    deleteIngredient: (state, action) => {
+      state.ingredients = state.ingredients.filter((item) => item._id !== action.payload);
+    },
   },
 });
 
-export const { addIngredient, chooseBun } = constructorSlice.actions;
+export const { addIngredient, deleteIngredient, chooseBun } = constructorSlice.actions;
 export default constructorSlice.reducer;
