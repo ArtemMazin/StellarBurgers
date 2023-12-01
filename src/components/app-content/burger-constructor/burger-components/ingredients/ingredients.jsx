@@ -13,13 +13,13 @@ export default function Ingredients({ ingredients }) {
     <ul className={`${styles.list} custom-scroll`}>
       {ingredients.length > 0 &&
         ingredients.map((item) => (
-          <li className={`${styles.component} pl-3 pr-2`} key={item._id}>
+          <li className={`${styles.component} pl-3 pr-2`} key={item.customId}>
             <DragIcon type="primary" />
             <ConstructorElement
               text={item.name}
               price={item.price}
               thumbnail={item.image}
-              handleClose={() => dispatch(deleteIngredient(item._id))}
+              handleClose={() => dispatch(deleteIngredient(item.customId))}
             />
           </li>
         ))}
