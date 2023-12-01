@@ -4,6 +4,7 @@ import styles from './ingredients.module.css';
 import useFilteredIngredients from '@/hooks/useFilteredIngredients';
 import GroupsOfIngredients from './groups-of-ingredients/groups-of-ingredients';
 import { getIngredientsThunk } from '@/services/ingredients-slice';
+import { loadState } from '@/localstorage';
 
 export default function Ingredients() {
   const { ingredients } = useSelector((state) => state.initialIngredients);
@@ -13,7 +14,7 @@ export default function Ingredients() {
 
   useMemo(() => {
     try {
-      dispatch(getIngredientsThunk());
+      loadState() === undefined && dispatch(getIngredientsThunk());
     } catch (error) {
       console.error(error);
     }
