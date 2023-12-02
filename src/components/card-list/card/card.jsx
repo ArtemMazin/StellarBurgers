@@ -9,8 +9,9 @@ import { useDrag } from 'react-dnd';
 import { useDispatch, useSelector } from 'react-redux';
 import { addIngredient, chooseBun } from '@/services/constructor-slice';
 import useCounter from '@/hooks/useCounter';
+import { setCurrentIngredient } from '@/services/current-ingredient-slice';
 
-export default function Card({ item, handleOpen }) {
+export default function Card({ item }) {
   const { bun, ingredients } = useSelector((state) => state.constructorIngredients);
   const count = useCounter(bun, ingredients, item);
 
@@ -38,7 +39,7 @@ export default function Card({ item, handleOpen }) {
   return (
     <div className={`${styles.card}`} ref={drag} style={{ opacity }}>
       {count > 0 && <Counter count={count} size="default" extraClass="" />}
-      <div onClick={() => handleOpen(item)}>
+      <div onClick={() => dispatch(setCurrentIngredient(item))}>
         <img src={item.image} alt={item.name} />
       </div>
       <div className={`${styles.price} text text_type_digits-default`}>
@@ -52,5 +53,4 @@ export default function Card({ item, handleOpen }) {
 
 Card.propTypes = {
   item: ingredientPropTypes.isRequired,
-  handleOpen: PropTypes.func.isRequired,
 };

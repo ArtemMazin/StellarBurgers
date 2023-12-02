@@ -7,9 +7,9 @@ import styles from './modal-overlay.module.css';
 import ModalContext from '@/contexts/modalContext';
 
 export default function Overlay({ children }) {
-  const { isOpen, handleOverlay } = useContext(ModalContext);
+  const { handleOverlay } = useContext(ModalContext);
   return (
-    <div className={`${styles.modal} ${isOpen && styles.opened}`} onClick={handleOverlay}>
+    <div className={`${styles.modal} ${styles.opened}`} onClick={handleOverlay}>
       {children}
     </div>
   );

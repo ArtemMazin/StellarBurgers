@@ -2,17 +2,16 @@ import React from 'react';
 import { Button, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import styles from './burger-order.module.css';
 import Modal from '@/components/modal/modal';
-import useModal from '@/hooks/useModal';
 import OrderDetails from '@/components/modal/order-details/order-details';
 import { useDispatch, useSelector } from 'react-redux';
 import { createOrderThunk } from '@/services/order-slice';
 import useTotalPrice from '@/hooks/useTotalPrice';
+import { removeOrder } from '@/services/order-slice';
 
 function BurgerOrder() {
   const { ingredients, bun } = useSelector((state) => state.constructorIngredients);
   const { order } = useSelector((state) => state.order);
 
-  const { isModalOpen, handleOpen, handleClose } = useModal();
   const totalPrice = useTotalPrice(ingredients, bun);
 
   const dispatch = useDispatch();
@@ -22,7 +21,6 @@ function BurgerOrder() {
     try {
       const allID = ingredients.map((item) => item._id);
       dispatch(createOrderThunk(allID));
-      handleOpen();
     } catch (error) {
       console.error(error);
     }
@@ -37,8 +35,8 @@ function BurgerOrder() {
       <Button htmlType="button" type="primary" size="large" onClick={handleOrder}>
         Оформить заказ
       </Button>
-      {isModalOpen && (
-        <Modal isOpen={isModalOpen} onClose={handleClose}>
+      {order && (
+        <Modal onClose={() => dispatch(removeOrder())}>
           <OrderDetails order={order} />
         </Modal>
       )}

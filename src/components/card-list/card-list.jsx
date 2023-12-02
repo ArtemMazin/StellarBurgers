@@ -2,13 +2,16 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Card from './card/card';
 import styles from './card-list.module.css';
-import useModal from '@/hooks/useModal';
 import Modal from '../modal/modal';
 import IngredientDetails from '../modal/ingredient-details/ingredient-details';
 import ingredientPropTypes from '@/utils/prop-types';
+import { useDispatch, useSelector } from 'react-redux';
+import { removeCurrentIngredient } from '@/services/current-ingredient-slice';
 
 export default function CardList({ array }) {
-  const { isModalOpen, handleOpen, handleClose, cardData } = useModal();
+  const { currentIngredient } = useSelector((state) => state.currentIngredient);
+
+  const dispatch = useDispatch();
 
   return (
     <>
@@ -16,13 +19,13 @@ export default function CardList({ array }) {
         {array.length > 0 &&
           array.map((item) => (
             <li key={item._id}>
-              <Card item={item} handleOpen={handleOpen} />
+              <Card item={item} />
             </li>
           ))}
       </ul>
-      {isModalOpen && (
-        <Modal isOpen={isModalOpen} onClose={handleClose} title={'Детали ингредиента'}>
-          <IngredientDetails card={cardData} />
+      {currentIngredient && (
+        <Modal onClose={() => dispatch(removeCurrentIngredient())} title={'Детали ингредиента'}>
+          <IngredientDetails />
         </Modal>
       )}
     </>

@@ -1,29 +1,18 @@
 import { saveState } from '@/localstorage';
 import { addIngredient, chooseBun, deleteIngredient } from '@/services/constructor-slice';
-import { createListenerMiddleware } from '@reduxjs/toolkit';
+import { createListenerMiddleware, isAnyOf } from '@reduxjs/toolkit';
+
+// export const localStorageMiddleware = (store) => (next) => (action) => {
+//   const result = next(action);
+
+//   saveState(store.getState());
+
+//   return result;
+// };
 
 export const localStorageMiddleware = createListenerMiddleware();
-
 localStorageMiddleware.startListening({
-  actionCreator: addIngredient,
-  effect: (_, listenerApi) => {
-    saveState(listenerApi.getState());
-
-    listenerApi.cancelActiveListeners();
-  },
-});
-
-localStorageMiddleware.startListening({
-  actionCreator: deleteIngredient,
-  effect: (_, listenerApi) => {
-    saveState(listenerApi.getState());
-
-    listenerApi.cancelActiveListeners();
-  },
-});
-
-localStorageMiddleware.startListening({
-  actionCreator: chooseBun,
+  matcher: isAnyOf(addIngredient, deleteIngredient, chooseBun),
   effect: (_, listenerApi) => {
     saveState(listenerApi.getState());
 
