@@ -1,18 +1,21 @@
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
-import React, { useMemo, useState } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import styles from './card.module.css';
 import { Counter, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import ingredientPropTypes from '@/utils/prop-types';
 import { useDrag } from 'react-dnd';
 import { useDispatch, useSelector } from 'react-redux';
-import { addIngredient, chooseBun } from '@/services/constructor-slice';
+import { addIngredient, chooseBun } from '@/services/constructor/constructor-slice';
 import useCounter from '@/hooks/useCounter';
-import { setCurrentIngredient } from '@/services/current-ingredient-slice';
+import { setCurrentIngredient } from '@/services/current-ingredient/current-ingredient-slice';
+import { allIngredients, selectedBun } from '@/services/constructor/selectors';
 
 export default function Card({ item }) {
-  const { bun, ingredients } = useSelector((state) => state.constructorIngredients);
+  const ingredients = useSelector(allIngredients);
+  const bun = useSelector(selectedBun);
+
   const count = useCounter(bun, ingredients, item);
 
   const dispatch = useDispatch();

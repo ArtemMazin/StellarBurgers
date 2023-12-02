@@ -1,5 +1,9 @@
 import { saveState } from '@/localstorage';
-import { addIngredient, chooseBun, deleteIngredient } from '@/services/constructor-slice';
+import {
+  addIngredient,
+  chooseBun,
+  deleteIngredient,
+} from '@/services/constructor/constructor-slice';
 import { createListenerMiddleware, isAnyOf } from '@reduxjs/toolkit';
 
 // export const localStorageMiddleware = (store) => (next) => (action) => {

@@ -3,12 +3,13 @@ import { useSelector, useDispatch } from 'react-redux';
 import styles from './ingredients.module.css';
 import useFilteredIngredients from '@/hooks/useFilteredIngredients';
 import GroupsOfIngredients from './groups-of-ingredients/groups-of-ingredients';
-import { getIngredientsThunk } from '@/services/ingredients-slice';
+import { getIngredientsThunk } from '@/services/initial-ingredients/initial-ingredients-slice';
 import { loadState } from '@/localstorage';
+import { ingredients } from '@/services/initial-ingredients/selectors';
 
 export default function Ingredients() {
-  const { ingredients } = useSelector((state) => state.initialIngredients);
-  const { buns, sauces, main } = useFilteredIngredients(ingredients);
+  const initialIngredients = useSelector(ingredients);
+  const { buns, sauces, main } = useFilteredIngredients(initialIngredients);
 
   const dispatch = useDispatch();
 

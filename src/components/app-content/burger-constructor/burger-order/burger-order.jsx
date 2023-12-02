@@ -4,13 +4,15 @@ import styles from './burger-order.module.css';
 import Modal from '@/components/modal/modal';
 import OrderDetails from '@/components/modal/order-details/order-details';
 import { useDispatch, useSelector } from 'react-redux';
-import { createOrderThunk } from '@/services/order-slice';
 import useTotalPrice from '@/hooks/useTotalPrice';
-import { removeOrder } from '@/services/order-slice';
+import { allIngredients, selectedBun } from '@/services/constructor/selectors';
+import { currentOrder } from '@/services/order/selectors';
+import { createOrderThunk, removeOrder } from '@/services/order/order-slice';
 
 function BurgerOrder() {
-  const { ingredients, bun } = useSelector((state) => state.constructorIngredients);
-  const { order } = useSelector((state) => state.order);
+  const ingredients = useSelector(allIngredients);
+  const bun = useSelector(selectedBun);
+  const order = useSelector(currentOrder);
 
   const totalPrice = useTotalPrice(ingredients, bun);
 

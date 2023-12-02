@@ -1,16 +1,14 @@
 import React from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import styles from './burger-components.module.css';
-import useFilteredIngredients from '@/hooks/useFilteredIngredients';
 import Bun from './bun/bun';
 import Ingredients from './ingredients/ingredients';
-import { addIngredient, chooseBun } from '@/services/constructor-slice';
 import { useDrop } from 'react-dnd';
+import { allIngredients, selectedBun } from '@/services/constructor/selectors';
 
 export default function BurgerComponents() {
-  const { bun, ingredients } = useSelector((state) => state.constructorIngredients);
-
-  const dispatch = useDispatch();
+  const bun = useSelector(selectedBun);
+  const ingredients = useSelector(allIngredients);
 
   const [{ canDrop, isOver }, drop] = useDrop(() => ({
     accept: 'box',

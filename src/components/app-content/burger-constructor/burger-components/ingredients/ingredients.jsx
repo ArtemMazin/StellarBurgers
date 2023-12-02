@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { ConstructorElement, DragIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import styles from './ingredients.module.css';
 import ingredientPropTypes from '@/utils/prop-types';
-import { deleteIngredient } from '@/services/constructor-slice';
+import { deleteIngredient } from '@/services/constructor/constructor-slice';
 import { useDispatch } from 'react-redux';
 
 export default function Ingredients({ ingredients }) {

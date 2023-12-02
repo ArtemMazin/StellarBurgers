@@ -6,10 +6,10 @@ export const getIngredientsThunk = createAsyncThunk('ingredients/get-ingredients
   return data;
 });
 
-export const ingredientsSlice = createSlice({
+export const initialIngredientsSlice = createSlice({
   name: 'initialIngredients',
   initialState: {
-    ingredients: [],
+    initialIngredients: [],
   },
   reducers: {},
   extraReducers(builder) {
@@ -19,7 +19,7 @@ export const ingredientsSlice = createSlice({
       })
       .addCase(getIngredientsThunk.fulfilled, (state, action) => {
         state.status = 'succeeded';
-        state.ingredients = action.payload;
+        state.initialIngredients = action.payload;
       })
       .addCase(getIngredientsThunk.rejected, (state, action) => {
         state.status = 'failed';
@@ -28,4 +28,4 @@ export const ingredientsSlice = createSlice({
   },
 });
 
-export default ingredientsSlice.reducer;
+export default initialIngredientsSlice.reducer;
