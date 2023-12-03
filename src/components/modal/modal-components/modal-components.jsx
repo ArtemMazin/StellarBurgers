@@ -16,8 +16,10 @@ export default function ModalComponents({ onClose, children }) {
 
   const dispatch = useDispatch();
 
+  const isOpen = ingredient || order;
+
   useEffect(() => {
-    if (!ingredient && !order) return;
+    if (!isOpen) return;
     const closeByEscape = (e) => {
       if (e.key === 'Escape') {
         ingredient && dispatch(removeCurrentIngredient());
@@ -27,7 +29,7 @@ export default function ModalComponents({ onClose, children }) {
 
     document.addEventListener('keydown', closeByEscape);
     return () => document.removeEventListener('keydown', closeByEscape);
-  }, [ingredient, dispatch, order]);
+  }, [ingredient, dispatch, order, isOpen]);
 
   const handleOverlay = (e) => {
     if (e.target === e.currentTarget) {
@@ -35,6 +37,7 @@ export default function ModalComponents({ onClose, children }) {
       order && dispatch(removeOrder());
     }
   };
+
   return (
     <>
       {createPortal(
@@ -48,7 +51,6 @@ export default function ModalComponents({ onClose, children }) {
 }
 
 ModalComponents.propTypes = {
-  isOpen: PropTypes.bool.isRequired,
   onClose: PropTypes.func.isRequired,
   title: PropTypes.string,
   children: PropTypes.oneOfType([

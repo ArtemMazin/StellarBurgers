@@ -7,9 +7,9 @@ import Header from './modal-components/modal-header/modal-header';
 import Title from './modal-components/modal-header/title/title';
 import ButtonClose from './modal-components/modal-header/button/button';
 
-const Modal = ({ isOpen, onClose, title, children }) => {
+const Modal = ({ onClose, title, children }) => {
   return (
-    <ModalComponents isOpen={isOpen} onClose={onClose}>
+    <ModalComponents onClose={onClose}>
       <Overlay>
         <Container>
           <Header>
@@ -24,7 +24,6 @@ const Modal = ({ isOpen, onClose, title, children }) => {
 };
 
 Modal.propTypes = {
-  isOpen: PropTypes.bool.isRequired,
   onClose: PropTypes.func.isRequired,
   title: PropTypes.string,
   children: PropTypes.oneOfType([

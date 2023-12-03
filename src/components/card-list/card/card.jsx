@@ -5,12 +5,12 @@ import PropTypes from 'prop-types';
 import styles from './card.module.css';
 import { Counter, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import ingredientPropTypes from '@/utils/prop-types';
-import { useDrag } from 'react-dnd';
 import { useDispatch, useSelector } from 'react-redux';
-import { addIngredient, chooseBun } from '@/services/constructor/constructor-slice';
 import useCounter from '@/hooks/useCounter';
 import { setCurrentIngredient } from '@/services/current-ingredient/current-ingredient-slice';
 import { allIngredients, selectedBun } from '@/services/constructor/selectors';
+import useDragHook from '@/hooks/useDragHook';
+import { ItemTypes, config } from '@/utils/drag-configs';
 
 export default function Card({ item }) {
   const ingredients = useSelector(allIngredients);
@@ -20,23 +20,14 @@ export default function Card({ item }) {
 
   const dispatch = useDispatch();
 
-  const [{ isDragging }, drag] = useDrag(() => ({
-    type: 'box',
-    item: item._id,
-    end: (elem, monitor) => {
-      const dropResult = monitor.getDropResult();
-      if (elem && item.type === 'bun' && dropResult) {
-        dispatch(chooseBun(item));
-      }
-      if (elem && item.type !== 'bun' && dropResult) {
-        dispatch(addIngredient(item));
-      }
-    },
-    collect: (monitor) => ({
-      isDragging: monitor.isDragging(),
-      handlerId: monitor.getHandlerId(),
-    }),
-  }));
+  const { drag, isDragging } = useDragHook(
+    item,
+    ItemTypes.INGREDIENT,
+    config.BUN,
+    config.MAIN,
+    config.SAUCE,
+  );
+
   const opacity = isDragging ? 0.4 : 1;
 
   return (

@@ -17,6 +17,11 @@ export const constructorSlice = createSlice({
         return { payload: { ...item, customId } };
       },
     },
+    updateIngredients: {
+      reducer: (state, action) => {
+        state.ingredients = action.payload;
+      },
+    },
     chooseBun: {
       reducer: (state, action) => {
         state.bun = action.payload;
@@ -27,10 +32,11 @@ export const constructorSlice = createSlice({
       },
     },
     deleteIngredient: (state, action) => {
-      state.ingredients = state.ingredients.filter((item) => item.customId !== action.payload);
+      state.ingredients = action.payload;
     },
   },
 });
 
-export const { addIngredient, deleteIngredient, chooseBun } = constructorSlice.actions;
+export const { addIngredient, deleteIngredient, chooseBun, updateIngredients } =
+  constructorSlice.actions;
 export default constructorSlice.reducer;
