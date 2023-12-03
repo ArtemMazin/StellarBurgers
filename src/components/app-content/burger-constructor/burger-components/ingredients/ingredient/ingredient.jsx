@@ -4,6 +4,7 @@ import { ConstructorElement, DragIcon } from '@ya.praktikum/react-developer-burg
 import React, { useCallback, useRef } from 'react';
 import { useDrag, useDrop } from 'react-dnd';
 import { useDispatch } from 'react-redux';
+import styles from './ingredient.module.css';
 
 function Ingredient({ card, index, id, ingredients }) {
   const dispatch = useDispatch();
@@ -70,17 +71,31 @@ function Ingredient({ card, index, id, ingredients }) {
       isDragging: monitor.isDragging(),
     }),
   });
-  const opacity = isDragging ? 0 : 1;
+
+  const getStyles = (isDragging) => {
+    return {
+      opacity: isDragging ? 0 : 1,
+      transform: isDragging ? 'scale(0.8)' : '',
+      height: isDragging ? '50px' : 'auto',
+    };
+  };
+
   drag(drop(ref));
 
   const filteredCards = [...ingredients].filter((item) => item.customId !== card.customId);
   return (
-    <div ref={ref} data-handler-id={handlerId} style={{ opacity }}>
+    <div
+      className={styles.ingredient}
+      ref={ref}
+      data-handler-id={handlerId}
+      style={getStyles(isDragging)}
+    >
       <DragIcon type="primary" />
       <ConstructorElement
         text={card.name}
         price={card.price}
         thumbnail={card.image}
+        extraClass={styles.element}
         handleClose={() => dispatch(deleteIngredient(filteredCards))}
       />
     </div>

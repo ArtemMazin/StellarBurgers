@@ -14,15 +14,15 @@ export default function BurgerComponents() {
 
   const { drop, isActive, canDrop } = useDropHook(ItemTypes.INGREDIENT);
 
-  let backgroundColor = '#222';
-  if (isActive) {
-    backgroundColor = 'darkgreen';
-  } else if (canDrop) {
-    backgroundColor = 'darkkhaki';
-  }
+  // let backgroundColor = '#222';
+  // if (isActive) {
+  //   backgroundColor = 'darkgreen';
+  // } else if (canDrop) {
+  //   backgroundColor = 'darkkhaki';
+  // }
 
   return (
-    <div className={`${styles.components} mb-10`} ref={drop} style={{ backgroundColor }}>
+    <div className={`${styles.components} mb-10`} ref={drop}>
       {bun ? <Bun bun={bun} type={'top'} text={'(верх)'} /> : <div>top</div>}
       <Ingredients ingredients={ingredients} />
       {bun ? <Bun bun={bun} type={'bottom'} text={'(низ)'} /> : <div>bottom</div>}

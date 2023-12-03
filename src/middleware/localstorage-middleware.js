@@ -6,20 +6,20 @@ import {
 } from '@/services/constructor/constructor-slice';
 import { createListenerMiddleware, isAnyOf } from '@reduxjs/toolkit';
 
-// export const localStorageMiddleware = (store) => (next) => (action) => {
-//   const result = next(action);
+export const localStorageMiddleware = (store) => (next) => (action) => {
+  const result = next(action);
 
-//   saveState(store.getState());
+  saveState(store.getState());
 
-//   return result;
-// };
+  return result;
+};
 
-export const localStorageMiddleware = createListenerMiddleware();
-localStorageMiddleware.startListening({
-  matcher: isAnyOf(addIngredient, deleteIngredient, chooseBun),
-  effect: (_, listenerApi) => {
-    saveState(listenerApi.getState());
+// export const localStorageMiddleware = createListenerMiddleware();
+// localStorageMiddleware.startListening({
+//   matcher: isAnyOf(addIngredient, deleteIngredient, chooseBun),
+//   effect: (_, listenerApi) => {
+//     saveState(listenerApi.getState());
 
-    listenerApi.cancelActiveListeners();
-  },
-});
+//     listenerApi.cancelActiveListeners();
+//   },
+// });

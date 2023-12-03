@@ -5,7 +5,11 @@
   max-height: 208px;
   flex-direction: column;
   align-items: center;
+  background-color: var(--background-alt);
+  box-shadow: var(--shadow);
+  cursor: grab;
   gap: 8px;
+  transition: var(--common-transition);
 }
 
 .price {

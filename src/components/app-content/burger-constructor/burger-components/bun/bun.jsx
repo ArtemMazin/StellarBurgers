@@ -7,13 +7,14 @@ import ingredientPropTypes from '@/utils/prop-types';
 
 export default function Bun({ bun, type, text }) {
   return (
-    <div className={`${styles.component} ml-8 mr-3 pl-3 pr-2`}>
+    <div className={`${styles.component} ml-8 mr-3 p-2`}>
       <ConstructorElement
         type={type}
         isLocked={true}
         text={`${bun.name} ${text}`}
         price={bun.price}
         thumbnail={bun.image}
+        extraClass={styles.element}
       />
     </div>
   );

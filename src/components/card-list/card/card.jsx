@@ -28,10 +28,14 @@ export default function Card({ item }) {
     config.SAUCE,
   );
 
-  const opacity = isDragging ? 0.4 : 1;
+  const getStyles = (isDragging) => {
+    return {
+      opacity: isDragging ? 0.5 : 1,
+    };
+  };
 
   return (
-    <div className={`${styles.card}`} ref={drag} style={{ opacity }}>
+    <div className={`${styles.card} p-1`} ref={drag} style={getStyles(isDragging)}>
       {count > 0 && <Counter count={count} size="default" extraClass="" />}
       <div onClick={() => dispatch(setCurrentIngredient(item))}>
         <img src={item.image} alt={item.name} />

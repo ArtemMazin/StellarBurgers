@@ -10,7 +10,7 @@ export default function Ingredients({ ingredients }) {
     <ul className={`${styles.list} custom-scroll`}>
       {ingredients.length > 0 &&
         ingredients.map((card, index) => (
-          <li className={`${styles.component} pl-3 pr-2`} key={card.customId}>
+          <li className="p-2" key={card.customId}>
             <Ingredient card={card} index={index} id={card.customId} ingredients={ingredients} />
           </li>
         ))}

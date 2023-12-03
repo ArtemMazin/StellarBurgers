@@ -1,7 +1,9 @@
-.component {
+.ingredient {
   display: flex;
   align-items: center;
+  cursor: grab;
   gap: 8px;
+  transition: var(--common-transition);
 }
 
 .element {
