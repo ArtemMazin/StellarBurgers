@@ -1,12 +1,18 @@
 import React from 'react';
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
 import styles from './tabs.module.css';
+import { useDispatch, useSelector } from 'react-redux';
+import { currentTab } from '@/services/tabs/selectors';
+import { tabSwitch } from '@/services/tabs/tabs-slice';
+import { BUNS, MAIN, SAUCES } from '@/utils/tabs-config';
 
 function Tabs() {
-  const [current, setCurrent] = React.useState('Булки');
+  const activeTab = useSelector(currentTab);
+
+  const dispatch = useDispatch();
 
   function scrollTab(value) {
-    setCurrent(value);
+    dispatch(tabSwitch(value));
     const element = document.querySelector(`#${value}`);
 
     element.scrollIntoView();
@@ -15,17 +21,17 @@ function Tabs() {
   return (
     <div className={`${styles.tabs} mb-10`}>
       <div className={styles.tab}>
-        <Tab value="Булки" active={current === 'Булки'} onClick={() => scrollTab('Булки')}>
+        <Tab value={BUNS} active={activeTab === BUNS} onClick={scrollTab}>
           Булки
         </Tab>
       </div>
       <div className={styles.tab}>
-        <Tab value="Соусы" active={current === 'Соусы'} onClick={() => scrollTab('Соусы')}>
+        <Tab value={SAUCES} active={activeTab === SAUCES} onClick={scrollTab}>
           Соусы
         </Tab>
       </div>
       <div className={styles.tab}>
-        <Tab value="Начинки" active={current === 'Начинки'} onClick={() => scrollTab('Начинки')}>
+        <Tab value={MAIN} active={activeTab === MAIN} onClick={scrollTab}>
           Начинки
         </Tab>
       </div>

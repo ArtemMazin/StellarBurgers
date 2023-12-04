@@ -3,6 +3,7 @@ import initialIngredientsSlice from './services/initial-ingredients/initial-ingr
 import constructorReducer from './services/constructor/constructor-slice';
 import currentIngredientReducer from './services/current-ingredient/current-ingredient-slice';
 import orderReducer from './services/order/order-slice';
+import tabsReducer from './services/tabs/tabs-slice';
 import { loadState } from './localstorage';
 import { localStorageMiddleware } from './middleware/localstorage-middleware';
 
@@ -12,8 +13,10 @@ export const store = configureStore({
     constructorIngredients: constructorReducer,
     currentIngredient: currentIngredientReducer,
     order: orderReducer,
+    tabs: tabsReducer,
   },
   devTools: true,
   preloadedState: loadState(),
-  middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(localStorageMiddleware),
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware().concat(localStorageMiddleware.middleware),
 });

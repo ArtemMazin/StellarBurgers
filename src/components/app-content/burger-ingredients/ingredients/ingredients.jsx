@@ -6,6 +6,7 @@ import GroupsOfIngredients from './groups-of-ingredients/groups-of-ingredients';
 import { getIngredientsThunk } from '@/services/initial-ingredients/initial-ingredients-slice';
 import { loadState } from '@/localstorage';
 import { ingredients } from '@/services/initial-ingredients/selectors';
+import { BUNS, MAIN, SAUCES } from '@/utils/tabs-config';
 
 export default function Ingredients() {
   const initialIngredients = useSelector(ingredients);
@@ -23,14 +24,14 @@ export default function Ingredients() {
 
   return (
     <ul className={`${styles.list} custom-scroll`}>
-      <li id="Булки">
-        <GroupsOfIngredients array={buns} title={'Булки'} />
+      <li id={BUNS}>
+        <GroupsOfIngredients array={buns} title={BUNS} />
       </li>
-      <li id="Соусы">
-        <GroupsOfIngredients array={sauces} title={'Соусы'} />
+      <li id={SAUCES}>
+        <GroupsOfIngredients array={sauces} title={SAUCES} />
       </li>
-      <li id="Начинки">
-        <GroupsOfIngredients array={main} title={'Начинки'} />
+      <li id={MAIN}>
+        <GroupsOfIngredients array={main} title={MAIN} />
       </li>
     </ul>
   );

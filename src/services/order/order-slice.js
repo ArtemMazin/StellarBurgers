@@ -7,7 +7,7 @@ export const createOrderThunk = createAsyncThunk('ingredients/create-order', asy
 });
 
 export const orderSlice = createSlice({
-  name: 'createOrder',
+  name: 'order',
   initialState: {
     order: null,
   },

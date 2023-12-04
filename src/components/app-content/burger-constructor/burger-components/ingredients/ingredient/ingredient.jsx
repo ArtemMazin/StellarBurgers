@@ -76,7 +76,6 @@ function Ingredient({ card, index, id, ingredients }) {
     return {
       opacity: isDragging ? 0 : 1,
       transform: isDragging ? 'scale(0.8)' : '',
-      height: isDragging ? '50px' : 'auto',
     };
   };
 
