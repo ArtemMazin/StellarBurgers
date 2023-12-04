@@ -6,7 +6,7 @@ import ingredientPropTypes from '@/utils/prop-types';
 
 export default function GroupsOfIngredients({ array, title }) {
   return (
-    <ul className={`${styles.ingredients} mb-10`}>
+    <ul className={`${styles.ingredients} mt-10`}>
       <h2 className="text text_type_main-medium">{title}</h2>
       <CardList array={array} />
     </ul>

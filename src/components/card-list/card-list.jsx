@@ -16,7 +16,7 @@ export default function CardList({ array }) {
 
   return (
     <>
-      <ul className={`${styles.list} pl-3 pr-2 pt-6`}>
+      <ul className={`${styles.list} pl-3 pr-4 pt-6`}>
         {array.length > 0 &&
           array.map((item) => (
             <li key={item._id}>

@@ -18,11 +18,19 @@ function BurgerOrder() {
 
   const dispatch = useDispatch();
 
+  function getAllId() {
+    const ingredientsID = ingredients.map((item) => item._id);
+    ingredientsID.push(bun._id);
+    ingredientsID.unshift(bun._id);
+    const allID = ingredientsID;
+
+    return allID;
+  }
+
   const handleOrder = (e) => {
     e.preventDefault();
     try {
-      const allID = ingredients.map((item) => item._id);
-      dispatch(createOrderThunk(allID));
+      dispatch(createOrderThunk(getAllId()));
     } catch (error) {
       console.error(error);
     }

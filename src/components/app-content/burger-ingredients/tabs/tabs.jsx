@@ -1,3 +1,4 @@
+/* eslint-disable react/display-name */
 import React from 'react';
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
 import styles from './tabs.module.css';
@@ -6,7 +7,7 @@ import { currentTab } from '@/services/tabs/selectors';
 import { tabSwitch } from '@/services/tabs/tabs-slice';
 import { BUNS, MAIN, SAUCES } from '@/utils/tabs-config';
 
-function Tabs() {
+const Tabs = React.forwardRef((props, ref) => {
   const activeTab = useSelector(currentTab);
 
   const dispatch = useDispatch();
@@ -19,7 +20,7 @@ function Tabs() {
   }
 
   return (
-    <div className={`${styles.tabs} mb-10`}>
+    <div className={`${styles.tabs}`} ref={ref}>
       <div className={styles.tab}>
         <Tab value={BUNS} active={activeTab === BUNS} onClick={scrollTab}>
           Булки
@@ -37,6 +38,6 @@ function Tabs() {
       </div>
     </div>
   );
-}
+});
 
 export default Tabs;
