@@ -8,6 +8,7 @@ import useTotalPrice from '@/hooks/useTotalPrice';
 import { allIngredients, selectedBun } from '@/services/constructor/selectors';
 import { currentOrder } from '@/services/order/selectors';
 import { createOrderThunk, removeOrder } from '@/services/order/order-slice';
+import { deleteAllIngredient } from '@/services/constructor/constructor-slice';
 
 function BurgerOrder() {
   const ingredients = useSelector(allIngredients);
@@ -31,6 +32,7 @@ function BurgerOrder() {
     e.preventDefault();
     try {
       dispatch(createOrderThunk(getAllId()));
+      dispatch(deleteAllIngredient());
     } catch (error) {
       console.error(error);
     }

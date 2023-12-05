@@ -34,9 +34,18 @@ export const constructorSlice = createSlice({
     deleteIngredient: (state, action) => {
       state.ingredients = action.payload;
     },
+    deleteAllIngredient: (state) => {
+      state.ingredients = [];
+      state.bun = null;
+    },
   },
 });
 
-export const { addIngredient, deleteIngredient, chooseBun, updateIngredients } =
-  constructorSlice.actions;
+export const {
+  addIngredient,
+  deleteIngredient,
+  deleteAllIngredient,
+  chooseBun,
+  updateIngredients,
+} = constructorSlice.actions;
 export default constructorSlice.reducer;

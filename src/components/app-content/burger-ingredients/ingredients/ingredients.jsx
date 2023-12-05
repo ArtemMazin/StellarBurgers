@@ -1,6 +1,6 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable react/display-name */
-import React, { useCallback, useEffect, useMemo, useRef } from 'react';
+import React, { useMemo, useRef } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import styles from './ingredients.module.css';
 import useFilteredIngredients from '@/hooks/useFilteredIngredients';
@@ -9,9 +9,8 @@ import { getIngredientsThunk } from '@/services/initial-ingredients/initial-ingr
 import { loadState } from '@/localstorage';
 import { ingredients } from '@/services/initial-ingredients/selectors';
 import { BUNS, MAIN, SAUCES } from '@/utils/tabs-config';
-import { tabSwitch } from '@/services/tabs/tabs-slice';
 
-const Ingredients = React.forwardRef(({ tabsRef }) => {
+const Ingredients = React.forwardRef(({ tabsRef, handleTab, activeTab }) => {
   const initialIngredients = useSelector(ingredients);
   const { buns, sauces, main } = useFilteredIngredients(initialIngredients);
 
@@ -43,14 +42,14 @@ const Ingredients = React.forwardRef(({ tabsRef }) => {
       Math.abs(coordinateBuns) - coordinateTabs < Math.abs(coordinateSauces) - coordinateTabs &&
       Math.abs(bottomCoordinateBuns) - coordinateTabs > 0
     ) {
-      dispatch(tabSwitch(BUNS));
+      activeTab !== BUNS && handleTab(BUNS);
     } else if (
       Math.abs(coordinateSauces) - coordinateTabs <
       Math.abs(coordinateMain) - coordinateTabs
     ) {
-      dispatch(tabSwitch(SAUCES));
+      activeTab !== SAUCES && handleTab(SAUCES);
     } else {
-      dispatch(tabSwitch(MAIN));
+      activeTab !== MAIN && handleTab(MAIN);
     }
   };
 
