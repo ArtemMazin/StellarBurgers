@@ -6,6 +6,7 @@
   padding: 0;
   margin: 0;
   background-color: var(--background-alt);
+  gap: 16px;
   list-style-type: none;
   overflow-y: auto;
 }

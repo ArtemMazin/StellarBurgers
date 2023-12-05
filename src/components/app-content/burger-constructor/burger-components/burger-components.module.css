@@ -1,5 +1,23 @@
 .components {
   display: flex;
   flex-direction: column;
-  align-items: center;
+  gap: 16px;
+}
+
+.fakeComponent {
+  width: 100%;
+  max-width: 536px;
+  min-height: 80px;
+  box-sizing: border-box;
+  border-radius: var(--common-border-radius-s);
+  background: var(--background-element);
+  box-shadow: var(--shadow);
+}
+
+.fakeComponent_top {
+  border-radius: var(--top-constructor-item-border-radius);
+}
+
+.fakeComponent_bottom {
+  border-radius: var(--bottom-constructor-item-border-radius);
 }

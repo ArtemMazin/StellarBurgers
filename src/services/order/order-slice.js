@@ -20,7 +20,7 @@ export const orderSlice = createSlice({
   },
   extraReducers(builder) {
     builder
-      .addCase(createOrderThunk.pending, (state, action) => {
+      .addCase(createOrderThunk.pending, (state) => {
         state.status = 'loading';
       })
       .addCase(createOrderThunk.fulfilled, (state, action) => {

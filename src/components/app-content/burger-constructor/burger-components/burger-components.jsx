@@ -23,9 +23,21 @@ export default function BurgerComponents() {
 
   return (
     <div className={`${styles.components} mb-10`} ref={drop}>
-      {bun ? <Bun bun={bun} type={'top'} text={'(верх)'} /> : <div>top</div>}
-      <Ingredients ingredients={ingredients} />
-      {bun ? <Bun bun={bun} type={'bottom'} text={'(низ)'} /> : <div>bottom</div>}
+      {bun ? (
+        <Bun bun={bun} type={'top'} text={'(верх)'} />
+      ) : (
+        <div className={`${styles.fakeComponent} ${styles.fakeComponent_top} ml-8 mr-3`}></div>
+      )}
+      {ingredients.length > 0 ? (
+        <Ingredients ingredients={ingredients} />
+      ) : (
+        <div className={`${styles.fakeComponent} ml-8 mr-3`}></div>
+      )}
+      {bun ? (
+        <Bun bun={bun} type={'bottom'} text={'(низ)'} />
+      ) : (
+        <div className={`${styles.fakeComponent} ${styles.fakeComponent_bottom} ml-8 mr-3`}></div>
+      )}
     </div>
   );
 }

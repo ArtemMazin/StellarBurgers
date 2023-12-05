@@ -30,12 +30,10 @@ function BurgerOrder() {
 
   const handleOrder = (e) => {
     e.preventDefault();
-    try {
-      dispatch(createOrderThunk(getAllId()));
-      dispatch(deleteAllIngredient());
-    } catch (error) {
-      console.error(error);
-    }
+
+    dispatch(createOrderThunk(getAllId()))
+      .then(() => dispatch(deleteAllIngredient()))
+      .catch((error) => console.error(error));
   };
 
   return (

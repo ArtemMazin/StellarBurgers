@@ -5,7 +5,7 @@ import styles from './burger-constructor.module.css';
 
 function BurgerConstructor() {
   return (
-    <section className={`${styles.container} pt-25`}>
+    <section className={`${styles.container} pt-25 pl-4`}>
       <BurgerComponents />
       <BurgerOrder />
     </section>
