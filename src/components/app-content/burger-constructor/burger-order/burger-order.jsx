@@ -8,7 +8,7 @@ import useTotalPrice from '@/hooks/useTotalPrice';
 import { allIngredients, selectedBun } from '@/services/constructor/selectors';
 import { currentOrder } from '@/services/order/selectors';
 import { createOrderThunk, removeOrder } from '@/services/order/order-slice';
-import { deleteAllIngredient } from '@/services/constructor/constructor-slice';
+import { deleteAllIngredients } from '@/services/constructor/constructor-slice';
 
 function BurgerOrder() {
   const ingredients = useSelector(allIngredients);
@@ -19,7 +19,11 @@ function BurgerOrder() {
 
   const dispatch = useDispatch();
 
-  function getAllId() {
+  function getAllId(bun, ingredients) {
+    if (!bun || ingredients.length < 1) {
+      throw new Error('Выберите булку и ингредиенты');
+    }
+
     const ingredientsID = ingredients.map((item) => item._id);
     ingredientsID.push(bun._id);
     ingredientsID.unshift(bun._id);
@@ -31,9 +35,13 @@ function BurgerOrder() {
   const handleOrder = (e) => {
     e.preventDefault();
 
-    dispatch(createOrderThunk(getAllId()))
-      .then(() => dispatch(deleteAllIngredient()))
-      .catch((error) => console.error(error));
+    try {
+      dispatch(createOrderThunk(getAllId(bun, ingredients)))
+        .then(() => dispatch(deleteAllIngredients()))
+        .catch((error) => console.error(error));
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   return (

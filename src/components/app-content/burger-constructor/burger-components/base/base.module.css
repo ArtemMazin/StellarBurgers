@@ -1,0 +1,17 @@
+.base {
+  width: 100%;
+  max-width: 536px;
+  min-height: 80px;
+  box-sizing: border-box;
+  border-radius: var(--common-border-radius-s);
+  background: var(--background-element);
+  box-shadow: var(--shadow);
+}
+
+.base_top {
+  border-radius: var(--top-constructor-item-border-radius);
+}
+
+.base_bottom {
+  border-radius: var(--bottom-constructor-item-border-radius);
+}

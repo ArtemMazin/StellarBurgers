@@ -10,7 +10,7 @@ import { loadState } from '@/localstorage';
 import { ingredients } from '@/services/initial-ingredients/selectors';
 import { BUNS, MAIN, SAUCES } from '@/utils/tabs-config';
 
-const Ingredients = React.forwardRef(({ tabsRef, handleTab, activeTab }) => {
+const Ingredients = ({ tabsRef, handleTab, activeTab }) => {
   const initialIngredients = useSelector(ingredients);
   const { buns, sauces, main } = useFilteredIngredients(initialIngredients);
 
@@ -66,6 +66,6 @@ const Ingredients = React.forwardRef(({ tabsRef, handleTab, activeTab }) => {
       </li>
     </ul>
   );
-});
+};
 
 export default Ingredients;
