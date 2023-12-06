@@ -1,7 +1,6 @@
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 import React from 'react';
-import PropTypes from 'prop-types';
 import styles from './card.module.css';
 import { Counter, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import ingredientPropTypes from '@/utils/prop-types';
@@ -9,8 +8,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import useCounter from '@/hooks/useCounter';
 import { setCurrentIngredient } from '@/services/current-ingredient/current-ingredient-slice';
 import { allIngredients, selectedBun } from '@/services/constructor/selectors';
-import useDragHook from '@/hooks/useDragHook';
 import { ItemTypes, config } from '@/utils/drag-configs';
+import { useDrag } from 'react-dnd';
 
 export default function Card({ item }) {
   const ingredients = useSelector(allIngredients);
@@ -20,13 +19,27 @@ export default function Card({ item }) {
 
   const dispatch = useDispatch();
 
-  const { drag, isDragging } = useDragHook(
-    item,
-    ItemTypes.INGREDIENT,
-    config.BUN,
-    config.MAIN,
-    config.SAUCE,
-  );
+  const [{ isDragging }, drag] = useDrag(() => ({
+    type: ItemTypes.INGREDIENT,
+    item: item._id,
+    end: (elem, monitor) => {
+      const dropResult = monitor.getDropResult();
+
+      if (elem && item.type === config.BUN.type && dropResult) {
+        dispatch(config.BUN.action(item));
+      }
+      if (elem && item.type === config.MAIN.type && dropResult) {
+        dispatch(config.MAIN.action(item));
+      }
+      if (elem && item.type === config.SAUCE.type && dropResult) {
+        dispatch(config.SAUCE.action(item));
+      }
+    },
+    collect: (monitor) => ({
+      isDragging: monitor.isDragging(),
+      handlerId: monitor.getHandlerId(),
+    }),
+  }));
 
   const getStyles = (isDragging) => {
     return {

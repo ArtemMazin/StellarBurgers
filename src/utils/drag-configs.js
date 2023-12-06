@@ -17,4 +17,5 @@ export const config = {
 
 export const ItemTypes = {
   INGREDIENT: 'ingredient',
+  SORTER: 'sorter',
 };

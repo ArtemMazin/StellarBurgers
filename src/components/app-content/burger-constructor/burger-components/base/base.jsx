@@ -1,16 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styles from './base.module.css';
-import useDropHook from '@/hooks/useDropHook';
-import { ItemTypes } from '@/utils/drag-configs';
 
-function Base({ styleType }) {
-  const { isActive, canDrop } = useDropHook(ItemTypes.INGREDIENT);
-
+function Base({ styleType, canDrop }) {
   let boxShadow = '';
-  if (isActive) {
-    boxShadow = '';
-  } else if (canDrop) {
+  if (canDrop) {
     boxShadow = '0px 0px 20px rgba(76, 76, 255, 0.4), -0px -0px 20px rgba(76, 76, 255, 0.4)';
   }
 
@@ -27,4 +21,5 @@ export default Base;
 
 Base.propTypes = {
   styleType: PropTypes.oneOf(['top', 'bottom']),
+  canDrop: PropTypes.bool.isRequired,
 };

@@ -6,6 +6,7 @@ import { useDrag, useDrop } from 'react-dnd';
 import { useDispatch } from 'react-redux';
 import styles from './ingredient.module.css';
 import ingredientPropTypes from '@/utils/prop-types';
+import { ItemTypes } from '@/utils/drag-configs';
 
 function Ingredient({ card, index, id, ingredients }) {
   const dispatch = useDispatch();
@@ -24,7 +25,7 @@ function Ingredient({ card, index, id, ingredients }) {
     [dispatch, ingredients],
   );
   const [{ handlerId }, drop] = useDrop({
-    accept: 'card',
+    accept: ItemTypes.SORTER,
     collect(monitor) {
       return {
         handlerId: monitor.getHandlerId(),
@@ -40,13 +41,9 @@ function Ingredient({ card, index, id, ingredients }) {
       if (dragIndex === hoverIndex) {
         return;
       }
-
       const hoverBoundingRect = ref.current?.getBoundingClientRect();
-
       const hoverMiddleY = (hoverBoundingRect.bottom - hoverBoundingRect.top) / 2;
-
       const clientOffset = monitor.getClientOffset();
-
       const hoverClientY = clientOffset.y - hoverBoundingRect.top;
 
       if (dragIndex < hoverIndex && hoverClientY < hoverMiddleY) {
@@ -64,7 +61,7 @@ function Ingredient({ card, index, id, ingredients }) {
   });
 
   const [{ isDragging }, drag] = useDrag({
-    type: 'card',
+    type: ItemTypes.SORTER,
     item: () => {
       return { id, index };
     },
