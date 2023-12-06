@@ -1,4 +1,3 @@
-/* eslint-disable react/prop-types */
 import React from 'react';
 import PropTypes from 'prop-types';
 import styles from './ingredients.module.css';
@@ -19,6 +18,5 @@ export default function Ingredients({ ingredients }) {
 }
 
 Ingredients.propTypes = {
-  sauces: PropTypes.arrayOf(ingredientPropTypes).isRequired,
-  main: PropTypes.arrayOf(ingredientPropTypes).isRequired,
+  ingredients: PropTypes.arrayOf(ingredientPropTypes).isRequired,
 };

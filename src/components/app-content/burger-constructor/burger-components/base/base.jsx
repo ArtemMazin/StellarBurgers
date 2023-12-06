@@ -1,5 +1,5 @@
-/* eslint-disable react/prop-types */
 import React from 'react';
+import PropTypes from 'prop-types';
 import styles from './base.module.css';
 import useDropHook from '@/hooks/useDropHook';
 import { ItemTypes } from '@/utils/drag-configs';
@@ -24,3 +24,7 @@ function Base({ styleType }) {
 }
 
 export default Base;
+
+Base.propTypes = {
+  styleType: PropTypes.oneOf(['top', 'bottom']),
+};

@@ -1,17 +1,17 @@
-/* eslint-disable react/prop-types */
-/* eslint-disable react/display-name */
 import React, { useMemo, useRef } from 'react';
+import PropTypes from 'prop-types';
 import { useSelector, useDispatch } from 'react-redux';
 import styles from './ingredients.module.css';
 import useFilteredIngredients from '@/hooks/useFilteredIngredients';
 import GroupsOfIngredients from './groups-of-ingredients/groups-of-ingredients';
 import { getIngredientsThunk } from '@/services/initial-ingredients/initial-ingredients-slice';
 import { loadState } from '@/localstorage';
-import { ingredients } from '@/services/initial-ingredients/selectors';
+import { ingredients, error } from '@/services/initial-ingredients/selectors';
 import { BUNS, MAIN, SAUCES } from '@/utils/tabs-config';
 
 const Ingredients = ({ tabsRef, handleTab, activeTab }) => {
   const initialIngredients = useSelector(ingredients);
+  const initialIngredientsError = useSelector(error);
   const { buns, sauces, main } = useFilteredIngredients(initialIngredients);
 
   const bunsRef = useRef(null);
@@ -22,11 +22,11 @@ const Ingredients = ({ tabsRef, handleTab, activeTab }) => {
 
   useMemo(() => {
     try {
-      loadState() === undefined && dispatch(getIngredientsThunk());
+      (loadState() === undefined || initialIngredientsError) && dispatch(getIngredientsThunk());
     } catch (error) {
       console.error(error);
     }
-  }, [dispatch]);
+  }, [dispatch, initialIngredientsError]);
 
   const handleScroll = (e) => {
     e.stopPropagation();
@@ -69,3 +69,9 @@ const Ingredients = ({ tabsRef, handleTab, activeTab }) => {
 };
 
 export default Ingredients;
+
+Ingredients.propTypes = {
+  tabsRef: PropTypes.object.isRequired,
+  handleTab: PropTypes.func.isRequired,
+  activeTab: PropTypes.oneOf([BUNS, MAIN, SAUCES]),
+};

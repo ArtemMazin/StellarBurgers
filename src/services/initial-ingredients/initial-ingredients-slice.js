@@ -14,10 +14,11 @@ export const initialIngredientsSlice = createSlice({
   reducers: {},
   extraReducers(builder) {
     builder
-      .addCase(getIngredientsThunk.pending, (state, action) => {
+      .addCase(getIngredientsThunk.pending, (state) => {
         state.status = 'loading';
       })
       .addCase(getIngredientsThunk.fulfilled, (state, action) => {
+        state.error = null;
         state.status = 'succeeded';
         state.initialIngredients = action.payload;
       })

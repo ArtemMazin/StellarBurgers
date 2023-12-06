@@ -1,5 +1,5 @@
-/* eslint-disable react/prop-types */
 import React from 'react';
+import PropTypes from 'prop-types';
 import styles from './order-details.module.css';
 
 export default function OrderDetails({ order }) {
@@ -15,3 +15,9 @@ export default function OrderDetails({ order }) {
     </div>
   );
 }
+
+OrderDetails.propTypes = {
+  order: PropTypes.shape({
+    number: PropTypes.number,
+  }).isRequired,
+};

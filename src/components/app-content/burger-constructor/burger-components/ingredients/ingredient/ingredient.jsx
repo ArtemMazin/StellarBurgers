@@ -1,10 +1,11 @@
-/* eslint-disable react/prop-types */
+import React, { useCallback, useRef } from 'react';
+import PropTypes from 'prop-types';
 import { updateIngredients, deleteIngredient } from '@/services/constructor/constructor-slice';
 import { ConstructorElement, DragIcon } from '@ya.praktikum/react-developer-burger-ui-components';
-import React, { useCallback, useRef } from 'react';
 import { useDrag, useDrop } from 'react-dnd';
 import { useDispatch } from 'react-redux';
 import styles from './ingredient.module.css';
+import ingredientPropTypes from '@/utils/prop-types';
 
 function Ingredient({ card, index, id, ingredients }) {
   const dispatch = useDispatch();
@@ -102,3 +103,10 @@ function Ingredient({ card, index, id, ingredients }) {
 }
 
 export default Ingredient;
+
+Ingredient.propTypes = {
+  card: ingredientPropTypes.isRequired,
+  index: PropTypes.number.isRequired,
+  id: PropTypes.string.isRequired,
+  ingredients: PropTypes.arrayOf(ingredientPropTypes).isRequired,
+};
