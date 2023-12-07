@@ -9,7 +9,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { removeCurrentIngredient } from '@/services/current-ingredient/current-ingredient-slice';
 import { currentIngredient } from '@/services/current-ingredient/selecrors';
 
-export default function CardList({ array }) {
+export default function CardList({ ingredientsGroup }) {
   const ingredient = useSelector(currentIngredient);
 
   const dispatch = useDispatch();
@@ -17,8 +17,8 @@ export default function CardList({ array }) {
   return (
     <>
       <ul className={`${styles.list} pl-3 pr-4 pt-6`}>
-        {array.length > 0 &&
-          array.map((item) => (
+        {ingredientsGroup.length > 0 &&
+          ingredientsGroup.map((item) => (
             <li key={item._id}>
               <Card item={item} />
             </li>
@@ -34,5 +34,5 @@ export default function CardList({ array }) {
 }
 
 CardList.propTypes = {
-  array: PropTypes.arrayOf(ingredientPropTypes).isRequired,
+  ingredientsGroup: PropTypes.arrayOf(ingredientPropTypes).isRequired,
 };

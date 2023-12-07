@@ -35,13 +35,10 @@ function BurgerOrder() {
   const handleOrder = (e) => {
     e.preventDefault();
 
-    try {
-      dispatch(createOrderThunk(getAllId(bun, ingredients)))
-        .then(() => dispatch(deleteAllIngredients()))
-        .catch((error) => console.error(error));
-    } catch (error) {
-      console.error(error);
-    }
+    dispatch(createOrderThunk(getAllId(bun, ingredients)))
+      .unwrap()
+      .then(() => dispatch(deleteAllIngredients()))
+      .catch((error) => console.error(error));
   };
 
   return (

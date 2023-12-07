@@ -21,10 +21,10 @@ const Ingredients = ({ tabsRef, handleTab, activeTab }) => {
   const dispatch = useDispatch();
 
   useMemo(() => {
-    try {
-      (loadState() === undefined || initialIngredientsError) && dispatch(getIngredientsThunk());
-    } catch (error) {
-      console.error(error);
+    if (loadState() === undefined || initialIngredientsError) {
+      dispatch(getIngredientsThunk())
+        .unwrap()
+        .catch((error) => console.error(error));
     }
   }, [dispatch, initialIngredientsError]);
 
@@ -56,13 +56,13 @@ const Ingredients = ({ tabsRef, handleTab, activeTab }) => {
   return (
     <ul className={`${styles.list} custom-scroll`} onScroll={(e) => handleScroll(e)}>
       <li id={BUNS} ref={bunsRef}>
-        <GroupsOfIngredients array={buns} title={BUNS} />
+        <GroupsOfIngredients ingredientsGroup={buns} title={BUNS} />
       </li>
       <li id={SAUCES} ref={saucesRef}>
-        <GroupsOfIngredients array={sauces} title={SAUCES} />
+        <GroupsOfIngredients ingredientsGroup={sauces} title={SAUCES} />
       </li>
       <li id={MAIN} ref={mainRef}>
-        <GroupsOfIngredients array={main} title={MAIN} />
+        <GroupsOfIngredients ingredientsGroup={main} title={MAIN} />
       </li>
     </ul>
   );

@@ -20,7 +20,8 @@ export default function Bun({ bun, type, text }) {
 }
 
 Bun.propTypes = {
-  bun: ingredientPropTypes.isRequired,
+  //typeof null === 'object'
+  bun: PropTypes.oneOfType([PropTypes.object.isRequired, ingredientPropTypes.isRequired]),
   type: PropTypes.oneOf(['top', 'bottom', undefined]),
   text: PropTypes.string,
 };

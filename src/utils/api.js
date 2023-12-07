@@ -1,4 +1,4 @@
-import BASE_INGREDIENTS_URL from '@/utils/constants';
+import { BASE_INGREDIENTS_URL, BASE_ORDERS_URL } from '@/utils/constants';
 
 function getResponseData(res) {
   if (!res.ok) {
@@ -12,11 +12,11 @@ async function request(url, options) {
 }
 
 export function getIngredients() {
-  return request(`${BASE_INGREDIENTS_URL}/ingredients`);
+  return request(`${BASE_INGREDIENTS_URL}`);
 }
 
 export function createOrder(itemsID) {
-  return request(`${BASE_INGREDIENTS_URL}/orders`, {
+  return request(`${BASE_ORDERS_URL}`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
