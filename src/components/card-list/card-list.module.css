@@ -3,5 +3,6 @@
   justify-content: center;
   gap: 32px 24px;
   grid-template-columns: repeat(2, minmax(144px, 300px));
+  grid-template-rows: repeat(auto-fit, minmax(208px, 216px));
   list-style-type: none;
 }

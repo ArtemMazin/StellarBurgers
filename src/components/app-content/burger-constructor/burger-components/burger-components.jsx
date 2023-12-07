@@ -1,19 +1,46 @@
-import React, { useContext } from 'react';
+import React from 'react';
+import { useSelector } from 'react-redux';
 import styles from './burger-components.module.css';
-import initialIngredientsContext from '@/contexts/initialIngredientsContext';
-import useFilteredIngredients from '@/hooks/useFilteredIngredients';
 import Bun from './bun/bun';
 import Ingredients from './ingredients/ingredients';
+import { allIngredients, selectedBun } from '@/services/constructor/selectors';
+import { ItemTypes } from '@/utils/drag-configs';
+import Base from './base/base';
+import { useDrop } from 'react-dnd';
+import Switch from './switch-components/switch-components';
 
 export default function BurgerComponents() {
-  const initialIngredients = useContext(initialIngredientsContext);
-  const { buns, sauces, main } = useFilteredIngredients(initialIngredients);
+  const bun = useSelector(selectedBun);
+  const ingredients = useSelector(allIngredients);
+
+  const [{ canDrop }, drop] = useDrop(() => ({
+    accept: ItemTypes.INGREDIENT,
+    collect: (monitor) => ({
+      isOver: monitor.isOver(),
+      canDrop: monitor.canDrop(),
+    }),
+  }));
 
   return (
-    <div className={`${styles.components} mb-10`}>
-      <Bun array={buns} type={'top'} text={'(верх)'} />
-      <Ingredients sauces={sauces} main={main} />
-      <Bun array={buns} type={'bottom'} text={'(низ)'} />
+    <div className={`${styles.components} mb-10`} ref={drop}>
+      {
+        <Switch element={bun}>
+          <Bun bun={bun} type={'top'} text={'(верх)'} />
+          <Base styleType={'top'} canDrop={canDrop} />
+        </Switch>
+      }
+      {
+        <Switch element={ingredients}>
+          <Ingredients ingredients={ingredients} />
+          <Base canDrop={canDrop} />
+        </Switch>
+      }
+      {
+        <Switch element={bun}>
+          <Bun bun={bun} type={'bottom'} text={'(низ)'} />
+          <Base styleType={'bottom'} canDrop={canDrop} />
+        </Switch>
+      }
     </div>
   );
 }

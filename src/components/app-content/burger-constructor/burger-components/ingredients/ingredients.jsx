@@ -1,29 +1,22 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { ConstructorElement, DragIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import styles from './ingredients.module.css';
 import ingredientPropTypes from '@/utils/prop-types';
+import Ingredient from './ingredient/ingredient';
 
-export default function Ingredients({ sauces, main }) {
+export default function Ingredients({ ingredients }) {
   return (
     <ul className={`${styles.list} custom-scroll`}>
-      {sauces.map((item) => (
-        <li className={`${styles.component} pl-3 pr-2`} key={item._id}>
-          <DragIcon type="primary" />
-          <ConstructorElement text={item.name} price={item.price} thumbnail={item.image} />
-        </li>
-      ))}
-      {main.map((item) => (
-        <li className={`${styles.component} pl-3 pr-2`} key={item._id}>
-          <DragIcon type="primary" />
-          <ConstructorElement text={item.name} price={item.price} thumbnail={item.image} />
-        </li>
-      ))}
+      {ingredients.length > 0 &&
+        ingredients.map((card, index) => (
+          <li key={card.customId}>
+            <Ingredient card={card} index={index} id={card.customId} ingredients={ingredients} />
+          </li>
+        ))}
     </ul>
   );
 }
 
 Ingredients.propTypes = {
-  sauces: PropTypes.arrayOf(ingredientPropTypes).isRequired,
-  main: PropTypes.arrayOf(ingredientPropTypes).isRequired,
+  ingredients: PropTypes.arrayOf(ingredientPropTypes).isRequired,
 };

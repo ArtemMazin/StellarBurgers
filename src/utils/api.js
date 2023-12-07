@@ -1,4 +1,4 @@
-import BASE_INGREDIENTS_URL from '@/utils/constants';
+import { BASE_INGREDIENTS_URL, BASE_ORDERS_URL } from '@/utils/constants';
 
 function getResponseData(res) {
   if (!res.ok) {
@@ -6,11 +6,21 @@ function getResponseData(res) {
   }
   return res.json();
 }
-async function request(url) {
-  const res = await fetch(url);
+async function request(url, options) {
+  const res = await fetch(url, options);
   return getResponseData(res);
 }
 
-export default function getIngredients() {
-  return request(BASE_INGREDIENTS_URL);
+export function getIngredients() {
+  return request(`${BASE_INGREDIENTS_URL}`);
+}
+
+export function createOrder(itemsID) {
+  return request(`${BASE_ORDERS_URL}`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({ ingredients: itemsID }),
+  });
 }
