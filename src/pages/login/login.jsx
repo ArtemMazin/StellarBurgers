@@ -1,11 +1,8 @@
-import {
-  Button,
-  EmailInput,
-  PasswordInput,
-} from '@ya.praktikum/react-developer-burger-ui-components';
+import { EmailInput, PasswordInput } from '@ya.praktikum/react-developer-burger-ui-components';
 import React from 'react';
 import styles from './login.module.css';
 import { Link } from 'react-router-dom';
+import Form from '@/components/form/form';
 
 function Login() {
   const [value, setValue] = React.useState('');
@@ -16,14 +13,11 @@ function Login() {
   return (
     <main className={styles.main}>
       <div className={styles.container}>
-        <form className={styles.form}>
-          <h1 className="text text_type_main-medium">Вход</h1>
+        <Form title={'Вход'} textButton={'Войти'}>
           <EmailInput onChange={onChange} value={value} name={'email'} isIcon={false} />
           <PasswordInput onChange={onChange} value={value} name={'password'} />
-          <Button htmlType="submit" type="primary" size="medium" extraClass={styles.button}>
-            Войти
-          </Button>
-        </form>
+        </Form>
+
         <div>
           <p className="text text_type_main-default text_color_inactive mb-4">
             Вы — новый пользователь?{' '}
