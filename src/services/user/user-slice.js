@@ -1,4 +1,4 @@
-import { register } from '@/utils/api';
+import { register } from '@/utils/api-user';
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 
 export const registerThunk = createAsyncThunk(

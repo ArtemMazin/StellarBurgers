@@ -1,7 +1,6 @@
 import React from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import AppHeader from './components/app-header/app-header';
-import AppContent from './components/app-content/app-content';
 import ErrorBoundary from './components/error-boundary/error-boendary';
 import Login from './pages/login/login';
 import Register from './pages/register/register';
@@ -9,6 +8,8 @@ import ForgotPassword from './pages/forgot-password/forgot-password';
 import ResetPassword from './pages/reset-password/reset-password';
 import Profile from './pages/profile/profile';
 import { URL } from './utils/url-config';
+import Home from './pages/home/home';
+import NotFound from './pages/not-found-404/not-found';
 
 export default function App() {
   return (
@@ -16,12 +17,13 @@ export default function App() {
       <BrowserRouter>
         <AppHeader />
         <Routes>
-          <Route path={URL.MAIN} element={<AppContent />} />
+          <Route path={URL.MAIN} element={<Home />} />
           <Route path={URL.LOGIN} element={<Login />} />
           <Route path={URL.REGISTER} element={<Register />} />
           <Route path={URL.FORGOT_PASSWORD} element={<ForgotPassword />} />
           <Route path={URL.RESET_PASSWORD} element={<ResetPassword />} />
           <Route path={URL.PROFILE} element={<Profile />} />
+          <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>
     </ErrorBoundary>
