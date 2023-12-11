@@ -1,33 +1,57 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React from 'react';
 import * as components from '@ya.praktikum/react-developer-burger-ui-components';
+import { useLocation } from 'react-router-dom';
 import styles from './navigation.module.css';
 import { Link } from 'react-router-dom';
+import { URL } from '@/utils/url-config';
 
 function Navigation() {
+  const location = useLocation();
+
   return (
     <nav className={styles.nav}>
       <ul className={styles.links}>
         <li>
-          <Link to="/" className={`${styles.link} pl-5 pr-5 pb-4 pt-4`}>
-            <components.BurgerIcon type="primary" />
-            <span className="text text_type_main-default ml-2">Конструктор</span>
+          <Link to={URL.MAIN} className={`${styles.link} pl-5 pr-5 pb-4 pt-4`}>
+            <components.BurgerIcon
+              type={`${location.pathname !== URL.MAIN ? 'secondary' : 'primary'}`}
+            />
+            <span
+              className={`${
+                location.pathname !== URL.MAIN && 'text_color_inactive'
+              } text text_type_main-default ml-2`}
+            >
+              Конструктор
+            </span>
           </Link>
         </li>
 
         <li>
-          <a href="#" className={`${styles.link} pl-5 pr-5 pb-4 pt-4 ml-2`}>
-            <components.ListIcon type="primary" />
-            <span className="text text_type_main-default text_color_inactive ml-2">
+          <Link to={URL.HISTORY_ORDERS} className={`${styles.link} pl-5 pr-5 pb-4 pt-4 ml-2`}>
+            <components.ListIcon
+              type={`${location.pathname !== URL.HISTORY_ORDERS ? 'secondary' : 'primary'}`}
+            />
+            <span
+              className={`${
+                location.pathname !== URL.HISTORY_ORDERS && 'text_color_inactive'
+              } text text_type_main-default ml-2`}
+            >
               Лента заказов
             </span>
-          </a>
+          </Link>
         </li>
 
         <li>
-          <Link to="/profile" className={`${styles.link} pl-5 pr-5 pb-4 pt-4 ml-2`}>
-            <components.ProfileIcon type="primary" />
-            <span className="text text_type_main-default text_color_inactive ml-2">
+          <Link to={URL.PROFILE} className={`${styles.link} pl-5 pr-5 pb-4 pt-4 ml-2`}>
+            <components.ProfileIcon
+              type={`${location.pathname !== URL.PROFILE ? 'secondary' : 'primary'}`}
+            />
+            <span
+              className={`${
+                location.pathname !== URL.PROFILE && 'text_color_inactive'
+              } text text_type_main-default ml-2`}
+            >
               Личный кабинет
             </span>
           </Link>
