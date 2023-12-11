@@ -7,29 +7,61 @@ import {
 } from '@ya.praktikum/react-developer-burger-ui-components';
 import { Link } from 'react-router-dom';
 import Form from '@/components/form/form';
+import { useFormAndValidation } from '@/hooks/useForm';
+import { useDispatch } from 'react-redux';
+import { registerThunk } from '@/services/user/user-slice';
 
 function Register() {
-  const [value, setValue] = React.useState('');
-  const onChange = (e) => {
-    setValue(e.target.value);
+  const {
+    isFormValid,
+    errors,
+    handleChangeValidation,
+    inputsValid,
+    setInputsValid,
+    values,
+    handleInput,
+  } = useFormAndValidation();
+  const { name, email, password } = values;
+
+  const dispatch = useDispatch();
+
+  const handleRegister = (e, name, email, password) => {
+    e.preventDefault();
+
+    dispatch(registerThunk({ name, email, password }))
+      .unwrap()
+      .catch((error) => console.error(error));
   };
 
   return (
     <main className={styles.main}>
       <div className={styles.container}>
-        <Form title={'Регистрация'} textButton={'Зарегистрироваться'}>
+        <Form
+          title={'Регистрация'}
+          textButton={'Зарегистрироваться'}
+          handleRegister={(e) => handleRegister(e, name, email, password)}
+        >
           <Input
             type={'text'}
             placeholder={'Имя'}
-            onChange={(e) => setValue(e.target.value)}
-            value={value}
+            onChange={handleChangeValidation}
+            value={name || ''}
             name={'name'}
             error={false}
             errorText={'Ошибка'}
             size={'default'}
           />
-          <EmailInput onChange={onChange} value={value} name={'email'} isIcon={false} />
-          <PasswordInput onChange={onChange} value={value} name={'password'} />
+          <EmailInput
+            onChange={handleChangeValidation}
+            value={email || ''}
+            name={'email'}
+            isIcon={false}
+          />
+          <PasswordInput
+            onChange={handleChangeValidation}
+            value={password || ''}
+            name={'password'}
+          />
         </Form>
 
         <div>

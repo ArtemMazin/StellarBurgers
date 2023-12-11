@@ -1,4 +1,4 @@
-import { BASE_INGREDIENTS_URL, BASE_ORDERS_URL } from '@/utils/constants';
+import { BASE_INGREDIENTS_URL, BASE_ORDERS_URL, BASE_REGISTER_URL } from '@/utils/constants';
 
 function getResponseData(res) {
   if (!res.ok) {
@@ -12,15 +12,25 @@ async function request(url, options) {
 }
 
 export function getIngredients() {
-  return request(`${BASE_INGREDIENTS_URL}`);
+  return request(BASE_INGREDIENTS_URL);
 }
 
 export function createOrder(itemsID) {
-  return request(`${BASE_ORDERS_URL}`, {
+  return request(BASE_ORDERS_URL, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
     },
     body: JSON.stringify({ ingredients: itemsID }),
+  });
+}
+
+export function register(name, email, password) {
+  return request(BASE_REGISTER_URL, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({ name, email, password }),
   });
 }
