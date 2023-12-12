@@ -21,12 +21,12 @@ const Ingredients = ({ tabsRef, handleTab, activeTab }) => {
   const dispatch = useDispatch();
 
   useMemo(() => {
-    if (loadState() === undefined || initialIngredientsError) {
-      dispatch(getIngredientsThunk())
-        .unwrap()
-        .catch((error) => console.error(error));
-    }
-  }, [dispatch, initialIngredientsError]);
+    // if (loadState() === undefined || initialIngredientsError) {
+    dispatch(getIngredientsThunk())
+      .unwrap()
+      .catch((error) => console.error(error));
+    // }
+  }, [dispatch]);
 
   const handleScroll = (e) => {
     e.stopPropagation();

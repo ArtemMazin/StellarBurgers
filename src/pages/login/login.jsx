@@ -3,19 +3,47 @@ import React from 'react';
 import styles from './login.module.css';
 import { Link } from 'react-router-dom';
 import Form from '@/components/form/form';
+import { useDispatch } from 'react-redux';
+import { useFormAndValidation } from '@/hooks/useForm';
+import { loginThunk } from '@/services/user/user-slice';
 
 function Login() {
-  const [value, setValue] = React.useState('');
-  const onChange = (e) => {
-    setValue(e.target.value);
+  const {
+    isFormValid,
+    errors,
+    handleChangeValidation,
+    inputsValid,
+    setInputsValid,
+    values,
+    handleInput,
+  } = useFormAndValidation();
+  const { email, password } = values;
+
+  const dispatch = useDispatch();
+
+  const handleLogin = (e, email, password) => {
+    e.preventDefault();
+
+    dispatch(loginThunk({ email, password }))
+      .unwrap()
+      .catch((error) => console.error(error));
   };
 
   return (
     <main className={styles.main}>
       <div className={styles.container}>
-        <Form title={'Вход'} textButton={'Войти'}>
-          <EmailInput onChange={onChange} value={value} name={'email'} isIcon={false} />
-          <PasswordInput onChange={onChange} value={value} name={'password'} />
+        <Form title={'Вход'} textButton={'Войти'} handle={(e) => handleLogin(e, email, password)}>
+          <EmailInput
+            onChange={handleChangeValidation}
+            value={email || ''}
+            name={'email'}
+            isIcon={false}
+          />
+          <PasswordInput
+            onChange={handleChangeValidation}
+            value={password || ''}
+            name={'password'}
+          />
         </Form>
 
         <div>

@@ -10,6 +10,7 @@ import Profile from './pages/profile/profile';
 import { URL } from './utils/url-config';
 import Home from './pages/home/home';
 import NotFound from './pages/not-found-404/not-found';
+import { OnlyAuth, OnlyUnAuth } from './components/protected-route/protected-route';
 
 export default function App() {
   return (
@@ -18,11 +19,14 @@ export default function App() {
         <AppHeader />
         <Routes>
           <Route path={URL.MAIN} element={<Home />} />
-          <Route path={URL.LOGIN} element={<Login />} />
-          <Route path={URL.REGISTER} element={<Register />} />
-          <Route path={URL.FORGOT_PASSWORD} element={<ForgotPassword />} />
-          <Route path={URL.RESET_PASSWORD} element={<ResetPassword />} />
-          <Route path={URL.PROFILE} element={<Profile />} />
+          <Route path={URL.LOGIN} element={<OnlyUnAuth component={<Login />} />} />
+          <Route path={URL.REGISTER} element={<OnlyUnAuth component={<Register />} />} />
+          <Route
+            path={URL.FORGOT_PASSWORD}
+            element={<OnlyUnAuth component={<ForgotPassword />} />}
+          />
+          <Route path={URL.RESET_PASSWORD} element={<OnlyUnAuth component={<ResetPassword />} />} />
+          <Route path={URL.PROFILE} element={<OnlyAuth component={<Profile />} />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>

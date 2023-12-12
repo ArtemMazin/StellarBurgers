@@ -47,3 +47,13 @@ export function register(name, email, password) {
     body: JSON.stringify({ name, email, password }),
   });
 }
+
+export function login(email, password) {
+  return fetchWithRefresh(`${BASE_API_URL}/auth/login `, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({ email, password }),
+  });
+}

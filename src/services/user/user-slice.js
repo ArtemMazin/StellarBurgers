@@ -1,4 +1,4 @@
-import { register } from '@/utils/api-user';
+import { login, register } from '@/utils/api-user';
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 
 export const registerThunk = createAsyncThunk(
@@ -11,12 +11,19 @@ export const registerThunk = createAsyncThunk(
   },
 );
 
+export const loginThunk = createAsyncThunk('user/login-user', async ({ email, password }) => {
+  console.log(email, password);
+  if (!email || !password) throw new Error('Заполните все поля формы');
+  const data = await login(email, password);
+
+  return data;
+});
+
 export const userSlice = createSlice({
   name: 'user',
   initialState: {
     user: null,
-    accessToken: null,
-    refreshToken: null,
+    isAuthChecked: false,
   },
   reducers: {},
   extraReducers(builder) {
@@ -28,10 +35,21 @@ export const userSlice = createSlice({
         state.error = null;
         state.status = 'succeeded';
         state.user = action.payload.user;
-        state.accessToken = action.payload.accessToken;
-        state.refreshToken = action.payload.refreshToken;
       })
       .addCase(registerThunk.rejected, (state, action) => {
+        state.status = 'failed';
+        state.error = action.error.message;
+      })
+      .addCase(loginThunk.pending, (state) => {
+        state.status = 'loading';
+      })
+      .addCase(loginThunk.fulfilled, (state, action) => {
+        state.error = null;
+        state.status = 'succeeded';
+        state.user = action.payload.user;
+        state.isAuthChecked = true;
+      })
+      .addCase(loginThunk.rejected, (state, action) => {
         state.status = 'failed';
         state.error = action.error.message;
       });

@@ -17,5 +17,5 @@ export const store = configureStore({
   },
   devTools: true,
   preloadedState: loadState(),
-  middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(localStorageMiddleware),
+  // middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(localStorageMiddleware),
 });

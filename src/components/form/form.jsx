@@ -3,9 +3,9 @@ import React from 'react';
 import styles from './form.module.css';
 import { Button } from '@ya.praktikum/react-developer-burger-ui-components';
 
-function Form({ title, textButton, textButtonReset, handleRegister, children }) {
+function Form({ title, textButton, textButtonReset, handle, children }) {
   return (
-    <form className={styles.form} noValidate onSubmit={handleRegister}>
+    <form className={styles.form} noValidate onSubmit={handle}>
       {title && <h1 className="text text_type_main-medium">{title}</h1>}
       {children}
       <div className={`${textButtonReset && styles.buttonContainer}`}>

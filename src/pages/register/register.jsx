@@ -39,7 +39,7 @@ function Register() {
         <Form
           title={'Регистрация'}
           textButton={'Зарегистрироваться'}
-          handleRegister={(e) => handleRegister(e, name, email, password)}
+          handle={(e) => handleRegister(e, name, email, password)}
         >
           <Input
             type={'text'}
