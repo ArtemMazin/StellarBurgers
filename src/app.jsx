@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import AppHeader from './components/app-header/app-header';
 import ErrorBoundary from './components/error-boundary/error-boendary';
@@ -11,8 +11,32 @@ import { URL } from './utils/url-config';
 import Home from './pages/home/home';
 import NotFound from './pages/not-found-404/not-found';
 import { OnlyAuth, OnlyUnAuth } from './components/protected-route/protected-route';
+import { useDispatch, useSelector } from 'react-redux';
+import { ingredients } from './services/initial-ingredients/selectors';
+import { getProfileUserThunk } from './services/user/user-slice';
+import { getIngredientsThunk } from './services/initial-ingredients/initial-ingredients-slice';
 
 export default function App() {
+  const initialIngredients = useSelector(ingredients);
+
+  const dispatch = useDispatch();
+
+  useMemo(() => {
+    if (localStorage.getItem('accessToken')) {
+      dispatch(getProfileUserThunk())
+        .unwrap()
+        .catch((error) => console.error(error));
+    }
+  }, [dispatch]);
+
+  useMemo(() => {
+    if (initialIngredients.length <= 0) {
+      dispatch(getIngredientsThunk())
+        .unwrap()
+        .catch((error) => console.error(error));
+    }
+  }, [dispatch, initialIngredients]);
+
   return (
     <ErrorBoundary>
       <BrowserRouter>

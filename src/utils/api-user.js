@@ -49,11 +49,21 @@ export function register(name, email, password) {
 }
 
 export function login(email, password) {
-  return fetchWithRefresh(`${BASE_API_URL}/auth/login `, {
+  return fetchWithRefresh(`${BASE_API_URL}/auth/login`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
     },
     body: JSON.stringify({ email, password }),
+  });
+}
+
+export function getProfileUser() {
+  return fetchWithRefresh(`${BASE_API_URL}/auth/user`, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+      authorization: localStorage.getItem('accessToken'),
+    },
   });
 }

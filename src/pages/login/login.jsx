@@ -26,6 +26,10 @@ function Login() {
 
     dispatch(loginThunk({ email, password }))
       .unwrap()
+      .then((tokens) => {
+        localStorage.setItem('refreshToken', tokens.refreshToken);
+        localStorage.setItem('accessToken', tokens.accessToken);
+      })
       .catch((error) => console.error(error));
   };
 
