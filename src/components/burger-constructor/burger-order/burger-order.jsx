@@ -6,14 +6,17 @@ import OrderDetails from '@/components/modal/order-details/order-details';
 import { useDispatch, useSelector } from 'react-redux';
 import useTotalPrice from '@/hooks/useTotalPrice';
 import { allIngredients, selectedBun } from '@/services/constructor/selectors';
-import { currentOrder } from '@/services/order/selectors';
-import { createOrderThunk, removeOrder } from '@/services/order/order-slice';
+import { order, status, error } from '@/services/order/selectors';
+import { createOrder, removeOrder } from '@/services/order/order-slice';
 import { deleteAllIngredients } from '@/services/constructor/constructor-slice';
+import Preloader from '@/components/preloader/preloader';
 
 function BurgerOrder() {
   const ingredients = useSelector(allIngredients);
   const bun = useSelector(selectedBun);
-  const order = useSelector(currentOrder);
+  const currentOrder = useSelector(order);
+  const statusOrder = useSelector(status);
+  const errorOrder = useSelector(error);
 
   const totalPrice = useTotalPrice(ingredients, bun);
 
@@ -35,11 +38,20 @@ function BurgerOrder() {
   const handleOrder = (e) => {
     e.preventDefault();
 
-    dispatch(createOrderThunk(getAllId(bun, ingredients)))
+    dispatch(createOrder(getAllId(bun, ingredients)))
       .unwrap()
       .then(() => dispatch(deleteAllIngredients()))
       .catch((error) => console.error(error));
   };
+
+  let content;
+  if (statusOrder === 'loading') {
+    content = <Preloader />;
+  } else if (statusOrder === 'succeeded') {
+    content = <OrderDetails order={currentOrder} />;
+  } else if (statusOrder === 'failed') {
+    content = <>{errorOrder}</>;
+  }
 
   return (
     <div className={`${styles.order} pr-4`}>
@@ -50,11 +62,7 @@ function BurgerOrder() {
       <Button htmlType="button" type="primary" size="large" onClick={handleOrder}>
         Оформить заказ
       </Button>
-      {order && (
-        <Modal onClose={() => dispatch(removeOrder())}>
-          <OrderDetails order={order} />
-        </Modal>
-      )}
+      {currentOrder && <Modal onClose={() => dispatch(removeOrder())}>{content}</Modal>}
     </div>
   );
 }

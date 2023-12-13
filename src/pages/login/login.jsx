@@ -5,18 +5,10 @@ import { Link } from 'react-router-dom';
 import Form from '@/components/form/form';
 import { useDispatch } from 'react-redux';
 import { useFormAndValidation } from '@/hooks/useForm';
-import { loginThunk, setUser } from '@/services/user/user-slice';
+import { login, setUser } from '@/services/user/user-slice';
 
 function Login() {
-  const {
-    isFormValid,
-    errors,
-    handleChangeValidation,
-    inputsValid,
-    setInputsValid,
-    values,
-    handleInput,
-  } = useFormAndValidation();
+  const { handleChangeValidation, values } = useFormAndValidation();
   const { email, password } = values;
 
   const dispatch = useDispatch();
@@ -24,7 +16,7 @@ function Login() {
   const handleLogin = (e, email, password) => {
     e.preventDefault();
 
-    dispatch(loginThunk({ email, password }))
+    dispatch(login({ email, password }))
       .unwrap()
       .then((res) => {
         dispatch(setUser(res.user));

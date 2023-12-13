@@ -9,7 +9,7 @@ import { Link } from 'react-router-dom';
 import Form from '@/components/form/form';
 import { useFormAndValidation } from '@/hooks/useForm';
 import { useDispatch } from 'react-redux';
-import { registerThunk } from '@/services/user/user-slice';
+import { register } from '@/services/user/user-slice';
 
 function Register() {
   const {
@@ -28,7 +28,7 @@ function Register() {
   const handleRegister = (e, name, email, password) => {
     e.preventDefault();
 
-    dispatch(registerThunk({ name, email, password }))
+    dispatch(register({ name, email, password }))
       .unwrap()
       .catch((error) => console.error(error));
   };

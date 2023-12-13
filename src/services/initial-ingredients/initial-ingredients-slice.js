@@ -1,8 +1,8 @@
-import { getIngredients } from '@/utils/api-ingredients';
+import * as api from '@/utils/api-ingredients';
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 
-export const getIngredientsThunk = createAsyncThunk('ingredients/get-ingredients', async () => {
-  const { data } = await getIngredients();
+export const getIngredients = createAsyncThunk('ingredients/get-ingredients', async () => {
+  const { data } = await api.getIngredients();
   return data;
 });
 
@@ -10,19 +10,21 @@ export const initialIngredientsSlice = createSlice({
   name: 'initialIngredients',
   initialState: {
     initialIngredients: [],
+    status: 'idle',
+    error: null,
   },
   reducers: {},
   extraReducers(builder) {
     builder
-      .addCase(getIngredientsThunk.pending, (state) => {
+      .addCase(getIngredients.pending, (state) => {
         state.status = 'loading';
       })
-      .addCase(getIngredientsThunk.fulfilled, (state, action) => {
+      .addCase(getIngredients.fulfilled, (state, action) => {
         state.error = null;
         state.status = 'succeeded';
         state.initialIngredients = action.payload;
       })
-      .addCase(getIngredientsThunk.rejected, (state, action) => {
+      .addCase(getIngredients.rejected, (state, action) => {
         state.status = 'failed';
         state.error = action.error.message;
       });

@@ -1,31 +1,31 @@
-import { getProfileUser, login, register, logout } from '@/utils/api-user';
+import * as api from '@/utils/api-user';
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 
-export const registerThunk = createAsyncThunk(
+export const register = createAsyncThunk(
   'user/register-user',
   async ({ name, email, password }) => {
     if (!name || !email || !password) throw new Error('Заполните все поля формы');
-    const data = await register(name, email, password);
+    const data = await api.register(name, email, password);
 
     return data;
   },
 );
 
-export const loginThunk = createAsyncThunk('user/login-user', async ({ email, password }) => {
+export const login = createAsyncThunk('user/login-user', async ({ email, password }) => {
   if (!email || !password) throw new Error('Заполните все поля формы');
-  const data = await login(email, password);
+  const data = await api.login(email, password);
 
   return data;
 });
 
-export const getProfileUserThunk = createAsyncThunk('user/get-profile-user', async () => {
-  const data = await getProfileUser();
+export const getUser = createAsyncThunk('user/get-profile-user', async () => {
+  const data = await api.getProfileUser();
 
   return data;
 });
 
-export const logoutThunk = createAsyncThunk('user/logout', async () => {
-  await logout();
+export const logout = createAsyncThunk('user/logout', async () => {
+  await api.logout();
 });
 
 export const userSlice = createSlice({
@@ -44,36 +44,36 @@ export const userSlice = createSlice({
   },
   extraReducers(builder) {
     builder
-      .addCase(registerThunk.pending, (state) => {
+      .addCase(register.pending, (state) => {
         state.status = 'loading';
       })
-      .addCase(registerThunk.fulfilled, (state) => {
+      .addCase(register.fulfilled, (state) => {
         state.error = null;
         state.status = 'succeeded';
       })
-      .addCase(registerThunk.rejected, (state, action) => {
+      .addCase(register.rejected, (state, action) => {
         state.status = 'failed';
         state.error = action.error.message;
       })
-      .addCase(loginThunk.pending, (state) => {
+      .addCase(login.pending, (state) => {
         state.status = 'loading';
       })
-      .addCase(loginThunk.fulfilled, (state) => {
+      .addCase(login.fulfilled, (state) => {
         state.error = null;
         state.status = 'succeeded';
       })
-      .addCase(loginThunk.rejected, (state, action) => {
+      .addCase(login.rejected, (state, action) => {
         state.status = 'failed';
         state.error = action.error.message;
       })
-      .addCase(getProfileUserThunk.pending, (state) => {
+      .addCase(getUser.pending, (state) => {
         state.status = 'loading';
       })
-      .addCase(getProfileUserThunk.fulfilled, (state) => {
+      .addCase(getUser.fulfilled, (state) => {
         state.error = null;
         state.status = 'succeeded';
       })
-      .addCase(getProfileUserThunk.rejected, (state, action) => {
+      .addCase(getUser.rejected, (state, action) => {
         state.status = 'failed';
         state.error = action.error.message;
       });

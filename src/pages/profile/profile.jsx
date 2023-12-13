@@ -6,7 +6,7 @@ import {
   Input,
   PasswordInput,
 } from '@ya.praktikum/react-developer-burger-ui-components';
-import { logoutThunk, setAuthChecked, setUser } from '@/services/user/user-slice';
+import { logout, setAuthChecked, setUser } from '@/services/user/user-slice';
 import { useDispatch } from 'react-redux';
 
 function Profile() {
@@ -21,7 +21,7 @@ function Profile() {
   };
 
   const handleLogout = () => {
-    dispatch(logoutThunk())
+    dispatch(logout())
       .unwrap()
       .then(() => {
         localStorage.removeItem('accessToken');
