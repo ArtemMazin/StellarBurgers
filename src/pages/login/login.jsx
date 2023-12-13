@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 import Form from '@/components/form/form';
 import { useDispatch } from 'react-redux';
 import { useFormAndValidation } from '@/hooks/useForm';
-import { loginThunk } from '@/services/user/user-slice';
+import { loginThunk, setUser } from '@/services/user/user-slice';
 
 function Login() {
   const {
@@ -26,9 +26,10 @@ function Login() {
 
     dispatch(loginThunk({ email, password }))
       .unwrap()
-      .then((tokens) => {
-        localStorage.setItem('refreshToken', tokens.refreshToken);
-        localStorage.setItem('accessToken', tokens.accessToken);
+      .then((res) => {
+        dispatch(setUser(res.user));
+        localStorage.setItem('refreshToken', res.refreshToken);
+        localStorage.setItem('accessToken', res.accessToken);
       })
       .catch((error) => console.error(error));
   };

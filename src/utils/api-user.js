@@ -67,3 +67,15 @@ export function getProfileUser() {
     },
   });
 }
+
+export function logout() {
+  return fetchWithRefresh(`${BASE_API_URL}/auth/logout`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      token: localStorage.getItem('refreshToken'),
+    }),
+  });
+}

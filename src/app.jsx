@@ -13,7 +13,7 @@ import NotFound from './pages/not-found-404/not-found';
 import { OnlyAuth, OnlyUnAuth } from './components/protected-route/protected-route';
 import { useDispatch, useSelector } from 'react-redux';
 import { ingredients } from './services/initial-ingredients/selectors';
-import { getProfileUserThunk } from './services/user/user-slice';
+import { getProfileUserThunk, setAuthChecked, setUser } from './services/user/user-slice';
 import { getIngredientsThunk } from './services/initial-ingredients/initial-ingredients-slice';
 
 export default function App() {
@@ -25,7 +25,17 @@ export default function App() {
     if (localStorage.getItem('accessToken')) {
       dispatch(getProfileUserThunk())
         .unwrap()
-        .catch((error) => console.error(error));
+        .then((res) => {
+          dispatch(setUser(res.user));
+        })
+        .catch(() => {
+          localStorage.removeItem('accessToken');
+          localStorage.removeItem('refreshToken');
+          dispatch(setUser(null));
+        })
+        .finally(() => dispatch(setAuthChecked(true)));
+    } else {
+      dispatch(setAuthChecked(true));
     }
   }, [dispatch]);
 

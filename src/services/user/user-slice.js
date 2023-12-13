@@ -1,4 +1,4 @@
-import { getProfileUser, login, register } from '@/utils/api-user';
+import { getProfileUser, login, register, logout } from '@/utils/api-user';
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 
 export const registerThunk = createAsyncThunk(
@@ -24,22 +24,32 @@ export const getProfileUserThunk = createAsyncThunk('user/get-profile-user', asy
   return data;
 });
 
+export const logoutThunk = createAsyncThunk('user/logout', async () => {
+  await logout();
+});
+
 export const userSlice = createSlice({
   name: 'user',
   initialState: {
     user: null,
     isAuthChecked: false,
   },
-  reducers: {},
+  reducers: {
+    setAuthChecked: (state, action) => {
+      state.isAuthChecked = action.payload;
+    },
+    setUser: (state, action) => {
+      state.user = action.payload;
+    },
+  },
   extraReducers(builder) {
     builder
       .addCase(registerThunk.pending, (state) => {
         state.status = 'loading';
       })
-      .addCase(registerThunk.fulfilled, (state, action) => {
+      .addCase(registerThunk.fulfilled, (state) => {
         state.error = null;
         state.status = 'succeeded';
-        state.user = action.payload.user;
       })
       .addCase(registerThunk.rejected, (state, action) => {
         state.status = 'failed';
@@ -48,11 +58,9 @@ export const userSlice = createSlice({
       .addCase(loginThunk.pending, (state) => {
         state.status = 'loading';
       })
-      .addCase(loginThunk.fulfilled, (state, action) => {
+      .addCase(loginThunk.fulfilled, (state) => {
         state.error = null;
         state.status = 'succeeded';
-        state.user = action.payload.user;
-        state.isAuthChecked = true;
       })
       .addCase(loginThunk.rejected, (state, action) => {
         state.status = 'failed';
@@ -61,11 +69,9 @@ export const userSlice = createSlice({
       .addCase(getProfileUserThunk.pending, (state) => {
         state.status = 'loading';
       })
-      .addCase(getProfileUserThunk.fulfilled, (state, action) => {
+      .addCase(getProfileUserThunk.fulfilled, (state) => {
         state.error = null;
         state.status = 'succeeded';
-        state.user = action.payload.user;
-        state.isAuthChecked = true;
       })
       .addCase(getProfileUserThunk.rejected, (state, action) => {
         state.status = 'failed';
@@ -74,4 +80,5 @@ export const userSlice = createSlice({
   },
 });
 
+export const { setAuthChecked, setUser } = userSlice.actions;
 export default userSlice.reducer;

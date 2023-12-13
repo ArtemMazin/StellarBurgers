@@ -6,13 +6,30 @@ import {
   Input,
   PasswordInput,
 } from '@ya.praktikum/react-developer-burger-ui-components';
+import { logoutThunk, setAuthChecked, setUser } from '@/services/user/user-slice';
+import { useDispatch } from 'react-redux';
 
 function Profile() {
   const [disabled, setDisabled] = useState(true);
+
+  const dispatch = useDispatch();
+
   const inputRef = React.useRef(null);
   const onIconClick = () => {
     setDisabled(!disabled);
     setTimeout(() => inputRef.current.focus(), 0);
+  };
+
+  const handleLogout = () => {
+    dispatch(logoutThunk())
+      .unwrap()
+      .then(() => {
+        localStorage.removeItem('accessToken');
+        localStorage.removeItem('refreshToken');
+        dispatch(setUser(null));
+      })
+      .catch((err) => console.error(err))
+      .finally(() => dispatch(setAuthChecked(true)));
   };
 
   return (
@@ -27,7 +44,9 @@ function Profile() {
               <span className={styles.link}>История заказов</span>
             </li>
             <li>
-              <span className={styles.link}>Выход</span>
+              <button className={styles.link} onClick={handleLogout}>
+                Выход
+              </button>
             </li>
           </ul>
           <span className={`${styles.text} text text_type_main-small text_color_inactive`}>
