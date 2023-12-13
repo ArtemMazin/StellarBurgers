@@ -11,6 +11,8 @@ export const orderSlice = createSlice({
   name: 'order',
   initialState: {
     order: null,
+    status: 'idle',
+    error: null,
   },
   reducers: {
     removeOrder: {

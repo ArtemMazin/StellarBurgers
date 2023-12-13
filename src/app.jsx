@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import React, { useEffect } from 'react';
 import { Routes, Route } from 'react-router-dom';
 import AppHeader from './components/app-header/app-header';
 import ErrorBoundary from './components/error-boundary/error-boendary';
@@ -12,12 +12,12 @@ import Home from './pages/home/home';
 import NotFound from './pages/not-found-404/not-found';
 import { OnlyAuth, OnlyUnAuth } from './components/protected-route/protected-route';
 import { useDispatch } from 'react-redux';
-import { getUser, setAuthChecked, setUser } from './services/user/user-slice';
+import { getUser, setUser } from './services/user/user-slice';
 
 export default function App() {
   const dispatch = useDispatch();
 
-  useMemo(() => {
+  useEffect(() => {
     if (localStorage.getItem('accessToken')) {
       dispatch(getUser())
         .unwrap()
@@ -28,10 +28,7 @@ export default function App() {
           localStorage.removeItem('accessToken');
           localStorage.removeItem('refreshToken');
           dispatch(setUser(null));
-        })
-        .finally(() => dispatch(setAuthChecked(true)));
-    } else {
-      dispatch(setAuthChecked(true));
+        });
     }
   }, [dispatch]);
 

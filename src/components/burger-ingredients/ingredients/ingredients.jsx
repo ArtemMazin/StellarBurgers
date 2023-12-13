@@ -4,19 +4,23 @@ import { useDispatch, useSelector } from 'react-redux';
 import styles from './ingredients.module.css';
 import useFilteredIngredients from '@/hooks/useFilteredIngredients';
 import GroupsOfIngredients from './groups-of-ingredients/groups-of-ingredients';
-import { ingredients, status, error } from '@/services/initial-ingredients/selectors';
+import {
+  initialIngredients,
+  statusIngredients,
+  errorIngredients,
+} from '@/services/initial-ingredients/selectors';
 import { BUNS, MAIN, SAUCES } from '@/utils/tabs-config';
 import { getIngredients } from '@/services/initial-ingredients/initial-ingredients-slice';
 import Preloader from '@/components/preloader/preloader';
 
 const Ingredients = ({ tabsRef, handleTab, activeTab }) => {
-  const initialIngredients = useSelector(ingredients);
-  const statusIngredients = useSelector(status);
-  const errorIngredients = useSelector(error);
+  const ingredients = useSelector(initialIngredients);
+  const status = useSelector(statusIngredients);
+  const error = useSelector(errorIngredients);
 
   const dispatch = useDispatch();
 
-  const { buns, sauces, main } = useFilteredIngredients(initialIngredients);
+  const { buns, sauces, main } = useFilteredIngredients(ingredients);
 
   const bunsRef = useRef(null);
   const saucesRef = useRef(null);
@@ -48,19 +52,19 @@ const Ingredients = ({ tabsRef, handleTab, activeTab }) => {
   };
 
   useEffect(() => {
-    if (statusIngredients === 'idle') {
+    if (status === 'idle') {
       dispatch(getIngredients());
     }
-  }, [dispatch, statusIngredients]);
+  }, [dispatch, status]);
 
   let content;
-  if (statusIngredients === 'loading') {
+  if (status === 'loading') {
     content = (
       <li>
         <Preloader />
       </li>
     );
-  } else if (statusIngredients === 'succeeded') {
+  } else if (status === 'succeeded') {
     content = (
       <>
         <li id={BUNS} ref={bunsRef}>
@@ -74,8 +78,8 @@ const Ingredients = ({ tabsRef, handleTab, activeTab }) => {
         </li>
       </>
     );
-  } else if (statusIngredients === 'failed') {
-    content = <li>{errorIngredients}</li>;
+  } else if (status === 'failed') {
+    content = <li>{error}</li>;
   }
 
   return (

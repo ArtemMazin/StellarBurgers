@@ -32,12 +32,10 @@ export const userSlice = createSlice({
   name: 'user',
   initialState: {
     user: null,
-    isAuthChecked: false,
+    status: 'idle',
+    error: null,
   },
   reducers: {
-    setAuthChecked: (state, action) => {
-      state.isAuthChecked = action.payload;
-    },
     setUser: (state, action) => {
       state.user = action.payload;
     },
@@ -80,5 +78,5 @@ export const userSlice = createSlice({
   },
 });
 
-export const { setAuthChecked, setUser } = userSlice.actions;
+export const { setUser } = userSlice.actions;
 export default userSlice.reducer;

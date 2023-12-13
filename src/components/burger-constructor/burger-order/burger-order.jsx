@@ -6,7 +6,7 @@ import OrderDetails from '@/components/modal/order-details/order-details';
 import { useDispatch, useSelector } from 'react-redux';
 import useTotalPrice from '@/hooks/useTotalPrice';
 import { allIngredients, selectedBun } from '@/services/constructor/selectors';
-import { order, status, error } from '@/services/order/selectors';
+import { currentOrder, currentStatus, currentError } from '@/services/order/selectors';
 import { createOrder, removeOrder } from '@/services/order/order-slice';
 import { deleteAllIngredients } from '@/services/constructor/constructor-slice';
 import Preloader from '@/components/preloader/preloader';
@@ -14,9 +14,9 @@ import Preloader from '@/components/preloader/preloader';
 function BurgerOrder() {
   const ingredients = useSelector(allIngredients);
   const bun = useSelector(selectedBun);
-  const currentOrder = useSelector(order);
-  const statusOrder = useSelector(status);
-  const errorOrder = useSelector(error);
+  const order = useSelector(currentOrder);
+  const status = useSelector(currentStatus);
+  const error = useSelector(currentError);
 
   const totalPrice = useTotalPrice(ingredients, bun);
 
@@ -45,12 +45,12 @@ function BurgerOrder() {
   };
 
   let content;
-  if (statusOrder === 'loading') {
+  if (status === 'loading') {
     content = <Preloader />;
-  } else if (statusOrder === 'succeeded') {
-    content = <OrderDetails order={currentOrder} />;
-  } else if (statusOrder === 'failed') {
-    content = <>{errorOrder}</>;
+  } else if (status === 'succeeded') {
+    content = <OrderDetails order={order} />;
+  } else if (status === 'failed') {
+    content = <>{error}</>;
   }
 
   return (
@@ -62,7 +62,7 @@ function BurgerOrder() {
       <Button htmlType="button" type="primary" size="large" onClick={handleOrder}>
         Оформить заказ
       </Button>
-      {currentOrder && <Modal onClose={() => dispatch(removeOrder())}>{content}</Modal>}
+      {order && <Modal onClose={() => dispatch(removeOrder())}>{content}</Modal>}
     </div>
   );
 }

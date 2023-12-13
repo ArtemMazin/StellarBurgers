@@ -6,11 +6,16 @@ import {
   Input,
   PasswordInput,
 } from '@ya.praktikum/react-developer-burger-ui-components';
-import { logout, setAuthChecked, setUser } from '@/services/user/user-slice';
-import { useDispatch } from 'react-redux';
+import { logout, setUser } from '@/services/user/user-slice';
+import { useDispatch, useSelector } from 'react-redux';
+import { currentUser, errorUser, statusUser } from '@/services/user/selectors';
+import Preloader from '@/components/preloader/preloader';
 
 function Profile() {
   const [disabled, setDisabled] = useState(true);
+  const user = useSelector(currentUser);
+  const status = useSelector(statusUser);
+  const error = useSelector(errorUser);
 
   const dispatch = useDispatch();
 
@@ -28,9 +33,35 @@ function Profile() {
         localStorage.removeItem('refreshToken');
         dispatch(setUser(null));
       })
-      .catch((err) => console.error(err))
-      .finally(() => dispatch(setAuthChecked(true)));
+      .catch((err) => console.error(err));
   };
+
+  let content;
+  if (status === 'loading') {
+    content = <Preloader />;
+  } else if (status === 'succeeded') {
+    content = (
+      <Form title={''} textButton={'Сохранить'} textButtonReset={'Отмена'}>
+        <Input
+          ref={inputRef}
+          type={'text'}
+          placeholder={'Имя'}
+          name={'name'}
+          error={false}
+          errorText={'Ошибка'}
+          size={'default'}
+          icon={'EditIcon'}
+          disabled={disabled}
+          onIconClick={onIconClick}
+          value={user.name}
+        />
+        <EmailInput name={'email'} isIcon={true} value={user.email} />
+        <PasswordInput name={'password'} placeholder={'Пароль'} icon={'EditIcon'} />
+      </Form>
+    );
+  } else if (status === 'failed') {
+    content = <>{error}</>;
+  }
 
   return (
     <main className="container">
@@ -54,24 +85,7 @@ function Profile() {
             изменить свои персональные данные
           </span>
         </div>
-        <div className={styles.container}>
-          <Form title={''} textButton={'Сохранить'} textButtonReset={'Отмена'}>
-            <Input
-              ref={inputRef}
-              type={'text'}
-              placeholder={'Имя'}
-              name={'name'}
-              error={false}
-              errorText={'Ошибка'}
-              size={'default'}
-              icon={'EditIcon'}
-              disabled={disabled}
-              onIconClick={onIconClick}
-            />
-            <EmailInput name={'email'} isIcon={true} />
-            <PasswordInput name={'password'} placeholder={'Пароль'} icon={'EditIcon'} />
-          </Form>
-        </div>
+        <div className={styles.container}>{content}</div>
       </div>
     </main>
   );
