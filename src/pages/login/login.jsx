@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 import Form from '@/components/form/form';
 import { useDispatch } from 'react-redux';
 import { useFormAndValidation } from '@/hooks/useForm';
-import { login, setUser } from '@/services/user/user-slice';
+import { login } from '@/services/user/actions';
 
 function Login() {
   const { handleChangeValidation, values } = useFormAndValidation();
@@ -16,14 +16,7 @@ function Login() {
   const handleLogin = (e, email, password) => {
     e.preventDefault();
 
-    dispatch(login({ email, password }))
-      .unwrap()
-      .then((res) => {
-        dispatch(setUser(res.user));
-        localStorage.setItem('refreshToken', res.refreshToken);
-        localStorage.setItem('accessToken', res.accessToken);
-      })
-      .catch((error) => console.error(error));
+    dispatch(login({ email, password }));
   };
 
   return (

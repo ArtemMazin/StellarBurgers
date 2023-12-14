@@ -9,18 +9,10 @@ import { Link } from 'react-router-dom';
 import Form from '@/components/form/form';
 import { useFormAndValidation } from '@/hooks/useForm';
 import { useDispatch } from 'react-redux';
-import { register } from '@/services/user/user-slice';
+import { register } from '@/services/user/actions';
 
 function Register() {
-  const {
-    isFormValid,
-    errors,
-    handleChangeValidation,
-    inputsValid,
-    setInputsValid,
-    values,
-    handleInput,
-  } = useFormAndValidation();
+  const { handleChangeValidation, values } = useFormAndValidation();
   const { name, email, password } = values;
 
   const dispatch = useDispatch();
@@ -28,9 +20,7 @@ function Register() {
   const handleRegister = (e, name, email, password) => {
     e.preventDefault();
 
-    dispatch(register({ name, email, password }))
-      .unwrap()
-      .catch((error) => console.error(error));
+    dispatch(register({ name, email, password }));
   };
 
   return (

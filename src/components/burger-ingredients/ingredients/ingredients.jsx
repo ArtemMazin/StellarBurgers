@@ -11,7 +11,7 @@ import {
 } from '@/services/initial-ingredients/selectors';
 import { BUNS, MAIN, SAUCES } from '@/utils/tabs-config';
 import { getIngredients } from '@/services/initial-ingredients/initial-ingredients-slice';
-import Preloader from '@/components/preloader/preloader';
+import useStatus from '@/hooks/useStatus';
 
 const Ingredients = ({ tabsRef, handleTab, activeTab }) => {
   const ingredients = useSelector(initialIngredients);
@@ -19,6 +19,12 @@ const Ingredients = ({ tabsRef, handleTab, activeTab }) => {
   const error = useSelector(errorIngredients);
 
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    if (status === 'idle') {
+      dispatch(getIngredients());
+    }
+  }, [dispatch, status]);
 
   const { buns, sauces, main } = useFilteredIngredients(ingredients);
 
@@ -51,42 +57,23 @@ const Ingredients = ({ tabsRef, handleTab, activeTab }) => {
     }
   };
 
-  useEffect(() => {
-    if (status === 'idle') {
-      dispatch(getIngredients());
-    }
-  }, [dispatch, status]);
-
-  let content;
-  if (status === 'loading') {
-    content = (
-      <li>
-        <Preloader />
-      </li>
-    );
-  } else if (status === 'succeeded') {
-    content = (
-      <>
-        <li id={BUNS} ref={bunsRef}>
-          <GroupsOfIngredients ingredientsGroup={buns} title={BUNS} />
-        </li>
-        <li id={SAUCES} ref={saucesRef}>
-          <GroupsOfIngredients ingredientsGroup={sauces} title={SAUCES} />
-        </li>
-        <li id={MAIN} ref={mainRef}>
-          <GroupsOfIngredients ingredientsGroup={main} title={MAIN} />
-        </li>
-      </>
-    );
-  } else if (status === 'failed') {
-    content = <li>{error}</li>;
-  }
-
-  return (
+  const content = useStatus(
     <ul className={`${styles.list} custom-scroll`} onScroll={(e) => handleScroll(e)}>
-      {content}
-    </ul>
+      <li id={BUNS} ref={bunsRef}>
+        <GroupsOfIngredients ingredientsGroup={buns} title={BUNS} />
+      </li>
+      <li id={SAUCES} ref={saucesRef}>
+        <GroupsOfIngredients ingredientsGroup={sauces} title={SAUCES} />
+      </li>
+      <li id={MAIN} ref={mainRef}>
+        <GroupsOfIngredients ingredientsGroup={main} title={MAIN} />
+      </li>
+    </ul>,
+    status,
+    error,
   );
+
+  return <>{content}</>;
 };
 
 export default Ingredients;

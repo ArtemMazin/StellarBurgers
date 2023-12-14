@@ -12,23 +12,14 @@ import Home from './pages/home/home';
 import NotFound from './pages/not-found-404/not-found';
 import { OnlyAuth, OnlyUnAuth } from './components/protected-route/protected-route';
 import { useDispatch } from 'react-redux';
-import { getUser, setUser } from './services/user/user-slice';
+import { getUser } from './services/user/actions';
 
 export default function App() {
   const dispatch = useDispatch();
 
   useEffect(() => {
     if (localStorage.getItem('accessToken')) {
-      dispatch(getUser())
-        .unwrap()
-        .then((res) => {
-          dispatch(setUser(res.user));
-        })
-        .catch(() => {
-          localStorage.removeItem('accessToken');
-          localStorage.removeItem('refreshToken');
-          dispatch(setUser(null));
-        });
+      dispatch(getUser());
     }
   }, [dispatch]);
 

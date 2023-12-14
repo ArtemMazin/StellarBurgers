@@ -6,10 +6,10 @@ import {
   Input,
   PasswordInput,
 } from '@ya.praktikum/react-developer-burger-ui-components';
-import { logout, setUser } from '@/services/user/user-slice';
+import { logout } from '@/services/user/actions';
 import { useDispatch, useSelector } from 'react-redux';
 import { currentUser, errorUser, statusUser } from '@/services/user/selectors';
-import Preloader from '@/components/preloader/preloader';
+import useStatus from '@/hooks/useStatus';
 
 function Profile() {
   const [disabled, setDisabled] = useState(true);
@@ -26,42 +26,30 @@ function Profile() {
   };
 
   const handleLogout = () => {
-    dispatch(logout())
-      .unwrap()
-      .then(() => {
-        localStorage.removeItem('accessToken');
-        localStorage.removeItem('refreshToken');
-        dispatch(setUser(null));
-      })
-      .catch((err) => console.error(err));
+    dispatch(logout());
   };
 
-  let content;
-  if (status === 'loading') {
-    content = <Preloader />;
-  } else if (status === 'succeeded') {
-    content = (
-      <Form title={''} textButton={'Сохранить'} textButtonReset={'Отмена'}>
-        <Input
-          ref={inputRef}
-          type={'text'}
-          placeholder={'Имя'}
-          name={'name'}
-          error={false}
-          errorText={'Ошибка'}
-          size={'default'}
-          icon={'EditIcon'}
-          disabled={disabled}
-          onIconClick={onIconClick}
-          value={user.name}
-        />
-        <EmailInput name={'email'} isIcon={true} value={user.email} />
-        <PasswordInput name={'password'} placeholder={'Пароль'} icon={'EditIcon'} />
-      </Form>
-    );
-  } else if (status === 'failed') {
-    content = <>{error}</>;
-  }
+  const content = useStatus(
+    <Form title={''} textButton={'Сохранить'} textButtonReset={'Отмена'}>
+      <Input
+        ref={inputRef}
+        type={'text'}
+        placeholder={'Имя'}
+        name={'name'}
+        error={false}
+        errorText={'Ошибка'}
+        size={'default'}
+        icon={'EditIcon'}
+        disabled={disabled}
+        onIconClick={onIconClick}
+        value={user.name}
+      />
+      <EmailInput name={'email'} isIcon={true} value={user.email} />
+      <PasswordInput name={'password'} placeholder={'Пароль'} icon={'EditIcon'} />
+    </Form>,
+    status,
+    error,
+  );
 
   return (
     <main className="container">

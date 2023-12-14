@@ -1,32 +1,5 @@
-import * as api from '@/utils/api-user';
-import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-
-export const register = createAsyncThunk(
-  'user/register-user',
-  async ({ name, email, password }) => {
-    if (!name || !email || !password) throw new Error('Заполните все поля формы');
-    const data = await api.register(name, email, password);
-
-    return data;
-  },
-);
-
-export const login = createAsyncThunk('user/login-user', async ({ email, password }) => {
-  if (!email || !password) throw new Error('Заполните все поля формы');
-  const data = await api.login(email, password);
-
-  return data;
-});
-
-export const getUser = createAsyncThunk('user/get-profile-user', async () => {
-  const data = await api.getProfileUser();
-
-  return data;
-});
-
-export const logout = createAsyncThunk('user/logout', async () => {
-  await api.logout();
-});
+import { createSlice } from '@reduxjs/toolkit';
+import { getUser, login, logout, register } from './actions';
 
 export const userSlice = createSlice({
   name: 'user',
@@ -35,48 +8,43 @@ export const userSlice = createSlice({
     status: 'idle',
     error: null,
   },
-  reducers: {
-    setUser: (state, action) => {
-      state.user = action.payload;
-    },
-  },
+  reducers: {},
   extraReducers(builder) {
     builder
-      .addCase(register.pending, (state) => {
-        state.status = 'loading';
+      .addCase(register.fulfilled, (state, action) => {
+        state.user = action.payload.user;
       })
-      .addCase(register.fulfilled, (state) => {
-        state.error = null;
-        state.status = 'succeeded';
+      .addCase(login.fulfilled, (state, action) => {
+        state.user = action.payload.user;
       })
-      .addCase(register.rejected, (state, action) => {
-        state.status = 'failed';
-        state.error = action.error.message;
+      .addCase(getUser.fulfilled, (state, action) => {
+        state.user = action.payload.user;
       })
-      .addCase(login.pending, (state) => {
-        state.status = 'loading';
+      .addCase(logout.fulfilled, (state) => {
+        state.user = null;
       })
-      .addCase(login.fulfilled, (state) => {
-        state.error = null;
-        state.status = 'succeeded';
-      })
-      .addCase(login.rejected, (state, action) => {
-        state.status = 'failed';
-        state.error = action.error.message;
-      })
-      .addCase(getUser.pending, (state) => {
-        state.status = 'loading';
-      })
-      .addCase(getUser.fulfilled, (state) => {
-        state.error = null;
-        state.status = 'succeeded';
-      })
-      .addCase(getUser.rejected, (state, action) => {
-        state.status = 'failed';
-        state.error = action.error.message;
-      });
+      .addMatcher(
+        (action) => action.type.endsWith('/fulfilled'),
+        (state) => {
+          state.status = 'succeeded';
+        },
+      )
+      .addMatcher(
+        (action) => action.type.endsWith('/pending'),
+        (state) => {
+          state.status = 'loading';
+          state.error = null;
+        },
+      )
+      .addMatcher(
+        (action) => action.type.endsWith('/rejected'),
+        (state, action) => {
+          state.status = 'failed';
+          state.user = null;
+          state.error = action.payload || action.error.message;
+        },
+      );
   },
 });
 
-export const { setUser } = userSlice.actions;
 export default userSlice.reducer;
