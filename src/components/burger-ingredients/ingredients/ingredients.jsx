@@ -1,30 +1,14 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useRef } from 'react';
 import PropTypes from 'prop-types';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import styles from './ingredients.module.css';
 import useFilteredIngredients from '@/hooks/useFilteredIngredients';
 import GroupsOfIngredients from './groups-of-ingredients/groups-of-ingredients';
-import {
-  initialIngredients,
-  statusIngredients,
-  errorIngredients,
-} from '@/services/initial-ingredients/selectors';
+import { initialIngredients } from '@/services/initial-ingredients/selectors';
 import { BUNS, MAIN, SAUCES } from '@/utils/tabs-config';
-import { getIngredients } from '@/services/initial-ingredients/initial-ingredients-slice';
-import useStatus from '@/hooks/useStatus';
 
 const Ingredients = ({ tabsRef, handleTab, activeTab }) => {
   const ingredients = useSelector(initialIngredients);
-  const status = useSelector(statusIngredients);
-  const error = useSelector(errorIngredients);
-
-  const dispatch = useDispatch();
-
-  useEffect(() => {
-    if (status === 'idle') {
-      dispatch(getIngredients());
-    }
-  }, [dispatch, status]);
 
   const { buns, sauces, main } = useFilteredIngredients(ingredients);
 
@@ -57,7 +41,7 @@ const Ingredients = ({ tabsRef, handleTab, activeTab }) => {
     }
   };
 
-  const content = useStatus(
+  return (
     <ul className={`${styles.list} custom-scroll`} onScroll={(e) => handleScroll(e)}>
       <li id={BUNS} ref={bunsRef}>
         <GroupsOfIngredients ingredientsGroup={buns} title={BUNS} />
@@ -68,12 +52,8 @@ const Ingredients = ({ tabsRef, handleTab, activeTab }) => {
       <li id={MAIN} ref={mainRef}>
         <GroupsOfIngredients ingredientsGroup={main} title={MAIN} />
       </li>
-    </ul>,
-    status,
-    error,
+    </ul>
   );
-
-  return <>{content}</>;
 };
 
 export default Ingredients;

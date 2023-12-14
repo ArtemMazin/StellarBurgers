@@ -1,52 +1,21 @@
-import Form from '@/components/form/form';
+import React from 'react';
 import styles from './profile.module.css';
-import React, { useState } from 'react';
-import {
-  EmailInput,
-  Input,
-  PasswordInput,
-} from '@ya.praktikum/react-developer-burger-ui-components';
-import { logout } from '@/services/user/actions';
-import { useDispatch, useSelector } from 'react-redux';
-import { currentUser, errorUser, statusUser } from '@/services/user/selectors';
+import { useSelector } from 'react-redux';
+import { errorUser, statusUser } from '@/services/user/selectors';
 import useStatus from '@/hooks/useStatus';
+import Preloader from '@/components/preloader/preloader';
+import ProfileTabs from '@/components/profile-tabs/profile-tabs';
+import ProfileForm from '@/components/profile-form/profile-form';
 
 function Profile() {
-  const [disabled, setDisabled] = useState(true);
-  const user = useSelector(currentUser);
   const status = useSelector(statusUser);
   const error = useSelector(errorUser);
 
-  const dispatch = useDispatch();
-
-  const inputRef = React.useRef(null);
-  const onIconClick = () => {
-    setDisabled(!disabled);
-    setTimeout(() => inputRef.current.focus(), 0);
-  };
-
-  const handleLogout = () => {
-    dispatch(logout());
-  };
-
   const content = useStatus(
-    <Form title={''} textButton={'Сохранить'} textButtonReset={'Отмена'}>
-      <Input
-        ref={inputRef}
-        type={'text'}
-        placeholder={'Имя'}
-        name={'name'}
-        error={false}
-        errorText={'Ошибка'}
-        size={'default'}
-        icon={'EditIcon'}
-        disabled={disabled}
-        onIconClick={onIconClick}
-        value={user.name}
-      />
-      <EmailInput name={'email'} isIcon={true} value={user.email} />
-      <PasswordInput name={'password'} placeholder={'Пароль'} icon={'EditIcon'} />
-    </Form>,
+    <div className="pt-20 pl-30 ml-25">
+      <Preloader />
+    </div>,
+    <ProfileForm />,
     status,
     error,
   );
@@ -55,19 +24,7 @@ function Profile() {
     <main className="container">
       <div className={styles.main}>
         <div className={`${styles.nav} ml-5`}>
-          <ul className={`${styles.links} mb-20 text text_type_main-medium`}>
-            <li>
-              <span className={styles.link}>Профиль</span>
-            </li>
-            <li>
-              <span className={styles.link}>История заказов</span>
-            </li>
-            <li>
-              <button className={styles.link} onClick={handleLogout}>
-                Выход
-              </button>
-            </li>
-          </ul>
+          <ProfileTabs />
           <span className={`${styles.text} text text_type_main-small text_color_inactive`}>
             В этом разделе вы можете <br />
             изменить свои персональные данные

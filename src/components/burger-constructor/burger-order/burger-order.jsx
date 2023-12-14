@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Button, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import styles from './burger-order.module.css';
 import Modal from '@/components/modal/modal';
@@ -10,8 +10,12 @@ import { currentOrder, orderStatus, orderError } from '@/services/order/selector
 import { createOrder, removeOrder } from '@/services/order/order-slice';
 import { deleteAllIngredients } from '@/services/constructor/constructor-slice';
 import Preloader from '@/components/preloader/preloader';
+import { useNavigate } from 'react-router-dom';
+import { URL } from '@/utils/url-config';
+import useStatus from '@/hooks/useStatus';
 
 function BurgerOrder() {
+  const [isActiveModal, setActiveModal] = useState(false);
   const ingredients = useSelector(allIngredients);
   const bun = useSelector(selectedBun);
   const order = useSelector(currentOrder);
@@ -21,6 +25,8 @@ function BurgerOrder() {
   const totalPrice = useTotalPrice(ingredients, bun);
 
   const dispatch = useDispatch();
+
+  const navigate = useNavigate();
 
   function getAllId(bun, ingredients) {
     if (!bun || ingredients.length < 1) {
@@ -38,20 +44,31 @@ function BurgerOrder() {
   const handleOrder = (e) => {
     e.preventDefault();
 
-    dispatch(createOrder(getAllId(bun, ingredients)))
-      .unwrap()
-      .then(() => dispatch(deleteAllIngredients()))
-      .catch((error) => console.error(error));
+    if (localStorage.getItem('accessToken')) {
+      setActiveModal(true);
+      dispatch(createOrder(getAllId(bun, ingredients)))
+        .unwrap()
+        .then(() => dispatch(deleteAllIngredients()))
+        .catch((error) => console.error(error));
+    } else {
+      navigate(URL.LOGIN);
+    }
   };
 
-  let content;
-  if (status === 'loading') {
-    content = <Preloader />;
-  } else if (status === 'succeeded') {
-    content = <OrderDetails order={order} />;
-  } else if (status === 'failed') {
-    content = <>{error}</>;
-  }
+  const content = useStatus(
+    <div className="pb-8" style={{ textAlign: 'center' }}>
+      <p className="mb-4 text text_type_main-medium">Оформляем заказ...</p>
+      <Preloader />
+    </div>,
+    <OrderDetails order={order} />,
+    status,
+    error,
+  );
+
+  const handleClose = () => {
+    dispatch(removeOrder());
+    setActiveModal(false);
+  };
 
   return (
     <div className={`${styles.order} pr-4`}>
@@ -62,7 +79,7 @@ function BurgerOrder() {
       <Button htmlType="button" type="primary" size="large" onClick={handleOrder}>
         Оформить заказ
       </Button>
-      {order && <Modal onClose={() => dispatch(removeOrder())}>{content}</Modal>}
+      {(isActiveModal || order) && <Modal onClose={handleClose}>{content}</Modal>}
     </div>
   );
 }

@@ -1,10 +1,7 @@
-import Preloader from '@/components/preloader/preloader';
-import React from 'react';
-
-function useStatus(content, status, error) {
+function useStatus(loading, content, status, error) {
   let render;
   if (status === 'loading') {
-    render = <Preloader />;
+    render = loading;
   } else if (status === 'succeeded') {
     render = content;
   } else if (status === 'failed') {

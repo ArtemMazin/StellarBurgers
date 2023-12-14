@@ -79,3 +79,23 @@ export function logout() {
     }),
   });
 }
+
+async function request(url, options) {
+  const res = await fetch(url, options);
+  return checkReponse(res);
+}
+
+export function getIngredients() {
+  return request(`${BASE_API_URL}/ingredients`);
+}
+
+export function createOrder(itemsID) {
+  return fetchWithRefresh(`${BASE_API_URL}/orders`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      authorization: localStorage.getItem('accessToken'),
+    },
+    body: JSON.stringify({ ingredients: itemsID }),
+  });
+}

@@ -1,4 +1,4 @@
-import * as api from '@/utils/api-user';
+import * as api from '@/utils/api';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 
 const setRefreshToken = (data) => localStorage.setItem('refreshToken', data.refreshToken);
