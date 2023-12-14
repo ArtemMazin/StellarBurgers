@@ -3,10 +3,14 @@ import styles from './ingredient-details.module.css';
 import ingredientPropTypes from '@/utils/prop-types';
 import Composition from './composition/composition';
 import { useSelector } from 'react-redux';
-import { currentIngredient } from '@/services/current-ingredient/selecrors';
+import { useParams } from 'react-router';
+import { initialIngredients } from '@/services/initial-ingredients/selectors';
 
 export default function IngredientDetails() {
-  const ingredient = useSelector(currentIngredient);
+  const { ingredientId } = useParams();
+
+  const ingredients = useSelector(initialIngredients);
+  const ingredient = ingredients.filter((item) => item._id === ingredientId)[0];
 
   return (
     <div className={styles.container}>

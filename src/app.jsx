@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { Routes, Route } from 'react-router-dom';
+import { Routes, Route, useLocation, useNavigate } from 'react-router-dom';
 import AppHeader from './components/app-header/app-header';
 import ErrorBoundary from './components/error-boundary/error-boendary';
 import Login from './pages/login/login';
@@ -13,9 +13,18 @@ import NotFound from './pages/not-found-404/not-found';
 import { OnlyAuth, OnlyUnAuth } from './components/protected-route/protected-route';
 import { useDispatch } from 'react-redux';
 import { getUser } from './services/user/actions';
+import Modal from './components/modal/modal';
+import IngredientDetails from './components/modal/ingredient-details/ingredient-details';
 
 export default function App() {
   const dispatch = useDispatch();
+  const location = useLocation();
+  const navigate = useNavigate();
+  const background = location.state && location.state.background;
+
+  const handleModalClose = () => {
+    navigate(-1);
+  };
 
   useEffect(() => {
     if (localStorage.getItem('accessToken')) {
@@ -32,9 +41,23 @@ export default function App() {
         <Route path={URL.REGISTER} element={<OnlyUnAuth component={<Register />} />} />
         <Route path={URL.FORGOT_PASSWORD} element={<OnlyUnAuth component={<ForgotPassword />} />} />
         <Route path={URL.RESET_PASSWORD} element={<OnlyUnAuth component={<ResetPassword />} />} />
+        <Route path={URL.INGREDIENT} element={<IngredientDetails />} />
         <Route path={URL.PROFILE} element={<OnlyAuth component={<Profile />} />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
+
+      {background && (
+        <Routes>
+          <Route
+            path={URL.INGREDIENT}
+            element={
+              <Modal onClose={handleModalClose} title={'Детали ингредиента'}>
+                <IngredientDetails />
+              </Modal>
+            }
+          />
+        </Routes>
+      )}
     </ErrorBoundary>
   );
 }

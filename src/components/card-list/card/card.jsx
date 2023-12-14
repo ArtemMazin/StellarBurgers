@@ -6,14 +6,16 @@ import { Counter, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-c
 import ingredientPropTypes from '@/utils/prop-types';
 import { useDispatch, useSelector } from 'react-redux';
 import useCounter from '@/hooks/useCounter';
-import { setCurrentIngredient } from '@/services/current-ingredient/current-ingredient-slice';
 import { allIngredients, selectedBun } from '@/services/constructor/selectors';
 import { ItemTypes, config } from '@/utils/drag-configs';
 import { useDrag } from 'react-dnd';
+import { Link, useLocation } from 'react-router-dom';
 
 export default function Card({ item }) {
   const ingredients = useSelector(allIngredients);
   const bun = useSelector(selectedBun);
+
+  const location = useLocation();
 
   const count = useCounter(bun, ingredients, item);
 
@@ -48,9 +50,15 @@ export default function Card({ item }) {
   };
 
   return (
-    <div className={`${styles.card} p-1`} ref={drag} style={getStyles(isDragging)}>
+    <Link
+      className={`${styles.card} p-1`}
+      ref={drag}
+      style={getStyles(isDragging)}
+      to={`/ingredients/${item._id}`}
+      state={{ background: location }}
+    >
       {count > 0 && <Counter count={count} size="default" extraClass="" />}
-      <div onClick={() => dispatch(setCurrentIngredient(item))}>
+      <div>
         <img src={item.image} alt={item.name} />
       </div>
       <div className={`${styles.price} text text_type_digits-default`}>
@@ -58,7 +66,7 @@ export default function Card({ item }) {
         <CurrencyIcon type="primary" />
       </div>
       <h3 className="text text_type_main-default">{item.name}</h3>
-    </div>
+    </Link>
   );
 }
 

@@ -6,7 +6,7 @@ import OrderDetails from '@/components/modal/order-details/order-details';
 import { useDispatch, useSelector } from 'react-redux';
 import useTotalPrice from '@/hooks/useTotalPrice';
 import { allIngredients, selectedBun } from '@/services/constructor/selectors';
-import { currentOrder, currentStatus, currentError } from '@/services/order/selectors';
+import { currentOrder, orderStatus, orderError } from '@/services/order/selectors';
 import { createOrder, removeOrder } from '@/services/order/order-slice';
 import { deleteAllIngredients } from '@/services/constructor/constructor-slice';
 import Preloader from '@/components/preloader/preloader';
@@ -15,8 +15,8 @@ function BurgerOrder() {
   const ingredients = useSelector(allIngredients);
   const bun = useSelector(selectedBun);
   const order = useSelector(currentOrder);
-  const status = useSelector(currentStatus);
-  const error = useSelector(currentError);
+  const status = useSelector(orderStatus);
+  const error = useSelector(orderError);
 
   const totalPrice = useTotalPrice(ingredients, bun);
 
