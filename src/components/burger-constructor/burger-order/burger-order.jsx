@@ -44,12 +44,13 @@ function BurgerOrder() {
   const handleOrder = (e) => {
     e.preventDefault();
 
+    if (status === 'loading') {
+      return;
+    }
     if (localStorage.getItem('accessToken')) {
       setActiveModal(true);
-      dispatch(createOrder(getAllId(bun, ingredients)))
-        .unwrap()
-        .then(() => dispatch(deleteAllIngredients()))
-        .catch((error) => console.error(error));
+      dispatch(createOrder(getAllId(bun, ingredients)));
+      dispatch(deleteAllIngredients());
     } else {
       navigate(URL.LOGIN);
     }
@@ -61,6 +62,13 @@ function BurgerOrder() {
       <Preloader />
     </div>,
     <OrderDetails order={order} />,
+    status,
+    error,
+  );
+
+  const textButton = useStatus(
+    <span>Оформляем...</span>,
+    <span>Оформить заказ</span>,
     status,
     error,
   );
@@ -77,7 +85,7 @@ function BurgerOrder() {
         <CurrencyIcon type="primary" />
       </div>
       <Button htmlType="button" type="primary" size="large" onClick={handleOrder}>
-        Оформить заказ
+        {textButton}
       </Button>
       {(isActiveModal || order) && <Modal onClose={handleClose}>{content}</Modal>}
     </div>

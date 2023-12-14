@@ -1,6 +1,8 @@
 function useStatus(loading, content, status, error) {
   let render;
-  if (status === 'loading') {
+  if (status === 'idle') {
+    render = content;
+  } else if (status === 'loading') {
     render = loading;
   } else if (status === 'succeeded') {
     render = content;
