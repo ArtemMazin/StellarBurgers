@@ -7,7 +7,7 @@ function useStatus(loading, content, status, error) {
   } else if (status === 'succeeded') {
     render = content;
   } else if (status === 'failed') {
-    render = error;
+    render = content;
   }
   return render;
 }

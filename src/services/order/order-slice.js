@@ -25,11 +25,11 @@ export const orderSlice = createSlice({
     builder
       .addCase(createOrder.pending, (state) => {
         state.status = 'loading';
+        state.error = null;
       })
       .addCase(createOrder.fulfilled, (state, action) => {
         state.status = 'succeeded';
         state.order = action.payload;
-        state.error = null;
       })
       .addCase(createOrder.rejected, (state, action) => {
         state.status = 'failed';

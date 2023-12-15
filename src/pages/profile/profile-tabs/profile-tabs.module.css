@@ -1,0 +1,18 @@
+.links {
+  list-style-type: none;
+}
+
+.link {
+  display: flex;
+  height: 64px;
+  align-items: center;
+  cursor: pointer;
+}
+
+.button {
+  /* stylelint-disable-next-line property-no-unknown */
+  composes: link;
+  border: none;
+  background-color: var(--background);
+  color: var(--text-primary-color);
+}

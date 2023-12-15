@@ -4,8 +4,8 @@ import { useSelector } from 'react-redux';
 import { errorUser, statusUser } from '@/services/user/selectors';
 import useStatus from '@/hooks/useStatus';
 import Preloader from '@/components/preloader/preloader';
-import ProfileTabs from '@/components/profile-tabs/profile-tabs';
-import ProfileForm from '@/components/profile-form/profile-form';
+import ProfileTabs from '@/pages/profile/profile-tabs/profile-tabs';
+import ProfileForm from '@/pages/profile/profile-form/profile-form';
 
 function Profile() {
   const status = useSelector(statusUser);

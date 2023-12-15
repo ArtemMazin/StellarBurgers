@@ -19,7 +19,7 @@ function ProfileTabs() {
         <span className={styles.link}>История заказов</span>
       </li>
       <li>
-        <button className={styles.link} onClick={handleLogout}>
+        <button className={`${styles.button} text text_type_main-medium`} onClick={handleLogout}>
           Выход
         </button>
       </li>

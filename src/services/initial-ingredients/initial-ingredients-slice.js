@@ -18,9 +18,9 @@ export const initialIngredientsSlice = createSlice({
     builder
       .addCase(getIngredients.pending, (state) => {
         state.status = 'loading';
+        state.error = null;
       })
       .addCase(getIngredients.fulfilled, (state, action) => {
-        state.error = null;
         state.status = 'succeeded';
         state.initialIngredients = action.payload;
       })
