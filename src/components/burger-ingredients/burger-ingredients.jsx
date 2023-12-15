@@ -17,10 +17,8 @@ function BurgerIngredients() {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    if (status === 'idle') {
-      dispatch(getIngredients());
-    }
-  }, [dispatch, status]);
+    dispatch(getIngredients());
+  }, [dispatch]);
 
   const handleTab = (tabName) => {
     setActiveTab(tabName);

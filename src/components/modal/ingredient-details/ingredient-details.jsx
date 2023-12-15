@@ -10,7 +10,9 @@ export default function IngredientDetails() {
   const { ingredientId } = useParams();
 
   const ingredients = useSelector(initialIngredients);
-  const ingredient = ingredients.filter((item) => item._id === ingredientId)[0];
+
+  const ingredient =
+    ingredients.length > 0 && ingredients.filter((item) => item._id === ingredientId)[0];
 
   return (
     <div className={styles.container}>

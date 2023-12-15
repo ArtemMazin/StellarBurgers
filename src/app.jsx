@@ -15,6 +15,7 @@ import { useDispatch } from 'react-redux';
 import { getUser } from './services/user/actions';
 import Modal from './components/modal/modal';
 import IngredientDetails from './components/modal/ingredient-details/ingredient-details';
+import Ingredient from './pages/ingredient/ingredient';
 
 export default function App() {
   const dispatch = useDispatch();
@@ -41,7 +42,7 @@ export default function App() {
         <Route path={URL.REGISTER} element={<OnlyUnAuth component={<Register />} />} />
         <Route path={URL.FORGOT_PASSWORD} element={<OnlyUnAuth component={<ForgotPassword />} />} />
         <Route path={URL.RESET_PASSWORD} element={<OnlyUnAuth component={<ResetPassword />} />} />
-        <Route path={URL.INGREDIENT} element={<IngredientDetails />} />
+        <Route path={URL.INGREDIENT} element={<Ingredient />} />
         <Route path={URL.PROFILE} element={<OnlyAuth component={<Profile />} />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
