@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Button, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import styles from './burger-order.module.css';
 import Modal from '@/components/modal/modal';
@@ -9,13 +9,11 @@ import { allIngredients, selectedBun } from '@/services/constructor/selectors';
 import { currentOrder, orderStatus, orderError } from '@/services/order/selectors';
 import { createOrder, removeOrder } from '@/services/order/order-slice';
 import { deleteAllIngredients } from '@/services/constructor/constructor-slice';
-import Preloader from '@/components/preloader/preloader';
 import { useNavigate } from 'react-router-dom';
 import { URL } from '@/utils/url-config';
 import useStatus from '@/hooks/useStatus';
 
 function BurgerOrder() {
-  const [isActiveNotification, setActiveNotification] = useState(false);
   const ingredients = useSelector(allIngredients);
   const bun = useSelector(selectedBun);
   const order = useSelector(currentOrder);
@@ -48,23 +46,12 @@ function BurgerOrder() {
       return;
     }
     if (localStorage.getItem('accessToken')) {
-      setActiveNotification(true);
-      dispatch(createOrder(getAllId(bun, ingredients))).then(() => setActiveNotification(false));
+      dispatch(createOrder(getAllId(bun, ingredients)));
       dispatch(deleteAllIngredients());
     } else {
       navigate(URL.LOGIN);
     }
   };
-
-  const content = useStatus(
-    <div className="pb-8" style={{ textAlign: 'center' }}>
-      <p className="mb-4 text text_type_main-medium">Оформляем заказ...</p>
-      <Preloader />
-    </div>,
-    <OrderDetails order={order} />,
-    status,
-    error,
-  );
 
   const textButton = useStatus(
     <span>Оформляем...</span>,
@@ -76,9 +63,6 @@ function BurgerOrder() {
   const handleOrderClose = () => {
     dispatch(removeOrder());
   };
-  const handleNotificationClose = () => {
-    setActiveNotification(false);
-  };
 
   return (
     <div className={`${styles.order} pr-4`}>
@@ -89,14 +73,10 @@ function BurgerOrder() {
       <Button htmlType="button" type="primary" size="large" onClick={handleOrder}>
         {textButton}
       </Button>
-      {isActiveNotification && (
-        <Modal isOpen={isActiveNotification} onClose={handleNotificationClose}>
-          {content}
-        </Modal>
-      )}
+
       {order && (
         <Modal isOpen={order} onClose={handleOrderClose}>
-          {content}
+          <OrderDetails order={order} />
         </Modal>
       )}
     </div>

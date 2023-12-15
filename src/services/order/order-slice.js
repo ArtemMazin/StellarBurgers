@@ -1,9 +1,13 @@
 import * as api from '@/utils/api';
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import { toast } from 'react-toastify';
 
 export const createOrder = createAsyncThunk('ingredients/create-order', async (allID) => {
   if (!allID) throw new Error('Выберите булку и ингредиенты');
+
+  toast.info('Оформляем заказ');
   const { order } = await api.createOrder(allID);
+
   return order;
 });
 

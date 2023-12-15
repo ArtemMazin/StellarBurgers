@@ -1,5 +1,6 @@
 import * as api from '@/utils/api';
 import { createAsyncThunk } from '@reduxjs/toolkit';
+import { toast } from 'react-toastify';
 
 const setRefreshToken = (data) => localStorage.setItem('refreshToken', data.refreshToken);
 const setAccessToken = (data) => localStorage.setItem('accessToken', data.accessToken);
@@ -15,6 +16,7 @@ export const register = createAsyncThunk(
     setRefreshToken(data);
     setAccessToken(data);
 
+    toast.success('Регистрация прошла успешно');
     return data;
   },
 );
@@ -26,6 +28,7 @@ export const login = createAsyncThunk('user/login-user', async ({ email, passwor
   setRefreshToken(data);
   setAccessToken(data);
 
+  toast.success('Вход выполнен');
   return data;
 });
 
@@ -33,6 +36,7 @@ export const getUser = createAsyncThunk('user/get-profile-user', async (_, { rej
   try {
     const data = await api.getProfileUser();
 
+    toast.success('Вход выполнен');
     return data;
   } catch (error) {
     removeRefreshToken();
@@ -46,4 +50,5 @@ export const logout = createAsyncThunk('user/logout', async () => {
   await api.logout();
   removeRefreshToken();
   removeAccessToken();
+  toast.success('Выход выполнен');
 });

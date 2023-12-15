@@ -16,6 +16,8 @@ import { getUser } from './services/user/actions';
 import Modal from './components/modal/modal';
 import IngredientDetails from './components/modal/ingredient-details/ingredient-details';
 import Ingredient from './pages/ingredient/ingredient';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export default function App() {
   const dispatch = useDispatch();
@@ -46,7 +48,7 @@ export default function App() {
         <Route path={URL.PROFILE} element={<OnlyAuth component={<Profile />} />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
-
+      <ToastContainer theme="dark" />
       {background && (
         <Routes>
           <Route
