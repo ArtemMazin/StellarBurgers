@@ -1,10 +1,18 @@
 import * as api from '@/utils/api';
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 
-export const getIngredients = createAsyncThunk('ingredients/get-ingredients', async () => {
-  const { data } = await api.getIngredients();
-  return data;
-});
+export const getIngredients = createAsyncThunk(
+  'ingredients/get-ingredients',
+  async (_, { rejectWithValue }) => {
+    try {
+      const { data } = await api.getIngredients();
+
+      return data;
+    } catch (error) {
+      return rejectWithValue('Возникла ошибка, обновите страницу');
+    }
+  },
+);
 
 export const initialIngredientsSlice = createSlice({
   name: 'initialIngredients',

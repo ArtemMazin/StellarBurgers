@@ -18,6 +18,7 @@ import IngredientDetails from './components/modal/ingredient-details/ingredient-
 import Ingredient from './pages/ingredient/ingredient';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { toast } from 'react-toastify';
 
 export default function App() {
   const dispatch = useDispatch();
@@ -31,7 +32,12 @@ export default function App() {
 
   useEffect(() => {
     if (localStorage.getItem('accessToken')) {
-      dispatch(getUser());
+      dispatch(getUser())
+        .unwrap()
+        .then(() => toast.info('Вход выполнен успешно'))
+        .catch((err) => {
+          toast.error(err);
+        });
     }
   }, [dispatch]);
 

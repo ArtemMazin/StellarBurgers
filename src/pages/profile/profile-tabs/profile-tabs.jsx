@@ -2,12 +2,18 @@ import React from 'react';
 import { logout } from '@/services/user/actions';
 import styles from './profile-tabs.module.css';
 import { useDispatch } from 'react-redux';
+import { toast } from 'react-toastify';
 
 function ProfileTabs() {
   const dispatch = useDispatch();
 
   const handleLogout = () => {
-    dispatch(logout());
+    dispatch(logout())
+      .unwrap()
+      .then(() => toast.info('Вы вышли из аккаунта'))
+      .catch((err) => {
+        toast.error(err);
+      });
   };
 
   return (

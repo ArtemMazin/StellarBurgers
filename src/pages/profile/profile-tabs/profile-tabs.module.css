@@ -13,6 +13,6 @@
   /* stylelint-disable-next-line property-no-unknown */
   composes: link;
   border: none;
-  background-color: var(--background);
+  background-color: var(--background-alt);
   color: var(--text-primary-color);
 }

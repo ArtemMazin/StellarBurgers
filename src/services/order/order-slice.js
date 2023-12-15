@@ -1,15 +1,18 @@
 import * as api from '@/utils/api';
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import { toast } from 'react-toastify';
 
-export const createOrder = createAsyncThunk('ingredients/create-order', async (allID) => {
-  if (!allID) throw new Error('Выберите булку и ингредиенты');
+export const createOrder = createAsyncThunk(
+  'ingredients/create-order',
+  async (allID, { rejectWithValue }) => {
+    try {
+      const { order } = await api.createOrder(allID);
 
-  toast.info('Оформляем заказ');
-  const { order } = await api.createOrder(allID);
-
-  return order;
-});
+      return order;
+    } catch (error) {
+      return rejectWithValue('Не получилось оформить заказ, попробуйте снова');
+    }
+  },
+);
 
 export const orderSlice = createSlice({
   name: 'order',

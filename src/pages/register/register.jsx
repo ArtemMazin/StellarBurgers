@@ -10,6 +10,7 @@ import Form from '@/components/form/form';
 import { useFormAndValidation } from '@/hooks/useForm';
 import { useDispatch } from 'react-redux';
 import { register } from '@/services/user/actions';
+import { toast } from 'react-toastify';
 
 function Register() {
   const { handleChangeValidation, values } = useFormAndValidation();
@@ -20,7 +21,19 @@ function Register() {
   const handleRegister = (e, name, email, password) => {
     e.preventDefault();
 
-    dispatch(register({ name, email, password }));
+    if (name && email && password) {
+      dispatch(register({ name, email, password }))
+        .unwrap()
+        .then(() => toast.info('Регистрация прошла успешно'))
+        .catch((err) => {
+          toast.error(err);
+        });
+
+      return;
+    }
+
+    toast.error('Заполните все поля формы');
+    return;
   };
 
   return (

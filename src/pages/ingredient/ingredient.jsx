@@ -3,12 +3,17 @@ import styles from './ingredient.module.css';
 import React, { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { getIngredients } from '@/services/initial-ingredients/initial-ingredients-slice';
+import { toast } from 'react-toastify';
 
 function Ingredient() {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(getIngredients());
+    dispatch(getIngredients())
+      .unwrap()
+      .catch((err) => {
+        toast.error(err);
+      });
   }, [dispatch]);
 
   return (

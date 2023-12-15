@@ -12,6 +12,7 @@ import { deleteAllIngredients } from '@/services/constructor/constructor-slice';
 import { useNavigate } from 'react-router-dom';
 import { URL } from '@/utils/url-config';
 import useStatus from '@/hooks/useStatus';
+import { toast } from 'react-toastify';
 
 function BurgerOrder() {
   const ingredients = useSelector(allIngredients);
@@ -27,10 +28,6 @@ function BurgerOrder() {
   const navigate = useNavigate();
 
   function getAllId(bun, ingredients) {
-    if (!bun || ingredients.length < 1) {
-      throw new Error('Выберите булку и ингредиенты');
-    }
-
     const ingredientsID = ingredients.map((item) => item._id);
     ingredientsID.push(bun._id);
     ingredientsID.unshift(bun._id);
@@ -43,14 +40,27 @@ function BurgerOrder() {
     e.preventDefault();
 
     if (status === 'loading') {
+      toast.info('Заказ оформляется, подождите');
       return;
     }
-    if (localStorage.getItem('accessToken')) {
-      dispatch(createOrder(getAllId(bun, ingredients)));
-      dispatch(deleteAllIngredients());
-    } else {
+    if (!localStorage.getItem('accessToken')) {
+      toast.error('Для оформления заказа войдите в аккаунт');
       navigate(URL.LOGIN);
+      return;
     }
+    if (!bun || ingredients.length <= 0) {
+      toast.error('Выберите булку и ингредиенты');
+      return;
+    }
+
+    toast.info('Оформляем заказ');
+    dispatch(createOrder(getAllId(bun, ingredients)))
+      .unwrap()
+      .catch((err) => {
+        toast.error(err);
+      });
+
+    dispatch(deleteAllIngredients());
   };
 
   const textButton = useStatus(

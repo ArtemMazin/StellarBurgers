@@ -1,6 +1,5 @@
 import * as api from '@/utils/api';
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { toast } from 'react-toastify';
 
 const setRefreshToken = (data) => localStorage.setItem('refreshToken', data.refreshToken);
 const setAccessToken = (data) => localStorage.setItem('accessToken', data.accessToken);
@@ -9,46 +8,55 @@ const removeAccessToken = () => localStorage.removeItem('accessToken');
 
 export const register = createAsyncThunk(
   'user/register-user',
-  async ({ name, email, password }) => {
-    if (!name || !email || !password) throw new Error('Заполните все поля формы');
-    const data = await api.register(name, email, password);
+  async ({ name, email, password }, { rejectWithValue }) => {
+    try {
+      const data = await api.register(name, email, password);
 
-    setRefreshToken(data);
-    setAccessToken(data);
+      setRefreshToken(data);
+      setAccessToken(data);
 
-    toast.success('Регистрация прошла успешно');
-    return data;
+      return data;
+    } catch (error) {
+      return rejectWithValue('Не получилось зарегистрироваться, попробуйте снова');
+    }
   },
 );
 
-export const login = createAsyncThunk('user/login-user', async ({ email, password }) => {
-  if (!email || !password) throw new Error('Заполните все поля формы');
-  const data = await api.login(email, password);
+export const login = createAsyncThunk(
+  'user/login-user',
+  async ({ email, password }, { rejectWithValue }) => {
+    try {
+      const data = await api.login(email, password);
 
-  setRefreshToken(data);
-  setAccessToken(data);
+      setRefreshToken(data);
+      setAccessToken(data);
 
-  toast.success('Вход выполнен');
-  return data;
-});
+      return data;
+    } catch (error) {
+      return rejectWithValue('Не удалось войти в аккаунт');
+    }
+  },
+);
 
 export const getUser = createAsyncThunk('user/get-profile-user', async (_, { rejectWithValue }) => {
   try {
     const data = await api.getProfileUser();
 
-    toast.success('Вход выполнен');
     return data;
   } catch (error) {
     removeRefreshToken();
     removeAccessToken();
 
-    return rejectWithValue(error.response.data);
+    return rejectWithValue('Не удалось войти в аккаунт');
   }
 });
 
-export const logout = createAsyncThunk('user/logout', async () => {
-  await api.logout();
-  removeRefreshToken();
-  removeAccessToken();
-  toast.success('Выход выполнен');
+export const logout = createAsyncThunk('user/logout', async (_, { rejectWithValue }) => {
+  try {
+    await api.logout();
+    removeRefreshToken();
+    removeAccessToken();
+  } catch (error) {
+    return rejectWithValue('Не удалось выйти из аккаунта, попробуйте снова');
+  }
 });

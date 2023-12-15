@@ -9,6 +9,7 @@ import { login } from '@/services/user/actions';
 import useStatus from '@/hooks/useStatus';
 import Preloader from '@/components/preloader/preloader';
 import { errorUser, statusUser } from '@/services/user/selectors';
+import { toast } from 'react-toastify';
 
 function Login() {
   const { handleChangeValidation, values } = useFormAndValidation();
@@ -22,7 +23,18 @@ function Login() {
   const handleLogin = (e, email, password) => {
     e.preventDefault();
 
-    dispatch(login({ email, password }));
+    if (email && password) {
+      dispatch(login({ email, password }))
+        .unwrap()
+        .then(() => toast.info('Вход выполнен успешно'))
+        .catch((err) => {
+          toast.error(err);
+        });
+      return;
+    }
+
+    toast.error('Заполните все поля формы');
+    return;
   };
 
   const content = useStatus(
