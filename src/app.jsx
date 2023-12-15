@@ -51,7 +51,7 @@ export default function App() {
           <Route
             path={URL.INGREDIENT}
             element={
-              <Modal onClose={handleModalClose} title={'Детали ингредиента'}>
+              <Modal isOpen={background} onClose={handleModalClose} title={'Детали ингредиента'}>
                 <IngredientDetails />
               </Modal>
             }

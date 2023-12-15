@@ -15,7 +15,7 @@ import { URL } from '@/utils/url-config';
 import useStatus from '@/hooks/useStatus';
 
 function BurgerOrder() {
-  const [isActiveModal, setActiveModal] = useState(false);
+  const [isActiveNotification, setActiveNotification] = useState(false);
   const ingredients = useSelector(allIngredients);
   const bun = useSelector(selectedBun);
   const order = useSelector(currentOrder);
@@ -48,8 +48,8 @@ function BurgerOrder() {
       return;
     }
     if (localStorage.getItem('accessToken')) {
-      setActiveModal(true);
-      dispatch(createOrder(getAllId(bun, ingredients)));
+      setActiveNotification(true);
+      dispatch(createOrder(getAllId(bun, ingredients))).then(() => setActiveNotification(false));
       dispatch(deleteAllIngredients());
     } else {
       navigate(URL.LOGIN);
@@ -73,9 +73,11 @@ function BurgerOrder() {
     error,
   );
 
-  const handleClose = () => {
+  const handleOrderClose = () => {
     dispatch(removeOrder());
-    setActiveModal(false);
+  };
+  const handleNotificationClose = () => {
+    setActiveNotification(false);
   };
 
   return (
@@ -87,7 +89,16 @@ function BurgerOrder() {
       <Button htmlType="button" type="primary" size="large" onClick={handleOrder}>
         {textButton}
       </Button>
-      {(isActiveModal || order) && <Modal onClose={handleClose}>{content}</Modal>}
+      {isActiveNotification && (
+        <Modal isOpen={isActiveNotification} onClose={handleNotificationClose}>
+          {content}
+        </Modal>
+      )}
+      {order && (
+        <Modal isOpen={order} onClose={handleOrderClose}>
+          {content}
+        </Modal>
+      )}
     </div>
   );
 }
