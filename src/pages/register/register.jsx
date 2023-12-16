@@ -1,19 +1,25 @@
 import React from 'react';
 import styles from './register.module.css';
-import {
-  EmailInput,
-  Input,
-  PasswordInput,
-} from '@ya.praktikum/react-developer-burger-ui-components';
 import { Link } from 'react-router-dom';
 import Form from '@/components/form/form';
 import { useFormAndValidation } from '@/hooks/useForm';
 import { useDispatch } from 'react-redux';
 import { register } from '@/services/user/actions';
 import { toast } from 'react-toastify';
+import InputWithName from '@/components/form/inputs/input-with-name';
+import InputWithMail from '@/components/form/inputs/input-with-mail';
+import InputWithPassword from '@/components/form/inputs/input-with-password';
 
 function Register() {
-  const { handleChangeValidation, values } = useFormAndValidation();
+  const initialValid = {
+    name: true,
+    email: true,
+    password: true,
+  };
+
+  const { handleInput, values, errors, inputsValid, isFormValid } = useFormAndValidation({
+    initialValid,
+  });
   const { name, email, password } = values;
 
   const dispatch = useDispatch();
@@ -43,27 +49,25 @@ function Register() {
           title={'Регистрация'}
           textButton={'Зарегистрироваться'}
           handle={(e) => handleRegister(e, name, email, password)}
+          isFormValid={isFormValid}
         >
-          <Input
-            type={'text'}
-            placeholder={'Имя'}
-            onChange={handleChangeValidation}
-            value={name || ''}
-            name={'name'}
-            error={false}
-            errorText={'Ошибка'}
-            size={'default'}
+          <InputWithName
+            handleInput={handleInput}
+            value={values?.name}
+            error={errors?.name}
+            inputValid={inputsValid?.name}
           />
-          <EmailInput
-            onChange={handleChangeValidation}
-            value={email || ''}
-            name={'email'}
-            isIcon={false}
+          <InputWithMail
+            handleInput={handleInput}
+            value={values?.email}
+            error={errors?.email}
+            inputValid={inputsValid?.email}
           />
-          <PasswordInput
-            onChange={handleChangeValidation}
-            value={password || ''}
-            name={'password'}
+          <InputWithPassword
+            handleInput={handleInput}
+            value={values?.password}
+            error={errors?.password}
+            inputValid={inputsValid?.password}
           />
         </Form>
 

@@ -1,33 +1,34 @@
 import { currentUser } from '@/services/user/selectors';
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
-import Form from '../../../components/form/form';
-import {
-  EmailInput,
-  Input,
-  PasswordInput,
-} from '@ya.praktikum/react-developer-burger-ui-components';
 import { useFormAndValidation } from '@/hooks/useForm';
+import InputWithName from '@/components/form/inputs/input-with-name';
+import InputWithMail from '@/components/form/inputs/input-with-mail';
+import InputWithPassword from '@/components/form/inputs/input-with-password';
+import Form from '@/components/form/form';
 
 function ProfileForm() {
   const [isVisibleButtons, setVisibleButtons] = useState(false);
-  const [disabled, setDisabled] = useState(true);
   const user = useSelector(currentUser);
 
-  const { handleChangeValidation, values } = useFormAndValidation({
+  const initialValues = {
     name: user.name,
     email: user.email,
+  };
+  const initialValid = {
+    name: true,
+    email: true,
+    password: true,
+  };
+
+  const { handleInput, values, errors, inputsValid, isFormValid } = useFormAndValidation({
+    initialValues,
+    initialValid,
   });
 
   useEffect(() => {
-    setVisibleButtons(values.name !== user.name || values.email !== user.email);
+    setVisibleButtons(values.name.trim() !== user.name || values.email !== user.email);
   }, [user.email, user.name, values.email, values.name]);
-
-  const inputRef = React.useRef(null);
-  const onIconClick = () => {
-    setDisabled(!disabled);
-    setTimeout(() => inputRef.current.focus(), 0);
-  };
 
   return (
     <Form
@@ -35,33 +36,25 @@ function ProfileForm() {
       textButton={'Сохранить'}
       textButtonReset={'Отмена'}
       isVisibleButtons={isVisibleButtons}
+      isFormValid={isFormValid}
     >
-      <Input
-        ref={inputRef}
-        type={'text'}
-        placeholder={'Имя'}
-        name={'name'}
-        error={false}
-        errorText={'Ошибка'}
-        size={'default'}
-        icon={'EditIcon'}
-        disabled={disabled}
-        onIconClick={onIconClick}
-        value={values.name}
-        onChange={handleChangeValidation}
+      <InputWithName
+        handleInput={handleInput}
+        value={values?.name}
+        error={errors?.name}
+        inputValid={inputsValid?.name}
       />
-      <EmailInput
-        name={'email'}
-        isIcon={true}
-        value={values.email}
-        onChange={handleChangeValidation}
+      <InputWithMail
+        handleInput={handleInput}
+        value={values?.email}
+        error={errors?.email}
+        inputValid={inputsValid?.email}
       />
-      <PasswordInput
-        name={'password'}
-        placeholder={'Пароль'}
-        icon={'EditIcon'}
-        value={values.password || ''}
-        onChange={handleChangeValidation}
+      <InputWithPassword
+        handleInput={handleInput}
+        value={values?.password}
+        error={errors?.password}
+        inputValid={inputsValid?.password}
       />
     </Form>
   );

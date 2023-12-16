@@ -40,7 +40,7 @@ function BurgerOrder() {
     e.preventDefault();
 
     if (status === 'loading') {
-      toast.info('Заказ оформляется, подождите');
+      toast.warn('Заказ оформляется, подождите');
       return;
     }
     if (!localStorage.getItem('accessToken')) {

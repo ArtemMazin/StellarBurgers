@@ -1,10 +1,10 @@
 import { useState, useCallback } from 'react';
 
-export function useFormAndValidation(initialValues = {}) {
+export function useFormAndValidation({ initialValues = {}, initialValid = {} }) {
   const [values, setValues] = useState(initialValues);
   const [isFormValid, setIsFormValid] = useState(false);
-  const [inputsValid, setInputsValid] = useState({});
-  const [errors, setErrors] = useState({});
+  const [inputsValid, setInputsValid] = useState(initialValid);
+  const [errors, setErrors] = useState(null);
 
   function handleChangeValidation(e) {
     setIsFormValid(e.target.form.checkValidity());
@@ -16,6 +16,7 @@ export function useFormAndValidation(initialValues = {}) {
   }
 
   function handleInput(e, regExp, message) {
+    e.target.setCustomValidity('');
     regExp.test(e.target.value)
       ? e.target.setCustomValidity('')
       : e.target.setCustomValidity(e.target.validationMessage || message);

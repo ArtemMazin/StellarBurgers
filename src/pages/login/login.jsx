@@ -1,4 +1,3 @@
-import { EmailInput, PasswordInput } from '@ya.praktikum/react-developer-burger-ui-components';
 import React from 'react';
 import styles from './login.module.css';
 import { Link } from 'react-router-dom';
@@ -10,9 +9,17 @@ import useStatus from '@/hooks/useStatus';
 import Preloader from '@/components/preloader/preloader';
 import { errorUser, statusUser } from '@/services/user/selectors';
 import { toast } from 'react-toastify';
+import InputWithMail from '@/components/form/inputs/input-with-mail';
+import InputWithPassword from '@/components/form/inputs/input-with-password';
 
 function Login() {
-  const { handleChangeValidation, values } = useFormAndValidation();
+  const initialValid = {
+    email: true,
+    password: true,
+  };
+  const { handleInput, values, errors, inputsValid, isFormValid } = useFormAndValidation({
+    initialValid,
+  });
   const { email, password } = values;
 
   const status = useSelector(statusUser);
@@ -41,14 +48,24 @@ function Login() {
     <div className="pt-20 pl-12">
       <Preloader />
     </div>,
-    <Form title={'Вход'} textButton={'Войти'} handle={(e) => handleLogin(e, email, password)}>
-      <EmailInput
-        onChange={handleChangeValidation}
-        value={email || ''}
-        name={'email'}
-        isIcon={false}
+    <Form
+      title={'Вход'}
+      textButton={'Войти'}
+      handle={(e) => handleLogin(e, email, password)}
+      isFormValid={isFormValid}
+    >
+      <InputWithMail
+        handleInput={handleInput}
+        value={values?.email}
+        error={errors?.email}
+        inputValid={inputsValid?.email}
       />
-      <PasswordInput onChange={handleChangeValidation} value={password || ''} name={'password'} />
+      <InputWithPassword
+        handleInput={handleInput}
+        value={values?.password}
+        error={errors?.password}
+        inputValid={inputsValid?.password}
+      />
     </Form>,
     status,
     error,
