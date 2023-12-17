@@ -4,6 +4,11 @@ const checkReponse = (res) => {
   return res.ok ? res.json() : res.json().then((err) => Promise.reject(err));
 };
 
+async function request(url, options) {
+  const res = await fetch(url, options);
+  return checkReponse(res);
+}
+
 export const refreshToken = async () => {
   const res = await fetch(`${BASE_API_URL}/auth/token`, {
     method: 'POST',
@@ -80,11 +85,6 @@ export function logout() {
   });
 }
 
-async function request(url, options) {
-  const res = await fetch(url, options);
-  return checkReponse(res);
-}
-
 export function getIngredients() {
   return request(`${BASE_API_URL}/ingredients`);
 }
@@ -97,5 +97,25 @@ export function createOrder(itemsID) {
       authorization: localStorage.getItem('accessToken'),
     },
     body: JSON.stringify({ ingredients: itemsID }),
+  });
+}
+
+export function resetPassword(email) {
+  return fetchWithRefresh(`${BASE_API_URL}/password-reset`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({ email }),
+  });
+}
+
+export function restorePassword(password, token) {
+  return fetchWithRefresh(`${BASE_API_URL}/password-reset/reset`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({ password, token }),
   });
 }

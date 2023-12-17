@@ -5,23 +5,54 @@ import { REG_EXP_PASSWORD, messages } from '@/utils/constants';
 import { Input } from '@ya.praktikum/react-developer-burger-ui-components';
 import { useSelector } from 'react-redux';
 
-function InputWithPassword({ handleInput, value, error, inputValid }) {
+function InputWithPassword({
+  icon = 'ShowIcon',
+  placeholder = 'Пароль',
+  handleInput,
+  value,
+  error,
+  inputValid,
+}) {
   const [disabled, setDisabled] = useState(true);
-  const [currentIcon, setCurrentIcon] = useState('EditIcon');
+  const [currentIcon, setCurrentIcon] = useState(icon);
+  const [currentType, setCurrentType] = useState('password');
   const user = useSelector(currentUser);
 
   const inputRef = React.useRef(null);
   const onIconClick = () => {
     setDisabled(false);
     setTimeout(() => inputRef.current.focus(), 0);
+    changeIcon();
+  };
+
+  const changeIcon = () => {
+    switch (currentIcon) {
+      case 'EditIcon':
+        setCurrentIcon('CloseIcon');
+        break;
+      case 'CloseIcon':
+        setCurrentIcon('EditIcon');
+        break;
+      case 'ShowIcon':
+        setCurrentIcon('HideIcon');
+        setCurrentType('text');
+        break;
+      case 'HideIcon':
+        setCurrentIcon('ShowIcon');
+        setCurrentType('password');
+        break;
+
+      default:
+        break;
+    }
   };
 
   return (
     <Input
       ref={inputRef}
       name={'password'}
-      type={'password'}
-      placeholder={'Пароль'}
+      type={currentType}
+      placeholder={placeholder}
       icon={currentIcon}
       value={value || ''}
       error={!inputValid}
@@ -31,10 +62,9 @@ function InputWithPassword({ handleInput, value, error, inputValid }) {
       minLength={6}
       onChange={(e) => handleInput(e, REG_EXP_PASSWORD, messages.INPUT_PASSWORD)}
       onIconClick={onIconClick}
-      onFocus={() => setCurrentIcon('CloseIcon')}
       onBlur={() => {
         setDisabled(true);
-        setCurrentIcon('EditIcon');
+        changeIcon();
       }}
     />
   );

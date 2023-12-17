@@ -14,6 +14,7 @@
 .button {
   /* stylelint-disable-next-line property-no-unknown */
   composes: link;
+  padding: 0;
   border: none;
   background-color: var(--background-alt);
 }

@@ -5,7 +5,14 @@ import { REG_EXP_EMAIL, messages } from '@/utils/constants';
 import { Input } from '@ya.praktikum/react-developer-burger-ui-components';
 import { useSelector } from 'react-redux';
 
-function InputWithMail({ handleInput, value, error, inputValid }) {
+function InputWithMail({
+  isIcon = false,
+  handleInput,
+  value,
+  error,
+  inputValid,
+  placeholder = 'Логин',
+}) {
   const [disabled, setDisabled] = useState(true);
   const [currentIcon, setCurrentIcon] = useState('EditIcon');
   const user = useSelector(currentUser);
@@ -21,8 +28,8 @@ function InputWithMail({ handleInput, value, error, inputValid }) {
       ref={inputRef}
       name={'email'}
       type={'email'}
-      placeholder={'Логин'}
-      icon={currentIcon}
+      placeholder={placeholder}
+      icon={isIcon && currentIcon}
       value={value || ''}
       error={!inputValid}
       errorText={error}

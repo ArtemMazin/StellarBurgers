@@ -5,7 +5,7 @@ import { REG_EXP_NAME, messages } from '@/utils/constants';
 import { Input } from '@ya.praktikum/react-developer-burger-ui-components';
 import { useSelector } from 'react-redux';
 
-function InputWithName({ handleInput, value, error, inputValid }) {
+function InputWithName({ isIcon = false, handleInput, value, error, inputValid }) {
   const [disabled, setDisabled] = useState(true);
   const [currentIcon, setCurrentIcon] = useState('EditIcon');
   const user = useSelector(currentUser);
@@ -24,7 +24,7 @@ function InputWithName({ handleInput, value, error, inputValid }) {
       name={'name'}
       error={!inputValid}
       errorText={error}
-      icon={currentIcon}
+      icon={isIcon && currentIcon}
       disabled={user && disabled}
       value={value || ''}
       required
