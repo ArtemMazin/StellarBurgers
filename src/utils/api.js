@@ -44,7 +44,7 @@ export const fetchWithRefresh = async (url, options) => {
 };
 
 export function register(name, email, password) {
-  return fetchWithRefresh(`${BASE_API_URL}/auth/register`, {
+  return request(`${BASE_API_URL}/auth/register`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -54,7 +54,7 @@ export function register(name, email, password) {
 }
 
 export function login(email, password) {
-  return fetchWithRefresh(`${BASE_API_URL}/auth/login`, {
+  return request(`${BASE_API_URL}/auth/login`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -112,7 +112,7 @@ export function createOrder(itemsID) {
 }
 
 export function resetPassword(email) {
-  return fetchWithRefresh(`${BASE_API_URL}/password-reset`, {
+  return request(`${BASE_API_URL}/password-reset`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -122,7 +122,7 @@ export function resetPassword(email) {
 }
 
 export function restorePassword(password, token) {
-  return fetchWithRefresh(`${BASE_API_URL}/password-reset/reset`, {
+  return request(`${BASE_API_URL}/password-reset/reset`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',

@@ -45,7 +45,7 @@ export default function App() {
   return (
     <ErrorBoundary>
       <AppHeader />
-      <Routes>
+      <Routes location={background || location}>
         <Route path={URL.MAIN} element={<Home />} />
         <Route path={URL.LOGIN} element={<OnlyUnAuth component={<Login />} />} />
         <Route path={URL.REGISTER} element={<OnlyUnAuth component={<Register />} />} />
@@ -53,7 +53,7 @@ export default function App() {
         <Route path={URL.RESET_PASSWORD} element={<OnlyUnAuth component={<ResetPassword />} />} />
         <Route path={URL.INGREDIENT} element={<Ingredient />} />
         <Route path={URL.PROFILE} element={<OnlyAuth component={<Profile />} />}>
-          <Route path="" element={<ProfileForm />} />
+          <Route index element={<ProfileForm />} />
           <Route path={URL.PROFILE_ORDERS} element={<></>} />
         </Route>
         <Route path="*" element={<NotFound />} />
