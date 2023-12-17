@@ -73,6 +73,17 @@ export function getProfileUser() {
   });
 }
 
+export function updateProfileUser(name, email, password) {
+  return fetchWithRefresh(`${BASE_API_URL}/auth/user`, {
+    method: 'PATCH',
+    headers: {
+      'Content-Type': 'application/json',
+      authorization: localStorage.getItem('accessToken'),
+    },
+    body: JSON.stringify({ name, email, password }),
+  });
+}
+
 export function logout() {
   return fetchWithRefresh(`${BASE_API_URL}/auth/logout`, {
     method: 'POST',

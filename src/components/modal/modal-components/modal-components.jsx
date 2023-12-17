@@ -1,4 +1,3 @@
-/* eslint-disable react/prop-types */
 import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import ModalContext from '@/contexts/modalContext';
@@ -43,6 +42,7 @@ export default function ModalComponents({ isOpen, onClose, children }) {
 ModalComponents.propTypes = {
   onClose: PropTypes.func.isRequired,
   title: PropTypes.string,
+  isOpen: PropTypes.object,
   children: PropTypes.oneOfType([
     PropTypes.arrayOf(PropTypes.element),
     PropTypes.element,

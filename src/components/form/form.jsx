@@ -1,13 +1,14 @@
-/* eslint-disable react/prop-types */
 import React from 'react';
 import styles from './form.module.css';
 import { Button } from '@ya.praktikum/react-developer-burger-ui-components';
+import PropTypes from 'prop-types';
 
 function Form({
   title,
   textButton,
   textButtonReset,
   handle,
+  handleReset,
   isVisibleButtons = true,
   isFormValid,
   children,
@@ -19,7 +20,7 @@ function Form({
       {isVisibleButtons && (
         <div className={`${textButtonReset && styles.buttonContainer}`}>
           {textButtonReset && (
-            <Button htmlType="button" type="secondary" size="medium">
+            <Button htmlType="button" type="secondary" size="medium" onClick={handleReset}>
               {textButtonReset}
             </Button>
           )}
@@ -33,3 +34,18 @@ function Form({
 }
 
 export default Form;
+
+Form.propTypes = {
+  title: PropTypes.string,
+  textButton: PropTypes.string,
+  textButtonReset: PropTypes.string,
+  handle: PropTypes.func.isRequired,
+  handleReset: PropTypes.func,
+  isVisibleButtons: PropTypes.bool,
+  isFormValid: PropTypes.bool.isRequired,
+  children: PropTypes.oneOfType([
+    PropTypes.arrayOf(PropTypes.element),
+    PropTypes.element,
+    PropTypes.elementType,
+  ]),
+};

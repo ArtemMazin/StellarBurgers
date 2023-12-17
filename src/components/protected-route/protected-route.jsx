@@ -1,8 +1,8 @@
-/* eslint-disable react/prop-types */
 import { currentUser } from '@/services/user/selectors';
 import React from 'react';
 import { useSelector } from 'react-redux';
 import { Navigate, useLocation } from 'react-router-dom';
+import PropTypes from 'prop-types';
 
 const Protected = ({ onlyUnAuth = false, component }) => {
   const user = useSelector(currentUser);
@@ -24,3 +24,20 @@ const Protected = ({ onlyUnAuth = false, component }) => {
 
 export const OnlyAuth = Protected;
 export const OnlyUnAuth = ({ component }) => <Protected onlyUnAuth={true} component={component} />;
+
+Protected.propTypes = {
+  onlyUnAuth: PropTypes.bool,
+  component: PropTypes.oneOfType([
+    PropTypes.arrayOf(PropTypes.element),
+    PropTypes.element,
+    PropTypes.elementType,
+  ]),
+};
+
+OnlyUnAuth.propTypes = {
+  component: PropTypes.oneOfType([
+    PropTypes.arrayOf(PropTypes.element),
+    PropTypes.element,
+    PropTypes.elementType,
+  ]),
+};

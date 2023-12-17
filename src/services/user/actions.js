@@ -51,6 +51,19 @@ export const getUser = createAsyncThunk('user/get-profile-user', async (_, { rej
   }
 });
 
+export const updateUser = createAsyncThunk(
+  'user/update-profile-user',
+  async ({ name, email, password }, { rejectWithValue }) => {
+    try {
+      const data = await api.updateProfileUser(name, email, password);
+
+      return data;
+    } catch (error) {
+      return rejectWithValue('Не удалось обновить данные');
+    }
+  },
+);
+
 export const logout = createAsyncThunk('user/logout', async (_, { rejectWithValue }) => {
   try {
     await api.logout();

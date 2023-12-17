@@ -1,4 +1,3 @@
-/* eslint-disable react/prop-types */
 import React from 'react';
 import PropTypes from 'prop-types';
 import ModalComponents from './modal-components/modal-components';
@@ -27,6 +26,7 @@ const Modal = ({ isOpen, onClose, title, children }) => {
 Modal.propTypes = {
   onClose: PropTypes.func.isRequired,
   title: PropTypes.string,
+  isOpen: PropTypes.object,
   children: PropTypes.oneOfType([
     PropTypes.arrayOf(PropTypes.element),
     PropTypes.element,

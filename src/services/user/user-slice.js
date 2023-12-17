@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { getUser, login, logout, register } from './actions';
+import { getUser, login, logout, register, updateUser } from './actions';
 
 export const userSlice = createSlice({
   name: 'user',
@@ -18,6 +18,9 @@ export const userSlice = createSlice({
         state.user = action.payload.user;
       })
       .addCase(getUser.fulfilled, (state, action) => {
+        state.user = action.payload.user;
+      })
+      .addCase(updateUser.fulfilled, (state, action) => {
         state.user = action.payload.user;
       })
       .addCase(logout.fulfilled, (state) => {

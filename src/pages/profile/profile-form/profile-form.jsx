@@ -1,15 +1,19 @@
 import { currentUser } from '@/services/user/selectors';
 import React, { useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useFormAndValidation } from '@/hooks/useForm';
 import InputWithName from '@/components/form/inputs/input-with-name';
 import InputWithMail from '@/components/form/inputs/input-with-mail';
 import InputWithPassword from '@/components/form/inputs/input-with-password';
 import Form from '@/components/form/form';
+import { toast } from 'react-toastify';
+import { updateUser } from '@/services/user/actions';
 
 function ProfileForm() {
   const [isVisibleButtons, setVisibleButtons] = useState(false);
   const user = useSelector(currentUser);
+
+  const dispatch = useDispatch();
 
   const initialValues = {
     name: user.name,
@@ -21,14 +25,45 @@ function ProfileForm() {
     password: true,
   };
 
-  const { handleInput, values, errors, inputsValid, isFormValid } = useFormAndValidation({
-    initialValues,
-    initialValid,
-  });
+  const { handleInput, values, errors, inputsValid, isFormValid, resetForm } = useFormAndValidation(
+    {
+      initialValues,
+      initialValid,
+    },
+  );
 
   useEffect(() => {
-    setVisibleButtons(values.name.trim() !== user.name || values.email !== user.email);
-  }, [user.email, user.name, values.email, values.name]);
+    if (
+      values.name.trim() !== user.name ||
+      values.email !== user.email ||
+      user.password ||
+      values.password
+    ) {
+      setVisibleButtons(true);
+    }
+  }, [user.email, user.name, user.password, values.email, values.name, values.password]);
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (values.email && values.password && values.name) {
+      dispatch(updateUser({ email: values.email, password: values.password, name: values.name }))
+        .unwrap()
+        .then(() => {
+          toast.info('Профиль обновлен');
+        })
+        .catch((err) => {
+          toast.error(err);
+        });
+      return;
+    }
+
+    toast.error('Заполните все поля формы');
+    return;
+  };
+
+  const handleReset = () => {
+    resetForm();
+  };
 
   return (
     <Form
@@ -37,6 +72,8 @@ function ProfileForm() {
       textButtonReset={'Отмена'}
       isVisibleButtons={isVisibleButtons}
       isFormValid={isFormValid}
+      handle={handleSubmit}
+      handleReset={handleReset}
     >
       <InputWithName
         handleInput={handleInput}

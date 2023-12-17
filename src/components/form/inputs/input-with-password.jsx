@@ -1,9 +1,9 @@
-/* eslint-disable react/prop-types */
 import React, { useState } from 'react';
 import { currentUser } from '@/services/user/selectors';
 import { REG_EXP_PASSWORD, messages } from '@/utils/constants';
 import { Input } from '@ya.praktikum/react-developer-burger-ui-components';
 import { useSelector } from 'react-redux';
+import PropTypes from 'prop-types';
 
 function InputWithPassword({
   icon = 'ShowIcon',
@@ -71,3 +71,12 @@ function InputWithPassword({
 }
 
 export default InputWithPassword;
+
+InputWithPassword.propTypes = {
+  handleInput: PropTypes.func.isRequired,
+  value: PropTypes.string,
+  error: PropTypes.string,
+  inputValid: PropTypes.bool.isRequired,
+  icon: PropTypes.string,
+  placeholder: PropTypes.string,
+};
