@@ -1,10 +1,14 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React from 'react';
-import * as components from '@ya.praktikum/react-developer-burger-ui-components';
 import { useLocation } from 'react-router-dom';
 import styles from './navigation.module.css';
 import { Link } from 'react-router-dom';
 import { URL } from '@/utils/url-config';
+import {
+  BurgerIcon,
+  ListIcon,
+  ProfileIcon,
+} from '@ya.praktikum/react-developer-burger-ui-components';
 
 function Navigation() {
   const location = useLocation();
@@ -14,9 +18,7 @@ function Navigation() {
       <ul className={styles.links}>
         <li>
           <Link to={URL.MAIN} className={`${styles.link} pl-5 pr-5 pb-4 pt-4`}>
-            <components.BurgerIcon
-              type={`${location.pathname !== URL.MAIN ? 'secondary' : 'primary'}`}
-            />
+            <BurgerIcon type={`${location.pathname !== URL.MAIN ? 'secondary' : 'primary'}`} />
             <span
               className={`${
                 location.pathname !== URL.MAIN && 'text_color_inactive'
@@ -29,7 +31,7 @@ function Navigation() {
 
         <li>
           <Link to={URL.HISTORY_ORDERS} className={`${styles.link} pl-5 pr-5 pb-4 pt-4 ml-2`}>
-            <components.ListIcon
+            <ListIcon
               type={`${location.pathname !== URL.HISTORY_ORDERS ? 'secondary' : 'primary'}`}
             />
             <span
@@ -44,9 +46,7 @@ function Navigation() {
 
         <li>
           <Link to={URL.PROFILE} className={`${styles.link} pl-5 pr-5 pb-4 pt-4 ml-2`}>
-            <components.ProfileIcon
-              type={`${location.pathname !== URL.PROFILE ? 'secondary' : 'primary'}`}
-            />
+            <ProfileIcon type={`${location.pathname !== URL.PROFILE ? 'secondary' : 'primary'}`} />
             <span
               className={`${
                 location.pathname !== URL.PROFILE && 'text_color_inactive'

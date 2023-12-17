@@ -3,9 +3,13 @@ import { logout } from '@/services/user/actions';
 import styles from './profile-tabs.module.css';
 import { useDispatch } from 'react-redux';
 import { toast } from 'react-toastify';
+import { Link, useLocation } from 'react-router-dom';
+import { URL } from '@/utils/url-config';
 
 function ProfileTabs() {
   const dispatch = useDispatch();
+
+  const location = useLocation();
 
   const handleLogout = () => {
     dispatch(logout())
@@ -19,14 +23,22 @@ function ProfileTabs() {
   return (
     <ul className={`${styles.links} mb-20 text text_type_main-medium`}>
       <li>
-        <span className={styles.link}>Профиль</span>
+        <Link to="" className={styles.link}>
+          <span className={`${location.pathname !== URL.PROFILE && 'text_color_inactive'}`}>
+            Профиль
+          </span>
+        </Link>
       </li>
       <li>
-        <span className={styles.link}>История заказов</span>
+        <Link to={URL.PROFILE_ORDERS} className={`${styles.link} text_color_inactive`}>
+          <span className={`${location.pathname !== '/profile/orders' && 'text_color_inactive'}`}>
+            История заказов
+          </span>
+        </Link>
       </li>
       <li>
-        <button className={`${styles.button} text text_type_main-medium`} onClick={handleLogout}>
-          Выход
+        <button className={styles.button} onClick={handleLogout}>
+          <span className="text text_type_main-medium text_color_inactive">Выход </span>
         </button>
       </li>
     </ul>

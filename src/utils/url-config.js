@@ -6,5 +6,6 @@ export const URL = {
   RESET_PASSWORD: '/reset-password',
   HISTORY_ORDERS: '/history-orders',
   PROFILE: '/profile',
+  PROFILE_ORDERS: 'orders',
   INGREDIENT: '/ingredients/:ingredientId',
 };

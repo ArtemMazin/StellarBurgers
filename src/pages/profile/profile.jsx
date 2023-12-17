@@ -5,7 +5,7 @@ import { errorUser, statusUser } from '@/services/user/selectors';
 import useStatus from '@/hooks/useStatus';
 import Preloader from '@/components/preloader/preloader';
 import ProfileTabs from '@/pages/profile/profile-tabs/profile-tabs';
-import ProfileForm from '@/pages/profile/profile-form/profile-form';
+import { Outlet } from 'react-router-dom';
 
 function Profile() {
   const status = useSelector(statusUser);
@@ -15,7 +15,7 @@ function Profile() {
     <div className="pt-20 pl-30 ml-25">
       <Preloader />
     </div>,
-    <ProfileForm />,
+    <Outlet />,
     status,
     error,
   );

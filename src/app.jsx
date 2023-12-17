@@ -19,6 +19,7 @@ import Ingredient from './pages/ingredient/ingredient';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { toast } from 'react-toastify';
+import ProfileForm from './pages/profile/profile-form/profile-form';
 
 export default function App() {
   const dispatch = useDispatch();
@@ -51,7 +52,10 @@ export default function App() {
         <Route path={URL.FORGOT_PASSWORD} element={<OnlyUnAuth component={<ForgotPassword />} />} />
         <Route path={URL.RESET_PASSWORD} element={<OnlyUnAuth component={<ResetPassword />} />} />
         <Route path={URL.INGREDIENT} element={<Ingredient />} />
-        <Route path={URL.PROFILE} element={<OnlyAuth component={<Profile />} />} />
+        <Route path={URL.PROFILE} element={<OnlyAuth component={<Profile />} />}>
+          <Route path="" element={<ProfileForm />} />
+          <Route path={URL.PROFILE_ORDERS} element={<></>} />
+        </Route>
         <Route path="*" element={<NotFound />} />
       </Routes>
       <ToastContainer theme="dark" />
