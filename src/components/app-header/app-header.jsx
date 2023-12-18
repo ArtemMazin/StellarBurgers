@@ -5,6 +5,7 @@ import Navigation from './navigation/navigation';
 import { useResize } from '@/hooks/useResize';
 import { URL } from '@/utils/url-config';
 import { Link } from 'react-router-dom';
+import BurgerButton from './mobile-header/burger-button/burger-button';
 
 function AppHeader() {
   const { isMobile, isTablet } = useResize();
@@ -16,7 +17,7 @@ function AppHeader() {
           {isTablet ? <img src="logo.svg" alt="Логотип Stellar Burgers" /> : <Logo />}
         </Link>
 
-        {isMobile ? <></> : <Navigation />}
+        {isMobile ? <BurgerButton /> : <Navigation />}
       </div>
     </header>
   );
