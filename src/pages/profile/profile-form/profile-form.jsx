@@ -8,6 +8,7 @@ import InputWithPassword from '@/components/form/inputs/input-with-password';
 import Form from '@/components/form/form';
 import { toast } from 'react-toastify';
 import { updateUser } from '@/services/user/actions';
+import { messages } from '@/utils/constants';
 
 function ProfileForm() {
   const [isVisibleButtons, setVisibleButtons] = useState(false);
@@ -49,7 +50,7 @@ function ProfileForm() {
       dispatch(updateUser({ email: values.email, password: values.password, name: values.name }))
         .unwrap()
         .then(() => {
-          toast.info('Профиль обновлен');
+          toast.info(messages.SUCCESS_PROFILE_UPDATE);
         })
         .catch((err) => {
           toast.error(err);
@@ -57,7 +58,7 @@ function ProfileForm() {
       return;
     }
 
-    toast.error('Заполните все поля формы');
+    toast.error(messages.ERROR_FORM_FIELDS);
     return;
   };
 

@@ -9,6 +9,7 @@ import { toast } from 'react-toastify';
 import InputWithName from '@/components/form/inputs/input-with-name';
 import InputWithMail from '@/components/form/inputs/input-with-mail';
 import InputWithPassword from '@/components/form/inputs/input-with-password';
+import { messages } from '@/utils/constants';
 
 function Register() {
   const initialValid = {
@@ -30,7 +31,7 @@ function Register() {
     if (name && email && password) {
       dispatch(register({ name, email, password }))
         .unwrap()
-        .then(() => toast.info('Регистрация прошла успешно'))
+        .then(() => toast.info(messages.SUCCESS_REGISTRATION))
         .catch((err) => {
           toast.error(err);
         });
@@ -38,7 +39,7 @@ function Register() {
       return;
     }
 
-    toast.error('Заполните все поля формы');
+    toast.error(messages.ERROR_FORM_FIELDS);
     return;
   };
 

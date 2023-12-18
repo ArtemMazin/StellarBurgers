@@ -29,7 +29,7 @@ function InputWithName({ isIcon = false, handleInput, value, error, inputValid }
       value={value || ''}
       required
       minLength={2}
-      onChange={(e) => handleInput(e, REG_EXP_NAME, messages.INPUT_NAME)}
+      onChange={(e) => handleInput(e, REG_EXP_NAME, messages.ERROR_INPUT_NAME)}
       onFocus={() => setCurrentIcon('CloseIcon')}
       onBlur={() => {
         setDisabled(true);

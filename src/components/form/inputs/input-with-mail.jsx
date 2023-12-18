@@ -35,7 +35,7 @@ function InputWithMail({
       errorText={error}
       disabled={user && disabled}
       required
-      onChange={(e) => handleInput(e, REG_EXP_EMAIL, messages.INPUT_EMAIL)}
+      onChange={(e) => handleInput(e, REG_EXP_EMAIL, messages.ERROR_INPUT_EMAIL)}
       onIconClick={onIconClick}
       onFocus={() => setCurrentIcon('CloseIcon')}
       onBlur={() => {

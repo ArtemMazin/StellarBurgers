@@ -11,6 +11,7 @@ import { errorUser, statusUser } from '@/services/user/selectors';
 import { toast } from 'react-toastify';
 import InputWithMail from '@/components/form/inputs/input-with-mail';
 import InputWithPassword from '@/components/form/inputs/input-with-password';
+import { messages } from '@/utils/constants';
 
 function Login() {
   const initialValid = {
@@ -33,14 +34,14 @@ function Login() {
     if (email && password) {
       dispatch(login({ email, password }))
         .unwrap()
-        .then(() => toast.info('Вход выполнен успешно'))
+        .then(() => toast.info(messages.SUCCESS_LOGIN))
         .catch((err) => {
           toast.error(err);
         });
       return;
     }
 
-    toast.error('Заполните все поля формы');
+    toast.error(messages.ERROR_FORM_FIELDS);
     return;
   };
 

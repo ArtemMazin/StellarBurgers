@@ -1,6 +1,5 @@
 import React, { useEffect } from 'react';
 import { Routes, Route, useLocation, useNavigate } from 'react-router-dom';
-import AppHeader from './components/app-header/app-header';
 import ErrorBoundary from './components/error-boundary/error-boendary';
 import Login from './pages/login/login';
 import Register from './pages/register/register';
@@ -16,10 +15,11 @@ import { getUser } from './services/user/actions';
 import Modal from './components/modal/modal';
 import IngredientDetails from './components/modal/ingredient-details/ingredient-details';
 import Ingredient from './pages/ingredient/ingredient';
-import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { toast } from 'react-toastify';
 import ProfileForm from './pages/profile/profile-form/profile-form';
+import Layout from './components/layout/layout';
+import { messages } from './utils/constants';
 
 export default function App() {
   const dispatch = useDispatch();
@@ -35,7 +35,7 @@ export default function App() {
     if (localStorage.getItem('accessToken')) {
       dispatch(getUser())
         .unwrap()
-        .then(() => toast.info('Вход выполнен успешно'))
+        .then(() => toast.info(messages.SUCCESS_LOGIN))
         .catch((err) => {
           toast.error(err);
         });
@@ -44,21 +44,25 @@ export default function App() {
 
   return (
     <ErrorBoundary>
-      <AppHeader />
       <Routes location={background || location}>
-        <Route path={URL.MAIN} element={<Home />} />
-        <Route path={URL.LOGIN} element={<OnlyUnAuth component={<Login />} />} />
-        <Route path={URL.REGISTER} element={<OnlyUnAuth component={<Register />} />} />
-        <Route path={URL.FORGOT_PASSWORD} element={<OnlyUnAuth component={<ForgotPassword />} />} />
-        <Route path={URL.RESET_PASSWORD} element={<OnlyUnAuth component={<ResetPassword />} />} />
-        <Route path={URL.INGREDIENT} element={<Ingredient />} />
-        <Route path={URL.PROFILE} element={<OnlyAuth component={<Profile />} />}>
-          <Route index element={<ProfileForm />} />
-          <Route path={URL.PROFILE_ORDERS} element={<></>} />
+        <Route path={URL.MAIN} element={<Layout />}>
+          <Route index element={<Home />} />
+          <Route path={URL.LOGIN} element={<OnlyUnAuth component={<Login />} />} />
+          <Route path={URL.REGISTER} element={<OnlyUnAuth component={<Register />} />} />
+          <Route
+            path={URL.FORGOT_PASSWORD}
+            element={<OnlyUnAuth component={<ForgotPassword />} />}
+          />
+          <Route path={URL.RESET_PASSWORD} element={<OnlyUnAuth component={<ResetPassword />} />} />
+          <Route path={URL.INGREDIENT} element={<Ingredient />} />
+          <Route path={URL.PROFILE} element={<OnlyAuth component={<Profile />} />}>
+            <Route index element={<ProfileForm />} />
+            <Route path={URL.PROFILE_ORDERS} element={<></>} />
+          </Route>
+          <Route path="*" element={<NotFound />} />
         </Route>
-        <Route path="*" element={<NotFound />} />
       </Routes>
-      <ToastContainer theme="dark" />
+
       {background && (
         <Routes>
           <Route

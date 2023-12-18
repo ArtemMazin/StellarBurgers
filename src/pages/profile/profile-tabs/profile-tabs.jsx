@@ -5,6 +5,7 @@ import { useDispatch } from 'react-redux';
 import { toast } from 'react-toastify';
 import { Link, NavLink, useLocation } from 'react-router-dom';
 import { URL } from '@/utils/url-config';
+import { messages } from '@/utils/constants';
 
 function ProfileTabs() {
   const dispatch = useDispatch();
@@ -14,7 +15,7 @@ function ProfileTabs() {
   const handleLogout = () => {
     dispatch(logout())
       .unwrap()
-      .then(() => toast.info('Вы вышли из аккаунта'))
+      .then(() => toast.info(messages.SUCCESS_LOGOUT))
       .catch((err) => {
         toast.error(err);
       });

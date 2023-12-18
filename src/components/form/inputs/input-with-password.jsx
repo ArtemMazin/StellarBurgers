@@ -60,7 +60,7 @@ function InputWithPassword({
       disabled={user && disabled}
       required
       minLength={6}
-      onChange={(e) => handleInput(e, REG_EXP_PASSWORD, messages.INPUT_PASSWORD)}
+      onChange={(e) => handleInput(e, REG_EXP_PASSWORD, messages.ERROR_INPUT_PASSWORD)}
       onIconClick={onIconClick}
       onBlur={() => {
         setDisabled(true);

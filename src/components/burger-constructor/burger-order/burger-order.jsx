@@ -13,6 +13,7 @@ import { useNavigate } from 'react-router-dom';
 import { URL } from '@/utils/url-config';
 import useStatus from '@/hooks/useStatus';
 import { toast } from 'react-toastify';
+import { messages } from '@/utils/constants';
 
 function BurgerOrder() {
   const ingredients = useSelector(allIngredients);
@@ -40,20 +41,20 @@ function BurgerOrder() {
     e.preventDefault();
 
     if (status === 'loading') {
-      toast.warn('Заказ оформляется, подождите');
+      toast.warn(messages.WARN_ORDER_WAITING);
       return;
     }
     if (!localStorage.getItem('accessToken')) {
-      toast.error('Для оформления заказа войдите в аккаунт');
+      toast.error(messages.ERROR_ORDER_LOGIN);
       navigate(URL.LOGIN);
       return;
     }
     if (!bun || ingredients.length <= 0) {
-      toast.error('Выберите булку и ингредиенты');
+      toast.error(messages.ERROR_ORDER_INGREDIENTS);
       return;
     }
 
-    toast.info('Оформляем заказ');
+    toast.success(messages.SUCCESS_ORDER);
     dispatch(createOrder(getAllId(bun, ingredients)))
       .unwrap()
       .catch((err) => {
