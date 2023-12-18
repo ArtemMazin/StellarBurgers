@@ -1,0 +1,25 @@
+.links {
+  list-style-type: none;
+}
+
+.link {
+  display: flex;
+  height: 64px;
+  align-items: center;
+  color: var(--text-primary-color);
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.button {
+  /* stylelint-disable-next-line property-no-unknown */
+  composes: link;
+  padding: 0;
+  border: none;
+  background-color: var(--background-alt);
+}
+
+.button:hover span {
+  color: var(--text-primary-color);
+  transition: var(--common-transition);
+}

@@ -1,32 +1,20 @@
-import React, { useMemo, useRef } from 'react';
+import React, { useRef } from 'react';
 import PropTypes from 'prop-types';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 import styles from './ingredients.module.css';
 import useFilteredIngredients from '@/hooks/useFilteredIngredients';
 import GroupsOfIngredients from './groups-of-ingredients/groups-of-ingredients';
-import { getIngredientsThunk } from '@/services/initial-ingredients/initial-ingredients-slice';
-import { loadState } from '@/localstorage';
-import { ingredients, error } from '@/services/initial-ingredients/selectors';
+import { initialIngredients } from '@/services/initial-ingredients/selectors';
 import { BUNS, MAIN, SAUCES } from '@/utils/tabs-config';
 
 const Ingredients = ({ tabsRef, handleTab, activeTab }) => {
-  const initialIngredients = useSelector(ingredients);
-  const initialIngredientsError = useSelector(error);
-  const { buns, sauces, main } = useFilteredIngredients(initialIngredients);
+  const ingredients = useSelector(initialIngredients);
+
+  const { buns, sauces, main } = useFilteredIngredients(ingredients);
 
   const bunsRef = useRef(null);
   const saucesRef = useRef(null);
   const mainRef = useRef(null);
-
-  const dispatch = useDispatch();
-
-  useMemo(() => {
-    if (loadState() === undefined || initialIngredientsError) {
-      dispatch(getIngredientsThunk())
-        .unwrap()
-        .catch((error) => console.error(error));
-    }
-  }, [dispatch, initialIngredientsError]);
 
   const handleScroll = (e) => {
     e.stopPropagation();

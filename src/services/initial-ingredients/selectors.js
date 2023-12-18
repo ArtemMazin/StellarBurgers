@@ -1,3 +1,3 @@
-export const ingredients = (state) => state.initialIngredients.initialIngredients;
-
-export const error = (state) => state.initialIngredients.error;
+export const initialIngredients = (state) => state.initialIngredients.initialIngredients;
+export const statusIngredients = (state) => state.initialIngredients.status;
+export const errorIngredients = (state) => state.initialIngredients.error;

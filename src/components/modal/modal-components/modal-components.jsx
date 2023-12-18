@@ -2,39 +2,28 @@ import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import ModalContext from '@/contexts/modalContext';
 import { createPortal } from 'react-dom';
-import { useDispatch, useSelector } from 'react-redux';
-import { removeCurrentIngredient } from '@/services/current-ingredient/current-ingredient-slice';
-import { removeOrder } from '@/services/order/order-slice';
-import { currentIngredient } from '@/services/current-ingredient/selecrors';
-import { currentOrder } from '@/services/order/selectors';
+import { useDispatch } from 'react-redux';
 
 const modalRoot = document.getElementById('modals');
 
-export default function ModalComponents({ onClose, children }) {
-  const ingredient = useSelector(currentIngredient);
-  const order = useSelector(currentOrder);
-
+export default function ModalComponents({ isOpen, onClose, children }) {
   const dispatch = useDispatch();
-
-  const isOpen = ingredient || order;
 
   useEffect(() => {
     if (!isOpen) return;
     const closeByEscape = (e) => {
       if (e.key === 'Escape') {
-        ingredient && dispatch(removeCurrentIngredient());
-        order && dispatch(removeOrder());
+        onClose();
       }
     };
 
     document.addEventListener('keydown', closeByEscape);
     return () => document.removeEventListener('keydown', closeByEscape);
-  }, [ingredient, dispatch, order, isOpen]);
+  }, [dispatch, isOpen, onClose]);
 
   const handleOverlay = (e) => {
     if (e.target === e.currentTarget) {
-      ingredient && dispatch(removeCurrentIngredient());
-      order && dispatch(removeOrder());
+      isOpen && onClose();
     }
   };
 
@@ -53,6 +42,7 @@ export default function ModalComponents({ onClose, children }) {
 ModalComponents.propTypes = {
   onClose: PropTypes.func.isRequired,
   title: PropTypes.string,
+  isOpen: PropTypes.object,
   children: PropTypes.oneOfType([
     PropTypes.arrayOf(PropTypes.element),
     PropTypes.element,

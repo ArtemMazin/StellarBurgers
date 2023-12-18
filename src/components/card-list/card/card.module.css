@@ -9,8 +9,10 @@
   align-items: center;
   background-color: var(--background-alt);
   box-shadow: var(--shadow);
+  color: var(--text-primary-color);
   cursor: pointer;
   gap: 8px;
+  text-decoration: none;
   transition: var(--common-transition);
 }
 

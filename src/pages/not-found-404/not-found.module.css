@@ -1,0 +1,21 @@
+.main {
+  display: flex;
+  max-width: 400px;
+  box-sizing: border-box;
+  flex-direction: column;
+  padding: 246px 0 60px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.title {
+  margin: 0 0 12px;
+  font-size: 140px;
+  font-weight: 400;
+}
+
+.text {
+  margin: 0 0 30px;
+  font-size: 16px;
+  font-weight: 400;
+}

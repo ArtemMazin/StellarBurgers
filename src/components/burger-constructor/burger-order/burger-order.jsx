@@ -6,24 +6,29 @@ import OrderDetails from '@/components/modal/order-details/order-details';
 import { useDispatch, useSelector } from 'react-redux';
 import useTotalPrice from '@/hooks/useTotalPrice';
 import { allIngredients, selectedBun } from '@/services/constructor/selectors';
-import { currentOrder } from '@/services/order/selectors';
-import { createOrderThunk, removeOrder } from '@/services/order/order-slice';
+import { currentOrder, orderStatus, orderError } from '@/services/order/selectors';
+import { createOrder, removeOrder } from '@/services/order/order-slice';
 import { deleteAllIngredients } from '@/services/constructor/constructor-slice';
+import { useNavigate } from 'react-router-dom';
+import { URL } from '@/utils/url-config';
+import useStatus from '@/hooks/useStatus';
+import { toast } from 'react-toastify';
+import { messages } from '@/utils/constants';
 
 function BurgerOrder() {
   const ingredients = useSelector(allIngredients);
   const bun = useSelector(selectedBun);
   const order = useSelector(currentOrder);
+  const status = useSelector(orderStatus);
+  const error = useSelector(orderError);
 
   const totalPrice = useTotalPrice(ingredients, bun);
 
   const dispatch = useDispatch();
 
-  function getAllId(bun, ingredients) {
-    if (!bun || ingredients.length < 1) {
-      throw new Error('Выберите булку и ингредиенты');
-    }
+  const navigate = useNavigate();
 
+  function getAllId(bun, ingredients) {
     const ingredientsID = ingredients.map((item) => item._id);
     ingredientsID.push(bun._id);
     ingredientsID.unshift(bun._id);
@@ -35,10 +40,39 @@ function BurgerOrder() {
   const handleOrder = (e) => {
     e.preventDefault();
 
-    dispatch(createOrderThunk(getAllId(bun, ingredients)))
+    if (status === 'loading') {
+      toast.warn(messages.WARN_ORDER_WAITING);
+      return;
+    }
+    if (!localStorage.getItem('accessToken')) {
+      toast.error(messages.ERROR_ORDER_LOGIN);
+      navigate(URL.LOGIN);
+      return;
+    }
+    if (!bun || ingredients.length <= 0) {
+      toast.error(messages.ERROR_ORDER_INGREDIENTS);
+      return;
+    }
+
+    toast.success(messages.SUCCESS_ORDER);
+    dispatch(createOrder(getAllId(bun, ingredients)))
       .unwrap()
-      .then(() => dispatch(deleteAllIngredients()))
-      .catch((error) => console.error(error));
+      .catch((err) => {
+        toast.error(err);
+      });
+
+    dispatch(deleteAllIngredients());
+  };
+
+  const textButton = useStatus(
+    <span>Оформляем...</span>,
+    <span>Оформить заказ</span>,
+    status,
+    error,
+  );
+
+  const handleOrderClose = () => {
+    dispatch(removeOrder());
   };
 
   return (
@@ -48,10 +82,11 @@ function BurgerOrder() {
         <CurrencyIcon type="primary" />
       </div>
       <Button htmlType="button" type="primary" size="large" onClick={handleOrder}>
-        Оформить заказ
+        {textButton}
       </Button>
+
       {order && (
-        <Modal onClose={() => dispatch(removeOrder())}>
+        <Modal isOpen={order} onClose={handleOrderClose}>
           <OrderDetails order={order} />
         </Modal>
       )}
