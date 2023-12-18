@@ -1,6 +1,6 @@
 export const loadState = () => {
   try {
-    const savedState = localStorage.getItem('state');
+    const savedState = localStorage.getItem('burger-state');
     if (savedState === null) {
       return undefined;
     }
@@ -15,7 +15,7 @@ export const saveState = (state) => {
   try {
     const stateToBeSaved = JSON.stringify(state);
 
-    localStorage.setItem('state', stateToBeSaved);
+    localStorage.setItem('burger-state', stateToBeSaved);
   } catch (error) {
     console.error(error);
   }

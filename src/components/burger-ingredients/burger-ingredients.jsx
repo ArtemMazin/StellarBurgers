@@ -8,6 +8,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { errorIngredients, statusIngredients } from '@/services/initial-ingredients/selectors';
 import { getIngredients } from '@/services/initial-ingredients/initial-ingredients-slice';
 import { toast } from 'react-toastify';
+import { loadState } from '@/localstorage';
 
 function BurgerIngredients() {
   const [activeTab, setActiveTab] = useState(BUNS);
@@ -18,12 +19,14 @@ function BurgerIngredients() {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(getIngredients())
-      .unwrap()
-      .catch((err) => {
-        toast.error(err);
-      });
-  }, [dispatch]);
+    if (loadState() === undefined || error) {
+      dispatch(getIngredients())
+        .unwrap()
+        .catch((err) => {
+          toast.error(err);
+        });
+    }
+  }, [dispatch, error]);
 
   const handleTab = (tabName) => {
     setActiveTab(tabName);
