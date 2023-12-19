@@ -3,7 +3,14 @@
   justify-content: center;
   padding: 0;
   gap: 32px 24px;
-  grid-template-columns: repeat(2, minmax(144px, 300px));
+  grid-template-columns: repeat(2, minmax(144px, 272px));
   grid-template-rows: repeat(auto-fit, minmax(208px, 216px));
   list-style-type: none;
+}
+
+@media (width<768px) {
+  .list {
+    gap: 26px 16px;
+    grid-template-rows: repeat(auto-fit, 240px);
+  }
 }

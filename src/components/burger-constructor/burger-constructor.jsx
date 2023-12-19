@@ -9,14 +9,8 @@ function BurgerConstructor() {
 
   return (
     <section className={`${styles.container} pt-25 pl-4`}>
-      {isMobile ? (
-        <></>
-      ) : (
-        <>
-          <BurgerComponents />
-          <BurgerOrder />
-        </>
-      )}
+      {!isMobile && <BurgerComponents />}
+      <BurgerOrder />
     </section>
   );
 }

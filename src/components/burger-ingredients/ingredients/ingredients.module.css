@@ -9,5 +9,6 @@
 @media (width<768px) {
   .list {
     max-height: none;
+    margin: 0;
   }
 }

@@ -1,6 +1,25 @@
 .order {
   display: flex;
+  box-sizing: border-box;
   align-items: center;
   justify-content: flex-end;
+  padding-right: 16px;
   gap: 40px;
+}
+
+.price {
+  display: flex;
+  align-items: center;
+}
+
+@media (width<768px) {
+  .order {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    padding: 16px 8px;
+    background-color: var(--background);
+    gap: 16px;
+  }
 }

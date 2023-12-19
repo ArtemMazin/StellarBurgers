@@ -10,7 +10,7 @@ export default function GroupsOfIngredients({ ingredientsGroup, title }) {
 
   return (
     <div className={`${styles.ingredients} ${isMobile ? 'mt-5' : 'mt-10'}`}>
-      <h2 className="text text_type_main-medium">{title}</h2>
+      <h2 className="mb-4 text text_type_main-medium">{title}</h2>
       <CardList ingredientsGroup={ingredientsGroup} />
     </div>
   );

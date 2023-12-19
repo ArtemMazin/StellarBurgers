@@ -19,11 +19,12 @@
 @media (width < 1200px) {
   .logo {
     position: static;
-    margin: 12px 0 0 8px;
     transform: none;
   }
 
   .wrapper {
+    box-sizing: border-box;
     justify-content: space-between;
+    padding: 12px 8px;
   }
 }

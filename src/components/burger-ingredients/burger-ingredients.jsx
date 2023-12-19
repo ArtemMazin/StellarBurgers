@@ -50,7 +50,7 @@ function BurgerIngredients() {
     <section>
       <h1
         className={`text text_type_main-large ${styles.title} ${
-          isMobile ? 'pt-4 pb-2' : '"pt-10 pb-5"'
+          isMobile ? 'pt-4 pb-2' : 'pt-10 pb-5'
         }`}
       >
         Соберите бургер

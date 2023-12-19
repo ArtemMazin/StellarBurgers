@@ -14,6 +14,7 @@ import { URL } from '@/utils/url-config';
 import useStatus from '@/hooks/useStatus';
 import { toast } from 'react-toastify';
 import { messages } from '@/utils/constants';
+import { useResize } from '@/hooks/useResize';
 
 function BurgerOrder() {
   const ingredients = useSelector(allIngredients);
@@ -27,6 +28,8 @@ function BurgerOrder() {
   const dispatch = useDispatch();
 
   const navigate = useNavigate();
+
+  const { isMobile } = useResize();
 
   function getAllId(bun, ingredients) {
     const ingredientsID = ingredients.map((item) => item._id);
@@ -76,14 +79,26 @@ function BurgerOrder() {
   };
 
   return (
-    <div className={`${styles.order} pr-4`}>
-      <div>
-        <span className="text text_type_digits-medium pr-2">{totalPrice}</span>
+    <div className={styles.order}>
+      <div className={styles.price}>
+        <span
+          className={`text ${
+            isMobile ? 'text_type_digits-default pr-2' : 'text_type_digits-medium pr-2'
+          }`}
+        >
+          {totalPrice}
+        </span>
         <CurrencyIcon type="primary" />
       </div>
-      <Button htmlType="button" type="primary" size="large" onClick={handleOrder}>
-        {textButton}
-      </Button>
+      {isMobile ? (
+        <Button htmlType="button" type="primary" size="small" extraClass="ml-2">
+          Смотреть заказ
+        </Button>
+      ) : (
+        <Button htmlType="button" type="primary" size="large" onClick={handleOrder}>
+          {textButton}
+        </Button>
+      )}
 
       {order && (
         <Modal isOpen={order} onClose={handleOrderClose}>
