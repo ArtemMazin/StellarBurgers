@@ -21,3 +21,9 @@
   align-items: center;
   gap: 8px;
 }
+
+@media (width<768px) {
+  .card {
+    text-align: center;
+  }
+}

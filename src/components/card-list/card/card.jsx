@@ -10,12 +10,15 @@ import { allIngredients, selectedBun } from '@/services/constructor/selectors';
 import { ItemTypes, config } from '@/utils/drag-configs';
 import { useDrag } from 'react-dnd';
 import { Link, useLocation } from 'react-router-dom';
+import { useResize } from '@/hooks/useResize';
 
 export default function Card({ item }) {
   const ingredients = useSelector(allIngredients);
   const bun = useSelector(selectedBun);
 
   const location = useLocation();
+
+  const { isMobile } = useResize();
 
   const count = useCounter(bun, ingredients, item);
 
@@ -59,7 +62,7 @@ export default function Card({ item }) {
     >
       {count > 0 && <Counter count={count} size="default" extraClass="" />}
       <div>
-        <img src={item.image} alt={item.name} />
+        <img src={isMobile ? item.image_mobile : item.image} alt={item.name} />
       </div>
       <div className={`${styles.price} text text_type_digits-default`}>
         {item.price}

@@ -19,7 +19,7 @@
 @media (width < 1200px) {
   .logo {
     position: static;
-    margin-left: 20px;
+    margin: 12px 0 0 8px;
     transform: none;
   }
 
