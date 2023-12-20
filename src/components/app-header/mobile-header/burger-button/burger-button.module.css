@@ -1,3 +1,10 @@
+.icon {
+  position: fixed;
+  z-index: 10;
+  top: 16px;
+  right: 8px;
+}
+
 .icon rect {
   stroke-width: 1;
   transition: var(--common-transition);

@@ -1,13 +1,8 @@
-import React, { useState } from 'react';
+/* eslint-disable react/prop-types */
+import React from 'react';
 import styles from './burger-button.module.css';
 
-function BurgerButton() {
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
-
-  function toggleHideMenu() {
-    setIsMenuOpen(!isMenuOpen);
-  }
-
+function BurgerButton({ toggleHideMenu, isMenuOpen }) {
   return (
     <svg
       width="24"

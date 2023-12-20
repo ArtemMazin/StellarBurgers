@@ -1,13 +1,19 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Logo } from '@ya.praktikum/react-developer-burger-ui-components';
 import styles from './app-header.module.css';
 import Navigation from './navigation/navigation';
 import { useResize } from '@/hooks/useResize';
 import { URL } from '@/utils/url-config';
 import { Link } from 'react-router-dom';
-import BurgerButton from './mobile-header/burger-button/burger-button';
+import MobileNavigation from './mobile-header/mobile-navigation';
 
 function AppHeader() {
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+  function toggleHideMenu() {
+    setIsMenuOpen(!isMenuOpen);
+  }
+
   const { isMobile, isTablet } = useResize();
 
   return (
@@ -17,7 +23,11 @@ function AppHeader() {
           {isTablet ? <img src="logo.svg" alt="Логотип Stellar Burgers" /> : <Logo />}
         </Link>
 
-        {isMobile ? <BurgerButton /> : <Navigation />}
+        {isMobile ? (
+          <MobileNavigation toggleHideMenu={toggleHideMenu} isMenuOpen={isMenuOpen} />
+        ) : (
+          <Navigation />
+        )}
       </div>
     </header>
   );
