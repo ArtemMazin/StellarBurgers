@@ -1,3 +1,9 @@
 .container {
-  margin-top: 56px;
+  margin-top: 88px;
+}
+
+@media (width < 768px) {
+  .container {
+    margin-top: 64px;
+  }
 }

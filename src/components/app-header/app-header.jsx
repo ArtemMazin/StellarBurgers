@@ -5,7 +5,8 @@ import Navigation from './navigation/navigation';
 import { useResize } from '@/hooks/useResize';
 import { URL } from '@/utils/url-config';
 import { Link } from 'react-router-dom';
-import MobileNavigation from './mobile-header/mobile-navigation';
+import MobileMenu from './mobile-menu/mobile-menu';
+import BurgerButton from './mobile-menu/burger-button/burger-button';
 
 function AppHeader() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -18,13 +19,16 @@ function AppHeader() {
 
   return (
     <header className={styles.header}>
-      <div className={`${styles.wrapper} container`}>
+      <div className={`${styles.wrapper} container pt-4 pb-4`}>
         <Link to={URL.MAIN} className={styles.logo}>
           {isTablet ? <img src="logo.svg" alt="Логотип Stellar Burgers" /> : <Logo />}
         </Link>
 
         {isMobile ? (
-          <MobileNavigation toggleHideMenu={toggleHideMenu} isMenuOpen={isMenuOpen} />
+          <>
+            <BurgerButton toggleHideMenu={toggleHideMenu} isMenuOpen={isMenuOpen} />
+            <MobileMenu toggleHideMenu={toggleHideMenu} isMenuOpen={isMenuOpen} />
+          </>
         ) : (
           <Navigation />
         )}
