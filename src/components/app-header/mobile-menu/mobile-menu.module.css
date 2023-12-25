@@ -21,3 +21,8 @@
   padding: 0;
   list-style-type: none;
 }
+
+.link {
+  display: flex;
+  align-items: center;
+}

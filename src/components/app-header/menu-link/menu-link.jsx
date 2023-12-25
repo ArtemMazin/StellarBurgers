@@ -29,7 +29,7 @@ function MenuLink({ url, name, icon }) {
   }
 
   return (
-    <NavLink to={url} className={`${styles.link} pl-5 pr-5 pb-4 pt-4`}>
+    <NavLink to={url} className={styles.link}>
       {({ isActive }) => (
         <>
           {renderIcon(isActive)}
