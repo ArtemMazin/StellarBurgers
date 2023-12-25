@@ -55,7 +55,7 @@ export default function App() {
           />
           <Route path={URL.RESET_PASSWORD} element={<OnlyUnAuth component={<ResetPassword />} />} />
           <Route path={URL.INGREDIENT} element={<Ingredient />} />
-          <Route path={URL.PROFILE} element={<OnlyAuth component={<Profile />} />}>
+          <Route path={`${URL.PROFILE}/*`} element={<OnlyAuth component={<Profile />} />}>
             <Route index element={<ProfileForm />} />
             <Route path={URL.PROFILE_ORDERS} element={<></>} />
           </Route>

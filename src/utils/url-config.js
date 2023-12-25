@@ -5,7 +5,7 @@ export const URL = {
   FORGOT_PASSWORD: 'forgot-password',
   RESET_PASSWORD: 'reset-password',
   HISTORY_ORDERS: 'history-orders',
-  PROFILE: '/profile',
+  PROFILE: 'profile',
   PROFILE_ORDERS: 'orders',
   INGREDIENT: 'ingredients/:ingredientId',
 };

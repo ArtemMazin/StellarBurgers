@@ -10,7 +10,7 @@ function TriangleIcon({ handleClick, isActive }) {
       height="24"
       viewBox="0 0 24 24"
       fill="none"
-      className={styles.icon}
+      className={`${styles.icon} pr-2`}
       onClick={handleClick}
     >
       {isActive ? (

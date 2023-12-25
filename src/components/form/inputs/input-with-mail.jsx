@@ -2,8 +2,10 @@ import React, { useState } from 'react';
 import { currentUser } from '@/services/user/selectors';
 import { REG_EXP_EMAIL, messages } from '@/utils/constants';
 import { Input } from '@ya.praktikum/react-developer-burger-ui-components';
+import styles from './input.module.css';
 import { useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
+import { useResize } from '@/hooks/useResize';
 
 function InputWithMail({
   isIcon = false,
@@ -17,6 +19,8 @@ function InputWithMail({
   const [currentIcon, setCurrentIcon] = useState('EditIcon');
   const user = useSelector(currentUser);
 
+  const { isMobile } = useResize();
+
   const inputRef = React.useRef(null);
   const onIconClick = () => {
     setDisabled(false);
@@ -28,6 +32,8 @@ function InputWithMail({
       ref={inputRef}
       name={'email'}
       type={'email'}
+      size={isMobile ? 'small' : 'default'}
+      extraClass={styles.input}
       placeholder={placeholder}
       icon={isIcon && currentIcon}
       value={value || ''}
