@@ -1,20 +1,14 @@
-import React, { useState } from 'react';
+/* eslint-disable react/prop-types */
+import React from 'react';
 import { Logo } from '@ya.praktikum/react-developer-burger-ui-components';
 import styles from './app-header.module.css';
 import Navigation from './navigation/navigation';
 import { useResize } from '@/hooks/useResize';
 import { URL } from '@/utils/url-config';
 import { Link } from 'react-router-dom';
-import MobileMenu from './mobile-menu/mobile-menu';
-import BurgerButton from './mobile-menu/burger-button/burger-button';
+import BurgerButton from './burger-button/burger-button';
 
-function AppHeader() {
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
-
-  function toggleHideMenu() {
-    setIsMenuOpen(!isMenuOpen);
-  }
-
+function AppHeader({ toggleHideMenu, isMenuOpen }) {
   const { isMobile, isTablet } = useResize();
 
   return (
@@ -25,10 +19,7 @@ function AppHeader() {
         </Link>
 
         {isMobile ? (
-          <>
-            <BurgerButton toggleHideMenu={toggleHideMenu} isMenuOpen={isMenuOpen} />
-            <MobileMenu toggleHideMenu={toggleHideMenu} isMenuOpen={isMenuOpen} />
-          </>
+          <BurgerButton toggleHideMenu={toggleHideMenu} isMenuOpen={isMenuOpen} />
         ) : (
           <Navigation />
         )}

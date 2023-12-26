@@ -9,7 +9,7 @@ import { allIngredients, selectedBun } from '@/services/constructor/selectors';
 import { currentOrder, orderStatus, orderError } from '@/services/order/selectors';
 import { createOrder, removeOrder } from '@/services/order/order-slice';
 import { deleteAllIngredients } from '@/services/constructor/constructor-slice';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useOutletContext } from 'react-router-dom';
 import { URL } from '@/utils/url-config';
 import useStatus from '@/hooks/useStatus';
 import { toast } from 'react-toastify';
@@ -24,6 +24,8 @@ function BurgerOrder() {
   const error = useSelector(orderError);
 
   const totalPrice = useTotalPrice(ingredients, bun);
+
+  const [toggleHideMenu] = useOutletContext();
 
   const dispatch = useDispatch();
 
@@ -91,7 +93,13 @@ function BurgerOrder() {
         <CurrencyIcon type="primary" />
       </div>
       {isMobile ? (
-        <Button htmlType="button" type="primary" size="small" extraClass="ml-2">
+        <Button
+          htmlType="button"
+          type="primary"
+          size="small"
+          extraClass="ml-2"
+          onClick={toggleHideMenu}
+        >
           Смотреть заказ
         </Button>
       ) : (
