@@ -6,9 +6,8 @@ import Navigation from './navigation/navigation';
 import { useResize } from '@/hooks/useResize';
 import { URL } from '@/utils/url-config';
 import { Link } from 'react-router-dom';
-import BurgerButton from './burger-button/burger-button';
 
-function AppHeader({ toggleHideMenu, isMenuOpen }) {
+function AppHeader() {
   const { isMobile, isTablet } = useResize();
 
   return (
@@ -18,11 +17,7 @@ function AppHeader({ toggleHideMenu, isMenuOpen }) {
           {isTablet ? <img src="logo.svg" alt="Логотип Stellar Burgers" /> : <Logo />}
         </Link>
 
-        {isMobile ? (
-          <BurgerButton toggleHideMenu={toggleHideMenu} isMenuOpen={isMenuOpen} />
-        ) : (
-          <Navigation />
-        )}
+        {!isMobile && <Navigation />}
       </div>
     </header>
   );

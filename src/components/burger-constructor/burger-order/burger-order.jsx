@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import React from 'react';
 import { Button, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import styles from './burger-order.module.css';
@@ -17,6 +18,8 @@ import { messages } from '@/utils/constants';
 import { useResize } from '@/hooks/useResize';
 
 function BurgerOrder() {
+  const [isConstructorOpen, showConstructor] = useOutletContext();
+
   const ingredients = useSelector(allIngredients);
   const bun = useSelector(selectedBun);
   const order = useSelector(currentOrder);
@@ -24,8 +27,6 @@ function BurgerOrder() {
   const error = useSelector(orderError);
 
   const totalPrice = useTotalPrice(ingredients, bun);
-
-  const [toggleHideMenu] = useOutletContext();
 
   const dispatch = useDispatch();
 
@@ -93,17 +94,17 @@ function BurgerOrder() {
         <CurrencyIcon type="primary" />
       </div>
       {isMobile ? (
-        <Button
-          htmlType="button"
-          type="primary"
-          size="small"
-          extraClass="ml-2"
-          onClick={toggleHideMenu}
-        >
-          Смотреть заказ
-        </Button>
+        isConstructorOpen ? (
+          <Button htmlType="button" size="small" extraClass="ml-2" onClick={handleOrder}>
+            {textButton}
+          </Button>
+        ) : (
+          <Button htmlType="button" size="small" extraClass="ml-2" onClick={showConstructor}>
+            Смотреть заказ
+          </Button>
+        )
       ) : (
-        <Button htmlType="button" type="primary" size="large" onClick={handleOrder}>
+        <Button htmlType="button" size="large" onClick={handleOrder}>
           {textButton}
         </Button>
       )}
