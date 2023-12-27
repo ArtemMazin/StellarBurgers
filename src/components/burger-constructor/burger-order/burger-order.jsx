@@ -82,7 +82,7 @@ function BurgerOrder() {
   };
 
   return (
-    <div className={styles.order}>
+    <div className={`${styles.order} ${isConstructorOpen && styles.order_active}`}>
       <div className={styles.price}>
         <span
           className={`text ${

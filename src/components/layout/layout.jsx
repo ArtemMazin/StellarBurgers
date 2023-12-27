@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import styles from './layout.module.css';
 import { Outlet } from 'react-router-dom';
 import AppHeader from '../app-header/app-header';
 import { ToastContainer } from 'react-toastify';
@@ -38,9 +37,8 @@ function Layout() {
       {isMobile && <BurgerButton toggleHideMenu={toggleHideMenu} buttonActive={buttonActive} />}
 
       <AppHeader />
-      <div className={styles.container}>
-        <Outlet context={[isConstructorOpen, showConstructor]} />
-      </div>
+
+      <Outlet context={[isConstructorOpen, showConstructor]} />
 
       <ToastContainer theme="dark" />
 

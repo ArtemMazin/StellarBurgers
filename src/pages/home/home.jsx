@@ -8,6 +8,7 @@ import { useResize } from '@/hooks/useResize';
 import BurgerOrder from '@/components/burger-constructor/burger-order/burger-order';
 import MobileMenu from '@/components/mobile-menu/mobile-menu';
 import { useOutletContext } from 'react-router-dom';
+import BurgerComponents from '@/components/burger-constructor/burger-components/burger-components';
 
 function Home() {
   const { isMobile } = useResize();
@@ -23,7 +24,7 @@ function Home() {
             <BurgerOrder />
 
             <MobileMenu isMenuOpen={isConstructorOpen}>
-              <BurgerConstructor />
+              <BurgerComponents />
             </MobileMenu>
           </>
         ) : (

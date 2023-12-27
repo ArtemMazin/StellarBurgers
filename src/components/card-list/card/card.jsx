@@ -52,15 +52,27 @@ export default function Card({ item }) {
     };
   };
 
+  const handleAddButton = () => {
+    if (item.type === config.BUN.type) {
+      dispatch(config.BUN.action(item));
+    }
+    if (item.type === config.MAIN.type) {
+      dispatch(config.MAIN.action(item));
+    }
+    if (item.type === config.SAUCE.type) {
+      dispatch(config.SAUCE.action(item));
+    }
+  };
+
   return (
-    <div ref={drag} className={`${styles.card} p-1`}>
+    <div ref={drag} className={styles.card}>
       <Link
         to={`/ingredients/${item._id}`}
         state={{ background: location }}
         style={getStyles(isDragging)}
         className={styles.link}
       >
-        {count > 0 && <Counter count={count} size="default" extraClass="" />}
+        {count > 0 && <Counter count={count} />}
 
         <div>
           <img src={isMobile ? item.image_mobile : item.image} alt={item.name} />
@@ -75,7 +87,13 @@ export default function Card({ item }) {
         </h3>
       </Link>
       {isMobile && (
-        <Button htmlType="button" type="secondary" size="small" extraClass={styles.button}>
+        <Button
+          htmlType="button"
+          type="secondary"
+          size="small"
+          extraClass={styles.button}
+          onClick={handleAddButton}
+        >
           Добавить
         </Button>
       )}

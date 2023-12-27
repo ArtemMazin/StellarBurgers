@@ -11,6 +11,6 @@
 @media (width<768px) {
   .list {
     gap: 26px 16px;
-    grid-template-rows: repeat(auto-fit, 240px);
+    grid-template-rows: repeat(auto-fit, 230px);
   }
 }

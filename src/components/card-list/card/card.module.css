@@ -31,10 +31,10 @@
   margin-top: auto;
 }
 
-@media (width<768px) {
+@media (width < 768px) {
   .card {
-    height: 240px;
-    max-height: 240px;
+    height: 230px;
+    max-height: 230px;
     text-align: center;
   }
 }
