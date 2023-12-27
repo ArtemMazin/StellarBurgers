@@ -10,3 +10,10 @@
   list-style-type: none;
   overflow-y: auto;
 }
+
+@media (width < 768px) {
+  .list {
+    max-height: 59vh;
+    gap: 0;
+  }
+}

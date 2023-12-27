@@ -15,3 +15,9 @@
 .base_bottom {
   border-radius: var(--bottom-constructor-item-border-radius);
 }
+
+@media (width < 768px) {
+  .base {
+    box-shadow: none;
+  }
+}
