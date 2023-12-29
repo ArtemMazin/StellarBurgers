@@ -4,3 +4,9 @@
   justify-content: center;
   gap: 20px;
 }
+
+@media (width < 768px) {
+  .composition {
+    flex-wrap: wrap;
+  }
+}

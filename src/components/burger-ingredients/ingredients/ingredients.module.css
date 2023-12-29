@@ -5,3 +5,10 @@
   overflow-y: auto;
   scroll-behavior: smooth;
 }
+
+@media (width<768px) {
+  .list {
+    max-height: 70vh;
+    margin: 0;
+  }
+}

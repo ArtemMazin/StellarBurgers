@@ -11,12 +11,12 @@ function AppHeader() {
 
   return (
     <header className={styles.header}>
-      <div className={`${styles.wrapper} container`}>
+      <div className={`${styles.wrapper} container pt-4 pb-4`}>
         <Link to={URL.MAIN} className={styles.logo}>
           {isTablet ? <img src="logo.svg" alt="Логотип Stellar Burgers" /> : <Logo />}
         </Link>
 
-        {isMobile ? <></> : <Navigation />}
+        {!isMobile && <Navigation />}
       </div>
     </header>
   );

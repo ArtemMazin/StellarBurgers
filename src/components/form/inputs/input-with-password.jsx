@@ -2,8 +2,10 @@ import React, { useState } from 'react';
 import { currentUser } from '@/services/user/selectors';
 import { REG_EXP_PASSWORD, messages } from '@/utils/constants';
 import { Input } from '@ya.praktikum/react-developer-burger-ui-components';
+import styles from './input.module.css';
 import { useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
+import { useResize } from '@/hooks/useResize';
 
 function InputWithPassword({
   icon = 'ShowIcon',
@@ -17,6 +19,8 @@ function InputWithPassword({
   const [currentIcon, setCurrentIcon] = useState(icon);
   const [currentType, setCurrentType] = useState('password');
   const user = useSelector(currentUser);
+
+  const { isMobile } = useResize();
 
   const inputRef = React.useRef(null);
   const onIconClick = () => {
@@ -52,6 +56,8 @@ function InputWithPassword({
       ref={inputRef}
       name={'password'}
       type={currentType}
+      size={isMobile ? 'small' : 'default'}
+      extraClass={styles.input}
       placeholder={placeholder}
       icon={currentIcon}
       value={value || ''}

@@ -6,18 +6,35 @@
   max-height: 216px;
   box-sizing: border-box;
   flex-direction: column;
-  align-items: center;
   background-color: var(--background-alt);
   box-shadow: var(--shadow);
+  transition: var(--common-transition);
+}
+
+.link {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   color: var(--text-primary-color);
   cursor: pointer;
   gap: 8px;
   text-decoration: none;
-  transition: var(--common-transition);
 }
 
 .price {
   display: flex;
   align-items: center;
   gap: 8px;
+}
+
+.button {
+  margin-top: auto;
+}
+
+@media (width < 768px) {
+  .card {
+    height: 230px;
+    max-height: 230px;
+    text-align: center;
+  }
 }

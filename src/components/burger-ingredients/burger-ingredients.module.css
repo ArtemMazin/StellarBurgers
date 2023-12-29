@@ -1,1 +1,9 @@
-
+@media (width<768px) {
+  .title {
+    font-size: 28px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 32px;
+    text-align: center;
+  }
+}

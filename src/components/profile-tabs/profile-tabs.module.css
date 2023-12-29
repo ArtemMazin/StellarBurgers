@@ -23,3 +23,9 @@
   color: var(--text-primary-color);
   transition: var(--common-transition);
 }
+
+@media (width < 768px) {
+  .link {
+    height: 40px;
+  }
+}

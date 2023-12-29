@@ -1,0 +1,25 @@
+.icon {
+  position: fixed;
+  z-index: 10;
+  top: 20px;
+  right: 8px;
+}
+
+.icon rect {
+  stroke-width: 1;
+  transition: var(--common-transition);
+}
+
+.active rect:nth-child(1) {
+  transform: rotate(45deg);
+  transform-origin: 25% 40%;
+}
+
+.active rect:nth-child(2) {
+  opacity: 0;
+}
+
+.active rect:nth-child(3) {
+  transform: rotate(-45deg);
+  transform-origin: 25% 60%;
+}

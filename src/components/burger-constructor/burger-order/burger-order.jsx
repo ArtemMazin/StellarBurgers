@@ -9,13 +9,16 @@ import { allIngredients, selectedBun } from '@/services/constructor/selectors';
 import { currentOrder, orderStatus, orderError } from '@/services/order/selectors';
 import { createOrder, removeOrder } from '@/services/order/order-slice';
 import { deleteAllIngredients } from '@/services/constructor/constructor-slice';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useOutletContext } from 'react-router-dom';
 import { URL } from '@/utils/url-config';
 import useStatus from '@/hooks/useStatus';
 import { toast } from 'react-toastify';
 import { messages } from '@/utils/constants';
+import { useResize } from '@/hooks/useResize';
 
 function BurgerOrder() {
+  const [isConstructorOpen, showConstructor] = useOutletContext();
+
   const ingredients = useSelector(allIngredients);
   const bun = useSelector(selectedBun);
   const order = useSelector(currentOrder);
@@ -27,6 +30,8 @@ function BurgerOrder() {
   const dispatch = useDispatch();
 
   const navigate = useNavigate();
+
+  const { isMobile } = useResize();
 
   function getAllId(bun, ingredients) {
     const ingredientsID = ingredients.map((item) => item._id);
@@ -76,17 +81,39 @@ function BurgerOrder() {
   };
 
   return (
-    <div className={`${styles.order} pr-4`}>
-      <div>
-        <span className="text text_type_digits-medium pr-2">{totalPrice}</span>
+    <div className={`${styles.order} ${isConstructorOpen && styles.order_active}`}>
+      <div className={styles.price}>
+        <span
+          className={`text ${
+            isMobile ? 'text_type_digits-default pr-2' : 'text_type_digits-medium pr-2'
+          }`}
+        >
+          {totalPrice}
+        </span>
         <CurrencyIcon type="primary" />
       </div>
-      <Button htmlType="button" type="primary" size="large" onClick={handleOrder}>
-        {textButton}
-      </Button>
+      {isMobile ? (
+        isConstructorOpen ? (
+          <Button htmlType="button" size="small" extraClass="ml-2" onClick={handleOrder}>
+            {textButton}
+          </Button>
+        ) : (
+          <Button htmlType="button" size="small" extraClass="ml-2" onClick={showConstructor}>
+            Смотреть заказ
+          </Button>
+        )
+      ) : (
+        <Button htmlType="button" size="large" onClick={handleOrder}>
+          {textButton}
+        </Button>
+      )}
 
       {order && (
-        <Modal isOpen={order} onClose={handleOrderClose}>
+        <Modal
+          isOpen={order}
+          onClose={handleOrderClose}
+          title={`${isMobile ? 'Заказ оформлен' : ''}`}
+        >
           <OrderDetails order={order} />
         </Modal>
       )}

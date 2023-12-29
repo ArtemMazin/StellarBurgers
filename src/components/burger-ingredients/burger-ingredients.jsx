@@ -9,12 +9,16 @@ import { errorIngredients, statusIngredients } from '@/services/initial-ingredie
 import { getIngredients } from '@/services/initial-ingredients/initial-ingredients-slice';
 import { toast } from 'react-toastify';
 import { loadState } from '@/localstorage';
+import { useResize } from '@/hooks/useResize';
+import styles from './burger-ingredients.module.css';
 
 function BurgerIngredients() {
   const [activeTab, setActiveTab] = useState(BUNS);
 
   const status = useSelector(statusIngredients);
   const error = useSelector(errorIngredients);
+
+  const { isMobile } = useResize();
 
   const dispatch = useDispatch();
 
@@ -44,7 +48,13 @@ function BurgerIngredients() {
 
   return (
     <section>
-      <h1 className="text text_type_main-large pt-10 pb-5">Соберите бургер</h1>
+      <h1
+        className={`text text_type_main-large ${styles.title} ${
+          isMobile ? 'pt-4 pb-2' : 'pt-10 pb-5'
+        }`}
+      >
+        Соберите бургер
+      </h1>
       <Tabs ref={tabsRef} handleTab={handleTab} activeTab={activeTab} />
       {content}
     </section>

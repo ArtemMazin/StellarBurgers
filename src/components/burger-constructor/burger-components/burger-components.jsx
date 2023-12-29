@@ -8,10 +8,13 @@ import { ItemTypes } from '@/utils/drag-configs';
 import Base from './base/base';
 import { useDrop } from 'react-dnd';
 import Switch from './switch-components/switch-components';
+import { useResize } from '@/hooks/useResize';
 
 export default function BurgerComponents() {
   const bun = useSelector(selectedBun);
   const ingredients = useSelector(allIngredients);
+
+  const { isMobile } = useResize();
 
   const [{ canDrop }, drop] = useDrop(() => ({
     accept: ItemTypes.INGREDIENT,
@@ -22,7 +25,7 @@ export default function BurgerComponents() {
   }));
 
   return (
-    <div className={`${styles.components} mb-10`} ref={drop}>
+    <div className={`${styles.components} ${!isMobile && 'mb-10'}`} ref={drop}>
       {
         <Switch element={bun}>
           <Bun bun={bun} type={'top'} text={'(верх)'} />

@@ -7,5 +7,22 @@
 .image {
   width: 120px;
   height: 120px;
-  background: url('../../../images/done.svg') no-repeat center;
+  background: url('../../../images/done.png') no-repeat center;
+}
+
+@media (width < 768px) {
+  .container {
+    text-align: center;
+  }
+
+  .number {
+    margin-bottom: 0;
+    color: var(--colors-interface-accent);
+    font-size: 72px;
+    line-height: 80px;
+  }
+
+  .image {
+    background: url('../../../images/done-mobile.png') no-repeat center;
+  }
 }

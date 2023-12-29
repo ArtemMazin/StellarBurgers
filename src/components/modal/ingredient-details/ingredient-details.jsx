@@ -5,9 +5,12 @@ import Composition from './composition/composition';
 import { useSelector } from 'react-redux';
 import { useParams } from 'react-router';
 import { initialIngredients } from '@/services/initial-ingredients/selectors';
+import { useResize } from '@/hooks/useResize';
 
 export default function IngredientDetails() {
   const { ingredientId } = useParams();
+
+  const { isMobile } = useResize();
 
   const ingredients = useSelector(initialIngredients);
 
@@ -16,8 +19,12 @@ export default function IngredientDetails() {
 
   return (
     <div className={styles.container}>
-      <img src={ingredient.image_large} alt={ingredient.name} className={`${styles.image} mb-4`} />
-      <p className="text text_type_main-medium mb-8">{ingredient.name}</p>
+      <img
+        src={`${isMobile ? ingredient.image : ingredient.image_large}`}
+        alt={ingredient.name}
+        className={`${styles.image} mb-4`}
+      />
+      <p className={`${styles.name} text text_type_main-medium mb-8`}>{ingredient.name}</p>
       <Composition card={ingredient} />
     </div>
   );

@@ -1,9 +1,16 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styles from './modal-container.module.css';
+import { useResize } from '@/hooks/useResize';
 
 export default function Container({ children }) {
-  return <div className={`${styles.container} pl-10 pr-10 pt-10`}>{children}</div>;
+  const { isMobile } = useResize();
+
+  return (
+    <div className={`${styles.container} ${isMobile ? 'pl-2 pr-2' : 'pl-10 pr-10'}`}>
+      {children}
+    </div>
+  );
 }
 
 Container.propTypes = {
