@@ -10,3 +10,15 @@
   display: flex;
   justify-content: end;
 }
+
+@media (width < 768px) {
+  .form {
+    align-items: center;
+  }
+
+  .title {
+    font-size: 28px;
+    font-weight: 700;
+    line-height: 32px;
+  }
+}

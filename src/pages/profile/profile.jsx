@@ -15,7 +15,7 @@ function Profile() {
   const { isMobile } = useResize();
 
   const content = useStatus(
-    <div className="pt-20 pl-30 ml-25">
+    <div className={`${isMobile ? 'pt-20 ml-8' : 'pt-20 pl-30 ml-25'}`}>
       <Preloader />
     </div>,
     <Outlet />,

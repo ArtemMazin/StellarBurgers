@@ -1,6 +1,6 @@
-/* eslint-disable react/prop-types */
 import React from 'react';
 import styles from './burger-button.module.css';
+import PropTypes from 'prop-types';
 
 function BurgerButton({ toggleHideMenu, buttonActive }) {
   return (
@@ -21,3 +21,8 @@ function BurgerButton({ toggleHideMenu, buttonActive }) {
 }
 
 export default BurgerButton;
+
+BurgerButton.propTypes = {
+  toggleHideMenu: PropTypes.func.isRequired,
+  buttonActive: PropTypes.bool.isRequired,
+};

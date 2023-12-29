@@ -1,4 +1,3 @@
-/* eslint-disable react/prop-types */
 import React from 'react';
 import {
   BurgerIcon,
@@ -8,6 +7,7 @@ import {
 import styles from './menu-link.module.css';
 import { NavLink } from 'react-router-dom';
 import { useResize } from '@/hooks/useResize';
+import PropTypes from 'prop-types';
 
 function MenuLink({ url, name, icon }) {
   const { isMobile } = useResize();
@@ -51,3 +51,9 @@ function MenuLink({ url, name, icon }) {
 }
 
 export default MenuLink;
+
+MenuLink.propTypes = {
+  url: PropTypes.string.isRequired,
+  name: PropTypes.string.isRequired,
+  icon: PropTypes.string.isRequired,
+};

@@ -1,4 +1,3 @@
-/* eslint-disable react/prop-types */
 import React from 'react';
 import { Button, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import styles from './burger-order.module.css';
@@ -110,7 +109,11 @@ function BurgerOrder() {
       )}
 
       {order && (
-        <Modal isOpen={order} onClose={handleOrderClose}>
+        <Modal
+          isOpen={order}
+          onClose={handleOrderClose}
+          title={`${isMobile ? 'Заказ оформлен' : ''}`}
+        >
           <OrderDetails order={order} />
         </Modal>
       )}

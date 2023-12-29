@@ -4,6 +4,14 @@
   width: 100%;
   max-width: 720px;
   border-radius: var(--common-border-radius-s);
-  background: var(--background);
+  background-color: var(--background);
   box-shadow: 0 0 25px rgb(0 0 0 / 15%);
+}
+
+@media (width < 768px) {
+  .container {
+    height: 100vh;
+    border-radius: 0;
+    background-color: var(--background-alt);
+  }
 }

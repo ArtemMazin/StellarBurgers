@@ -25,3 +25,9 @@
 .button {
   align-self: center;
 }
+
+@media (width < 768px) {
+  .main {
+    margin: 16px auto;
+  }
+}

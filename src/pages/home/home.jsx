@@ -23,7 +23,7 @@ function Home() {
             <BurgerIngredients />
             <BurgerOrder />
 
-            <MobileMenu isMenuOpen={isConstructorOpen}>
+            <MobileMenu isMenuOpen={isConstructorOpen} title="Заказ">
               <BurgerComponents />
             </MobileMenu>
           </>

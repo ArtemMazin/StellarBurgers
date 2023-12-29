@@ -1,6 +1,6 @@
-/* eslint-disable react/prop-types */
 import React from 'react';
 import styles from './triangle-icon.module.css';
+import PropTypes from 'prop-types';
 
 function TriangleIcon({ handleClick, isActive }) {
   return (
@@ -29,3 +29,8 @@ function TriangleIcon({ handleClick, isActive }) {
 }
 
 export default TriangleIcon;
+
+TriangleIcon.propTypes = {
+  handleClick: PropTypes.func.isRequired,
+  isActive: PropTypes.bool.isRequired,
+};

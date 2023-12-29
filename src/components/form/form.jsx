@@ -15,7 +15,7 @@ function Form({
 }) {
   return (
     <form className={styles.form} noValidate onSubmit={handle}>
-      {title && <h1 className="text text_type_main-medium">{title}</h1>}
+      {title && <h1 className={`text text_type_main-medium ${styles.title}`}>{title}</h1>}
       {children}
       {isVisibleButtons && (
         <div className={`${textButtonReset && styles.buttonContainer}`}>

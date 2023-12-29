@@ -20,12 +20,15 @@ import { toast } from 'react-toastify';
 import ProfileForm from './pages/profile/profile-form/profile-form';
 import Layout from './components/layout/layout';
 import { messages } from './utils/constants';
+import { useResize } from './hooks/useResize';
 
 export default function App() {
   const dispatch = useDispatch();
   const location = useLocation();
   const navigate = useNavigate();
   const background = location.state && location.state.background;
+
+  const { isMobile } = useResize();
 
   const handleModalClose = () => {
     navigate(-1);
@@ -68,7 +71,11 @@ export default function App() {
           <Route
             path={URL.INGREDIENT}
             element={
-              <Modal isOpen={background} onClose={handleModalClose} title={'Детали ингредиента'}>
+              <Modal
+                isOpen={background}
+                onClose={handleModalClose}
+                title={`${isMobile ? '' : 'Детали ингредиента'}`}
+              >
                 <IngredientDetails />
               </Modal>
             }

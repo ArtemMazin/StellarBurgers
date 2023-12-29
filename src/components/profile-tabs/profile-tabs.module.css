@@ -28,8 +28,4 @@
   .link {
     height: 40px;
   }
-
-  .button {
-    background-color: var(--background);
-  }
 }
