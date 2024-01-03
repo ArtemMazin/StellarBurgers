@@ -7,12 +7,17 @@ import {
 import styles from './menu-link.module.css';
 import { NavLink } from 'react-router-dom';
 import { useResize } from '@/hooks/useResize';
-import PropTypes from 'prop-types';
 
-function MenuLink({ url, name, icon }) {
+interface ILinkProps {
+  url: string;
+  name: string;
+  icon: string;
+}
+
+function MenuLink({ url, name, icon }: ILinkProps) {
   const { isMobile } = useResize();
 
-  function renderIcon(isActive) {
+  function renderIcon(isActive: boolean) {
     let content;
     switch (icon) {
       case 'profile':
@@ -51,9 +56,3 @@ function MenuLink({ url, name, icon }) {
 }
 
 export default MenuLink;
-
-MenuLink.propTypes = {
-  url: PropTypes.string.isRequired,
-  name: PropTypes.string.isRequired,
-  icon: PropTypes.string.isRequired,
-};

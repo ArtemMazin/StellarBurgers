@@ -1,8 +1,12 @@
 import React from 'react';
 import styles from './triangle-icon.module.css';
-import PropTypes from 'prop-types';
 
-function TriangleIcon({ handleClick, isActive }) {
+interface IIconProps {
+  handleClick: () => void;
+  isActive: boolean;
+}
+
+function TriangleIcon({ handleClick, isActive }: IIconProps) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -29,8 +33,3 @@ function TriangleIcon({ handleClick, isActive }) {
 }
 
 export default TriangleIcon;
-
-TriangleIcon.propTypes = {
-  handleClick: PropTypes.func.isRequired,
-  isActive: PropTypes.bool.isRequired,
-};
