@@ -3,7 +3,11 @@ import PropTypes from 'prop-types';
 import styles from './modal-container.module.css';
 import { useResize } from '@/hooks/useResize';
 
-export default function Container({ children }) {
+interface IContainer {
+  children: React.ReactNode;
+}
+
+export default function Container({ children }: IContainer) {
   const { isMobile } = useResize();
 
   return (

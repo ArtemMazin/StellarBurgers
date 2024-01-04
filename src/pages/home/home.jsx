@@ -7,13 +7,13 @@ import BurgerConstructor from '@/components/burger-constructor/burger-constructo
 import { useResize } from '@/hooks/useResize';
 import BurgerOrder from '@/components/burger-constructor/burger-order/burger-order';
 import MobileMenu from '@/components/mobile-menu/mobile-menu';
-import { useOutletContext } from 'react-router-dom';
 import BurgerComponents from '@/components/burger-constructor/burger-components/burger-components';
+import { useConstructor } from '@/components/layout/layout';
 
 function Home() {
   const { isMobile } = useResize();
 
-  const [isConstructorOpen] = useOutletContext();
+  const [isConstructorOpen] = useConstructor();
 
   return (
     <main className={`${styles.content} ${isMobile ? 'pl-2 pr-2' : 'pl-5 pr-5'} container`}>

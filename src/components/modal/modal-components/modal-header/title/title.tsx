@@ -1,9 +1,12 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import styles from './title.module.css';
 import { useResize } from '@/hooks/useResize';
 
-export default function Title({ title }) {
+interface ITitle {
+  title: string;
+}
+
+export default function Title({ title }: ITitle) {
   const { isMobile } = useResize();
 
   return (
@@ -16,7 +19,3 @@ export default function Title({ title }) {
     </h2>
   );
 }
-
-Title.propTypes = {
-  title: PropTypes.string,
-};

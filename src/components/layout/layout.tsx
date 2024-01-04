@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Outlet } from 'react-router-dom';
+import { Outlet, useOutletContext } from 'react-router-dom';
 import AppHeader from '../app-header/app-header';
 import { ToastContainer } from 'react-toastify';
 import MobileMenu from '../mobile-menu/mobile-menu';
@@ -7,10 +7,16 @@ import MobileNavigation from '../app-header/mobile-navigation/mobile-navigation'
 import BurgerButton from '../app-header/burger-button/burger-button';
 import { useResize } from '@/hooks/useResize';
 
+type ContextType = [isConstructorOpen: boolean, showConstructor: () => void];
+
+export function useConstructor() {
+  return useOutletContext<ContextType>();
+}
+
 function Layout() {
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [isConstructorOpen, setIsConstructorOpen] = useState(false);
-  const [buttonActive, setButtonActive] = useState(false);
+  const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
+  const [isConstructorOpen, setIsConstructorOpen] = useState<boolean>(false);
+  const [buttonActive, setButtonActive] = useState<boolean>(false);
 
   const { isMobile } = useResize();
 
@@ -38,7 +44,7 @@ function Layout() {
 
       <AppHeader />
 
-      <Outlet context={[isConstructorOpen, showConstructor]} />
+      <Outlet context={[isConstructorOpen, showConstructor] satisfies ContextType} />
 
       <ToastContainer theme="dark" />
 

@@ -9,15 +9,16 @@ import { allIngredients, selectedBun } from '@/services/constructor/selectors';
 import { currentOrder, orderStatus, orderError } from '@/services/order/selectors';
 import { createOrder, removeOrder } from '@/services/order/order-slice';
 import { deleteAllIngredients } from '@/services/constructor/constructor-slice';
-import { useNavigate, useOutletContext } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { URL } from '@/utils/url-config';
 import useStatus from '@/hooks/useStatus';
 import { toast } from 'react-toastify';
 import { messages } from '@/utils/constants';
 import { useResize } from '@/hooks/useResize';
+import { useConstructor } from '@/components/layout/layout';
 
 function BurgerOrder() {
-  const [isConstructorOpen, showConstructor] = useOutletContext();
+  const [isConstructorOpen, showConstructor] = useConstructor();
 
   const ingredients = useSelector(allIngredients);
   const bun = useSelector(selectedBun);
@@ -42,9 +43,7 @@ function BurgerOrder() {
     return allID;
   }
 
-  const handleOrder = (e) => {
-    e.preventDefault();
-
+  const handleOrder = () => {
     if (status === 'loading') {
       toast.warn(messages.WARN_ORDER_WAITING);
       return;

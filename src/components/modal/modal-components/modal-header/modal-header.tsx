@@ -1,9 +1,12 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import styles from './modal-header.module.css';
 import { useResize } from '@/hooks/useResize';
 
-export default function Header({ children }) {
+interface IHeader {
+  children: React.ReactNode;
+}
+
+export default function Header({ children }: IHeader) {
   const { isMobile } = useResize();
 
   return (
@@ -12,11 +15,3 @@ export default function Header({ children }) {
     </div>
   );
 }
-
-Header.propTypes = {
-  children: PropTypes.oneOfType([
-    PropTypes.arrayOf(PropTypes.element),
-    PropTypes.element,
-    PropTypes.elementType,
-  ]),
-};

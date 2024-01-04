@@ -1,9 +1,12 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import styles from './order-details.module.css';
 import { useResize } from '@/hooks/useResize';
 
-export default function OrderDetails({ order }) {
+interface IOrderDetails {
+  order: { number: number };
+}
+
+export default function OrderDetails({ order }: IOrderDetails) {
   const { isMobile } = useResize();
 
   return (
@@ -22,9 +25,3 @@ export default function OrderDetails({ order }) {
     </div>
   );
 }
-
-OrderDetails.propTypes = {
-  order: PropTypes.shape({
-    number: PropTypes.number,
-  }).isRequired,
-};

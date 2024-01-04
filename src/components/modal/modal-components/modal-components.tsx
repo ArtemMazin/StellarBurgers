@@ -1,17 +1,22 @@
 import React, { useEffect } from 'react';
-import PropTypes from 'prop-types';
 import ModalContext from '@/contexts/modalContext';
 import { createPortal } from 'react-dom';
 import { useDispatch } from 'react-redux';
 
-const modalRoot = document.getElementById('modals');
+const modalRoot = document.getElementById('modals') as HTMLElement;
 
-export default function ModalComponents({ isOpen, onClose, children }) {
+interface IModalComponents {
+  isOpen: object;
+  onClose: () => void;
+  children: React.ReactNode;
+}
+
+export default function ModalComponents({ isOpen, onClose, children }: IModalComponents) {
   const dispatch = useDispatch();
 
   useEffect(() => {
     if (!isOpen) return;
-    const closeByEscape = (e) => {
+    const closeByEscape = (e: KeyboardEvent) => {
       if (e.key === 'Escape') {
         onClose();
       }
@@ -21,7 +26,7 @@ export default function ModalComponents({ isOpen, onClose, children }) {
     return () => document.removeEventListener('keydown', closeByEscape);
   }, [dispatch, isOpen, onClose]);
 
-  const handleOverlay = (e) => {
+  const handleOverlay = (e: KeyboardEvent) => {
     if (e.target === e.currentTarget) {
       isOpen && onClose();
     }
@@ -38,14 +43,3 @@ export default function ModalComponents({ isOpen, onClose, children }) {
     </>
   );
 }
-
-ModalComponents.propTypes = {
-  onClose: PropTypes.func.isRequired,
-  title: PropTypes.string,
-  isOpen: PropTypes.object,
-  children: PropTypes.oneOfType([
-    PropTypes.arrayOf(PropTypes.element),
-    PropTypes.element,
-    PropTypes.elementType,
-  ]),
-};
