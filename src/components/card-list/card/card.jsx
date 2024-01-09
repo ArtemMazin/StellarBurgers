@@ -20,7 +20,7 @@ export default function Card({ item }) {
 
   const { isMobile } = useResize();
 
-  const count = useCounter({ bun, ingredients, item });
+  const count = useCounter(bun, ingredients, item);
 
   const dispatch = useDispatch();
 

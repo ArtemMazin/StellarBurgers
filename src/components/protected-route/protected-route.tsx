@@ -2,9 +2,13 @@ import { currentUser } from '@/services/user/selectors';
 import React from 'react';
 import { useSelector } from 'react-redux';
 import { Navigate, useLocation } from 'react-router-dom';
-import PropTypes from 'prop-types';
 
-const Protected = ({ onlyUnAuth = false, component }) => {
+interface IProtected {
+  onlyUnAuth: boolean;
+  component: JSX.Element;
+}
+
+const Protected = ({ onlyUnAuth = false, component }: IProtected) => {
   const user = useSelector(currentUser);
   const location = useLocation();
 
@@ -23,21 +27,6 @@ const Protected = ({ onlyUnAuth = false, component }) => {
 };
 
 export const OnlyAuth = Protected;
-export const OnlyUnAuth = ({ component }) => <Protected onlyUnAuth={true} component={component} />;
-
-Protected.propTypes = {
-  onlyUnAuth: PropTypes.bool,
-  component: PropTypes.oneOfType([
-    PropTypes.arrayOf(PropTypes.element),
-    PropTypes.element,
-    PropTypes.elementType,
-  ]),
-};
-
-OnlyUnAuth.propTypes = {
-  component: PropTypes.oneOfType([
-    PropTypes.arrayOf(PropTypes.element),
-    PropTypes.element,
-    PropTypes.elementType,
-  ]),
-};
+export const OnlyUnAuth = ({ component }: IProtected) => (
+  <Protected onlyUnAuth={true} component={component} />
+);

@@ -1,4 +1,4 @@
-export type IngredientTypes = {
+export type TIngredient = {
   _id: string;
   name: string;
   type: string;

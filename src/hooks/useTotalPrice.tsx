@@ -1,6 +1,7 @@
+import { TIngredient } from '@/utils/types';
 import React, { useMemo } from 'react';
 
-function useTotalPrice(ingredients, bun) {
+function useTotalPrice(ingredients: TIngredient[], bun: TIngredient) {
   const totalPrice = useMemo(
     () =>
       ingredients &&

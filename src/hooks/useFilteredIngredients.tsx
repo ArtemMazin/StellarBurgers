@@ -1,10 +1,10 @@
-import { IngredientTypes } from '@/utils/types';
+import { TIngredient } from '@/utils/types';
 import { useMemo, useState } from 'react';
 
-function useFilteredIngredients(array: IngredientTypes[]) {
-  const [buns, setBuns] = useState<IngredientTypes[]>([]);
-  const [sauces, setSauces] = useState<IngredientTypes[]>([]);
-  const [main, setMain] = useState<IngredientTypes[]>([]);
+function useFilteredIngredients(array: TIngredient[]) {
+  const [buns, setBuns] = useState<TIngredient[]>([]);
+  const [sauces, setSauces] = useState<TIngredient[]>([]);
+  const [main, setMain] = useState<TIngredient[]>([]);
 
   useMemo(() => {
     array.length > 0 &&
