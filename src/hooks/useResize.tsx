@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 
 export const useResize = () => {
-  const [width, setWidth] = useState();
+  const [width, setWidth] = useState<number>(0);
 
   useEffect(() => {
     const handleResize = () => {
