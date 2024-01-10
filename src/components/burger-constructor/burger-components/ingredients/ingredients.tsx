@@ -1,10 +1,13 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import styles from './ingredients.module.css';
-import ingredientPropTypes from '@/utils/prop-types';
 import Ingredient from './ingredient/ingredient';
+import { TIngredient } from '@/utils/types';
 
-export default function Ingredients({ ingredients }) {
+interface IIngredients {
+  ingredients: TIngredient[];
+}
+
+export default function Ingredients({ ingredients }: IIngredients) {
   return (
     <ul className={`${styles.list} custom-scroll`}>
       {ingredients.length > 0 &&
@@ -16,7 +19,3 @@ export default function Ingredients({ ingredients }) {
     </ul>
   );
 }
-
-Ingredients.propTypes = {
-  ingredients: PropTypes.arrayOf(ingredientPropTypes).isRequired,
-};

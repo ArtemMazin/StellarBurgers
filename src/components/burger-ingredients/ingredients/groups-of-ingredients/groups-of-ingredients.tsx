@@ -1,11 +1,15 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import styles from './groups-of-ingredients.module.css';
 import CardList from '@/components/card-list/card-list';
-import ingredientPropTypes from '@/utils/prop-types';
 import { useResize } from '@/hooks/useResize';
+import { TIngredient } from '@/utils/types';
 
-export default function GroupsOfIngredients({ ingredientsGroup, title }) {
+interface IGroupsOfIngredients {
+  ingredientsGroup: TIngredient[];
+  title: 'Булки' | 'Соусы' | 'Начинки';
+}
+
+export default function GroupsOfIngredients({ ingredientsGroup, title }: IGroupsOfIngredients) {
   const { isMobile } = useResize();
 
   return (
@@ -15,8 +19,3 @@ export default function GroupsOfIngredients({ ingredientsGroup, title }) {
     </div>
   );
 }
-
-GroupsOfIngredients.propTypes = {
-  ingredientsGroup: PropTypes.arrayOf(ingredientPropTypes).isRequired,
-  title: PropTypes.string.isRequired,
-};

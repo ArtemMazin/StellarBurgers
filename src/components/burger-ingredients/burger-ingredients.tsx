@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/ban-ts-comment */
 import React, { useEffect, useRef, useState } from 'react';
 import Tabs from './tabs/tabs';
 import Ingredients from './ingredients/ingredients';
@@ -13,7 +14,7 @@ import { useResize } from '@/hooks/useResize';
 import styles from './burger-ingredients.module.css';
 
 function BurgerIngredients() {
-  const [activeTab, setActiveTab] = useState(BUNS);
+  const [activeTab, setActiveTab] = useState<string>(BUNS);
 
   const status = useSelector(statusIngredients);
   const error = useSelector(errorIngredients);
@@ -24,18 +25,20 @@ function BurgerIngredients() {
 
   useEffect(() => {
     if (loadState() === undefined || error) {
+      // @ts-ignore
       dispatch(getIngredients())
         .unwrap()
+        // @ts-ignore
         .catch((err) => {
           toast.error(err);
         });
     }
   }, [dispatch, error]);
 
-  const handleTab = (tabName) => {
+  const handleTab = (tabName: string) => {
     setActiveTab(tabName);
   };
-  const tabsRef = useRef(null);
+  const tabsRef = useRef<HTMLDivElement | null>(null);
 
   const content = useStatus(
     <div className="mt-30">

@@ -3,7 +3,12 @@ import PropTypes from 'prop-types';
 import styles from './base.module.css';
 import { useResize } from '@/hooks/useResize';
 
-function Base({ styleType, canDrop }) {
+interface IBase {
+  styleType?: 'top' | 'bottom';
+  canDrop: boolean;
+}
+
+function Base({ styleType, canDrop }: IBase) {
   const { isMobile } = useResize();
 
   let boxShadow = '';
