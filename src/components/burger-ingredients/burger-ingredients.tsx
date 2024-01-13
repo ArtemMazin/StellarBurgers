@@ -40,14 +40,15 @@ function BurgerIngredients() {
   };
   const tabsRef = useRef<HTMLDivElement | null>(null);
 
-  const content = useStatus(
-    <div className="mt-30">
-      <Preloader />
-    </div>,
-    <Ingredients tabsRef={tabsRef} handleTab={handleTab} activeTab={activeTab} />,
+  const content = useStatus({
+    loading: (
+      <div className="mt-30">
+        <Preloader />
+      </div>
+    ),
+    content: <Ingredients tabsRef={tabsRef} handleTab={handleTab} activeTab={activeTab} />,
     status,
-    error,
-  );
+  });
 
   return (
     <section>

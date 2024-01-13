@@ -1,3 +1,5 @@
+import { TIngredient } from './utils/types';
+
 export const loadState = () => {
   try {
     const savedState = localStorage.getItem('burger-state');
@@ -11,7 +13,10 @@ export const loadState = () => {
   }
 };
 
-export const saveState = (state) => {
+export const saveState = (state: {
+  initialIngredients: TIngredient[];
+  constructorIngredients: TIngredient[];
+}) => {
   try {
     const stateToBeSaved = JSON.stringify(state);
 

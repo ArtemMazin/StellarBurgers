@@ -1,7 +1,7 @@
 import React from 'react';
 import styles from './profile.module.css';
 import { useSelector } from 'react-redux';
-import { errorUser, statusUser } from '@/services/user/selectors';
+import { statusUser } from '@/services/user/selectors';
 import useStatus from '@/hooks/useStatus';
 import Preloader from '@/components/preloader/preloader';
 import ProfileTabs from '@/components/profile-tabs/profile-tabs';
@@ -10,18 +10,18 @@ import { useResize } from '@/hooks/useResize';
 
 function Profile() {
   const status = useSelector(statusUser);
-  const error = useSelector(errorUser);
 
   const { isMobile } = useResize();
 
-  const content = useStatus(
-    <div className={`${isMobile ? 'pt-20 ml-8' : 'pt-20 pl-30 ml-25'}`}>
-      <Preloader />
-    </div>,
-    <Outlet />,
+  const content = useStatus({
+    loading: (
+      <div className={`${isMobile ? 'pt-20 ml-8' : 'pt-20 pl-30 ml-25'}`}>
+        <Preloader />
+      </div>
+    ),
+    content: <Outlet />,
     status,
-    error,
-  );
+  });
 
   return (
     <main className="container">

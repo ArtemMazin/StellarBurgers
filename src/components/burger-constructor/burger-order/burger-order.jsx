@@ -6,7 +6,7 @@ import OrderDetails from '@/components/modal/order-details/order-details';
 import { useDispatch, useSelector } from 'react-redux';
 import useTotalPrice from '@/hooks/useTotalPrice';
 import { allIngredients, selectedBun } from '@/services/constructor/selectors';
-import { currentOrder, orderStatus, orderError } from '@/services/order/selectors';
+import { currentOrder, orderStatus } from '@/services/order/selectors';
 import { createOrder, removeOrder } from '@/services/order/order-slice';
 import { deleteAllIngredients } from '@/services/constructor/constructor-slice';
 import { useNavigate } from 'react-router-dom';
@@ -24,7 +24,6 @@ function BurgerOrder() {
   const bun = useSelector(selectedBun);
   const order = useSelector(currentOrder);
   const status = useSelector(orderStatus);
-  const error = useSelector(orderError);
 
   const totalPrice = useTotalPrice(ingredients, bun);
 
@@ -68,12 +67,11 @@ function BurgerOrder() {
     dispatch(deleteAllIngredients());
   };
 
-  const textButton = useStatus(
-    <span>Оформляем...</span>,
-    <span>Оформить заказ</span>,
+  const textButton = useStatus({
+    loading: <span>Оформляем...</span>,
+    content: <span>Оформить заказ</span>,
     status,
-    error,
-  );
+  });
 
   const handleOrderClose = () => {
     dispatch(removeOrder());

@@ -1,13 +1,15 @@
-import { useState, useCallback } from 'react';
+import { useState, useCallback, ChangeEvent } from 'react';
 
 export function useFormAndValidation({ initialValues = {}, initialValid = {} }) {
   const [values, setValues] = useState(initialValues);
-  const [isFormValid, setIsFormValid] = useState(false);
+  const [isFormValid, setIsFormValid] = useState<boolean>(false);
   const [inputsValid, setInputsValid] = useState(initialValid);
-  const [errors, setErrors] = useState(null);
+  const [errors, setErrors] = useState(initialValues);
 
-  function handleChangeValidation(e) {
-    setIsFormValid(e.target.form.checkValidity());
+  function handleChangeValidation(e: ChangeEvent<HTMLInputElement>) {
+    if (e.target.form) {
+      setIsFormValid(e.target.form.checkValidity());
+    }
     //записываем имя инпута и сообщение об ошибке в объект, чтобы потом передать сообщение в <span>
     setErrors({ ...errors, [e.target.name]: e.target.validationMessage });
     //записываем имя инпута и проверку валидности в объект, чтобы использовать подсветку невалидного инпута
@@ -15,7 +17,7 @@ export function useFormAndValidation({ initialValues = {}, initialValid = {} }) 
     setValues({ ...values, [e.target.name]: e.target.value });
   }
 
-  function handleInput(e, regExp, message) {
+  function handleInput(e: ChangeEvent<HTMLInputElement>, regExp: RegExp, message: string) {
     e.target.setCustomValidity('');
     regExp.test(e.target.value)
       ? e.target.setCustomValidity('')
@@ -24,9 +26,9 @@ export function useFormAndValidation({ initialValues = {}, initialValid = {} }) 
   }
 
   const resetForm = useCallback(
-    (newErrors = {}, newIsValid = false) => {
+    (newIsValid = false) => {
       setValues(initialValues);
-      setErrors(newErrors);
+      setErrors(initialValues);
       setIsFormValid(newIsValid);
     },
     [initialValues],

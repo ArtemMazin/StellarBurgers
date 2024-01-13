@@ -7,7 +7,7 @@ import { useFormAndValidation } from '@/hooks/useForm';
 import { login } from '@/services/user/actions';
 import useStatus from '@/hooks/useStatus';
 import Preloader from '@/components/preloader/preloader';
-import { errorUser, statusUser } from '@/services/user/selectors';
+import { statusUser } from '@/services/user/selectors';
 import { toast } from 'react-toastify';
 import InputWithMail from '@/components/form/inputs/input-with-mail';
 import InputWithPassword from '@/components/form/inputs/input-with-password';
@@ -24,7 +24,6 @@ function Login() {
   const { email, password } = values;
 
   const status = useSelector(statusUser);
-  const error = useSelector(errorUser);
 
   const dispatch = useDispatch();
 
@@ -45,32 +44,35 @@ function Login() {
     return;
   };
 
-  const content = useStatus(
-    <div className="pt-20 pl-12">
-      <Preloader />
-    </div>,
-    <Form
-      title={'Вход'}
-      textButton={'Войти'}
-      handle={(e) => handleLogin(e, email, password)}
-      isFormValid={isFormValid}
-    >
-      <InputWithMail
-        handleInput={handleInput}
-        value={values?.email}
-        error={errors?.email}
-        inputValid={inputsValid?.email}
-      />
-      <InputWithPassword
-        handleInput={handleInput}
-        value={values?.password}
-        error={errors?.password}
-        inputValid={inputsValid?.password}
-      />
-    </Form>,
+  const content = useStatus({
+    loading: (
+      <div className="pt-20 pl-12">
+        <Preloader />
+      </div>
+    ),
+    content: (
+      <Form
+        title={'Вход'}
+        textButton={'Войти'}
+        handle={(e) => handleLogin(e, email, password)}
+        isFormValid={isFormValid}
+      >
+        <InputWithMail
+          handleInput={handleInput}
+          value={values?.email}
+          error={errors?.email}
+          inputValid={inputsValid?.email}
+        />
+        <InputWithPassword
+          handleInput={handleInput}
+          value={values?.password}
+          error={errors?.password}
+          inputValid={inputsValid?.password}
+        />
+      </Form>
+    ),
     status,
-    error,
-  );
+  });
 
   return (
     <main className={styles.main}>
