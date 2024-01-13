@@ -2,11 +2,11 @@ import React from 'react';
 import styles from './order-details.module.css';
 import { useResize } from '@/hooks/useResize';
 
-interface IOrderDetails {
+type TOrderDetailsProps = {
   order: { number: number };
-}
+};
 
-export default function OrderDetails({ order }: IOrderDetails) {
+export default function OrderDetails({ order }: TOrderDetailsProps) {
   const { isMobile } = useResize();
 
   return (

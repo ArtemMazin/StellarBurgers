@@ -6,6 +6,7 @@ import { useSelector } from 'react-redux';
 import { useParams } from 'react-router';
 import { initialIngredients } from '@/services/initial-ingredients/selectors';
 import { useResize } from '@/hooks/useResize';
+import { TIngredient } from '@/utils/types';
 
 export default function IngredientDetails() {
   const { ingredientId } = useParams();
@@ -15,7 +16,8 @@ export default function IngredientDetails() {
   const ingredients = useSelector(initialIngredients);
 
   const ingredient =
-    ingredients.length > 0 && ingredients.filter((item) => item._id === ingredientId)[0];
+    ingredients.length > 0 &&
+    ingredients.filter((item: TIngredient) => item._id === ingredientId)[0];
 
   return (
     <div className={styles.container}>

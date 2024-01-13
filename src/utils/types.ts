@@ -13,3 +13,5 @@ export type TIngredient = {
   __v: number;
   customId: string;
 };
+
+export type THandleOverlay = (e: React.MouseEvent<HTMLElement>) => void;

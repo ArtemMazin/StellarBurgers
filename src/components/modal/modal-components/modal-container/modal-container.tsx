@@ -1,13 +1,12 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import styles from './modal-container.module.css';
 import { useResize } from '@/hooks/useResize';
 
-interface IContainer {
+type TContainerProps = {
   children: React.ReactNode;
-}
+};
 
-export default function Container({ children }: IContainer) {
+export default function Container({ children }: TContainerProps) {
   const { isMobile } = useResize();
 
   return (
@@ -16,11 +15,3 @@ export default function Container({ children }: IContainer) {
     </div>
   );
 }
-
-Container.propTypes = {
-  children: PropTypes.oneOfType([
-    PropTypes.arrayOf(PropTypes.element),
-    PropTypes.element,
-    PropTypes.elementType,
-  ]),
-};

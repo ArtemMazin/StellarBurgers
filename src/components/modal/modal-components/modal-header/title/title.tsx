@@ -2,11 +2,11 @@ import React from 'react';
 import styles from './title.module.css';
 import { useResize } from '@/hooks/useResize';
 
-interface ITitle {
+type TTitleProps = {
   title: string;
-}
+};
 
-export default function Title({ title }: ITitle) {
+export default function Title({ title }: TTitleProps) {
   const { isMobile } = useResize();
 
   return (

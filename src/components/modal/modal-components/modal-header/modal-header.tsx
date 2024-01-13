@@ -2,11 +2,11 @@ import React from 'react';
 import styles from './modal-header.module.css';
 import { useResize } from '@/hooks/useResize';
 
-interface IHeader {
+type THeaderProps = {
   children: React.ReactNode;
-}
+};
 
-export default function Header({ children }: IHeader) {
+export default function Header({ children }: THeaderProps) {
   const { isMobile } = useResize();
 
   return (

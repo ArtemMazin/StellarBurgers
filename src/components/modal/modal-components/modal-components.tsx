@@ -2,16 +2,17 @@ import React, { useEffect } from 'react';
 import ModalContext from '@/contexts/modalContext';
 import { createPortal } from 'react-dom';
 import { useDispatch } from 'react-redux';
+import { THandleOverlay } from '@/utils/types';
 
 const modalRoot = document.getElementById('modals') as HTMLElement;
 
-interface IModalComponents {
+type TModalComponentsProps = {
   isOpen: object;
   onClose: () => void;
   children: React.ReactNode;
-}
+};
 
-export default function ModalComponents({ isOpen, onClose, children }: IModalComponents) {
+export default function ModalComponents({ isOpen, onClose, children }: TModalComponentsProps) {
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -26,7 +27,7 @@ export default function ModalComponents({ isOpen, onClose, children }: IModalCom
     return () => document.removeEventListener('keydown', closeByEscape);
   }, [dispatch, isOpen, onClose]);
 
-  const handleOverlay = (e: KeyboardEvent) => {
+  const handleOverlay: THandleOverlay = (e) => {
     if (e.target === e.currentTarget) {
       isOpen && onClose();
     }

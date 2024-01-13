@@ -2,8 +2,13 @@ import React from 'react';
 import styles from './composition.module.css';
 import Category from './category/category';
 import ingredientPropTypes from '@/utils/prop-types';
+import { TIngredient } from '@/utils/types';
 
-export default function Composition({ card }) {
+type TCompositionProps = {
+  card: TIngredient;
+};
+
+export default function Composition({ card }: TCompositionProps) {
   return (
     <div className={`${styles.composition} mb-15`}>
       <Category text="Калории,ккал" value={card.calories} />

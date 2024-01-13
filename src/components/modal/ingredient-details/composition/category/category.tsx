@@ -2,7 +2,12 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styles from './category.module.css';
 
-export default function Category({ text, value }) {
+type TCategoryProps = {
+  text: string;
+  value: number;
+};
+
+export default function Category({ text, value }: TCategoryProps) {
   return (
     <div className={styles.category}>
       <span className="text text_type_main-default text_color_inactive">{text}</span>

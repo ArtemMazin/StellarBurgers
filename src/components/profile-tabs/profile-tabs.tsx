@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/ban-ts-comment */
 import React from 'react';
 import { logout } from '@/services/user/actions';
 import styles from './profile-tabs.module.css';
@@ -15,9 +16,11 @@ function ProfileTabs() {
   const profileMatch = useMatch('/profile');
 
   const handleLogout = () => {
+    //@ts-ignore
     dispatch(logout())
       .unwrap()
       .then(() => toast.info(messages.SUCCESS_LOGOUT))
+      //@ts-ignore
       .catch((err) => {
         toast.error(err);
       });
