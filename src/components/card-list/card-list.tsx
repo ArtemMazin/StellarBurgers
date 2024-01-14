@@ -1,11 +1,14 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import Card from './card/card';
 import styles from './card-list.module.css';
-import ingredientPropTypes from '@/utils/prop-types';
 import { useResize } from '@/hooks/useResize';
+import { TIngredient } from '@/utils/types';
 
-export default function CardList({ ingredientsGroup }) {
+type TCardListProps = {
+  ingredientsGroup: TIngredient[];
+};
+
+export default function CardList({ ingredientsGroup }: TCardListProps) {
   const { isMobile } = useResize();
 
   return (
@@ -21,7 +24,3 @@ export default function CardList({ ingredientsGroup }) {
     </>
   );
 }
-
-CardList.propTypes = {
-  ingredientsGroup: PropTypes.arrayOf(ingredientPropTypes).isRequired,
-};

@@ -3,7 +3,6 @@
 import React from 'react';
 import styles from './card.module.css';
 import { Button, Counter, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
-import ingredientPropTypes from '@/utils/prop-types';
 import { useDispatch, useSelector } from 'react-redux';
 import useCounter from '@/hooks/useCounter';
 import { allIngredients, selectedBun } from '@/services/constructor/selectors';
@@ -11,8 +10,13 @@ import { ItemTypes, config } from '@/utils/drag-configs';
 import { useDrag } from 'react-dnd';
 import { Link, useLocation } from 'react-router-dom';
 import { useResize } from '@/hooks/useResize';
+import { TIngredient } from '@/utils/types';
 
-export default function Card({ item }) {
+type TCardProps = {
+  item: TIngredient;
+};
+
+export default function Card({ item }: TCardProps) {
   const ingredients = useSelector(allIngredients);
   const bun = useSelector(selectedBun);
 
@@ -46,7 +50,7 @@ export default function Card({ item }) {
     }),
   }));
 
-  const getStyles = (isDragging) => {
+  const getStyles = (isDragging: boolean) => {
     return {
       opacity: isDragging ? 0.5 : 1,
     };
@@ -100,7 +104,3 @@ export default function Card({ item }) {
     </div>
   );
 }
-
-Card.propTypes = {
-  item: ingredientPropTypes.isRequired,
-};

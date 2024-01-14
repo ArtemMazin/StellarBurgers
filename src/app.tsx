@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/ban-ts-comment */
 import React, { useEffect } from 'react';
 import { Routes, Route, useLocation, useNavigate } from 'react-router-dom';
 import ErrorBoundary from './components/error-boundary/error-boendary';
@@ -36,11 +37,15 @@ export default function App() {
 
   useEffect(() => {
     if (localStorage.getItem('accessToken')) {
+      //@ts-ignore
       dispatch(getUser())
         .unwrap()
         .then(() => toast.info(messages.SUCCESS_LOGIN))
-        .catch((err) => {
-          toast.error(err);
+        //@ts-ignore
+        .catch((err: unknown) => {
+          if (err instanceof Error) {
+            toast.error(err.message);
+          }
         });
     }
   }, [dispatch]);

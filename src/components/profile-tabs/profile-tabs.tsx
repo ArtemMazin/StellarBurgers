@@ -21,8 +21,10 @@ function ProfileTabs() {
       .unwrap()
       .then(() => toast.info(messages.SUCCESS_LOGOUT))
       //@ts-ignore
-      .catch((err) => {
-        toast.error(err);
+      .catch((err: unknown) => {
+        if (err instanceof Error) {
+          toast.error(err.message);
+        }
       });
   };
 

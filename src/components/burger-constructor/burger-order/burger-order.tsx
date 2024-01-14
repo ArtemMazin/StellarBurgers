@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/ban-ts-comment */
 import React from 'react';
 import { Button, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import styles from './burger-order.module.css';
@@ -16,6 +17,7 @@ import { toast } from 'react-toastify';
 import { messages } from '@/utils/constants';
 import { useResize } from '@/hooks/useResize';
 import { useConstructor } from '@/components/layout/layout';
+import { TIngredient } from '@/utils/types';
 
 function BurgerOrder() {
   const [isConstructorOpen, showConstructor] = useConstructor();
@@ -33,7 +35,7 @@ function BurgerOrder() {
 
   const { isMobile } = useResize();
 
-  function getAllId(bun, ingredients) {
+  function getAllId(bun: TIngredient, ingredients: TIngredient[]) {
     const ingredientsID = ingredients.map((item) => item._id);
     ingredientsID.push(bun._id);
     ingredientsID.unshift(bun._id);
@@ -58,12 +60,15 @@ function BurgerOrder() {
     }
 
     toast.success(messages.SUCCESS_ORDER);
+    //@ts-ignore
     dispatch(createOrder(getAllId(bun, ingredients)))
       .unwrap()
-      .catch((err) => {
-        toast.error(err);
+      .catch((err: unknown) => {
+        if (err instanceof Error) {
+          toast.error(err.message);
+        }
       });
-
+    //@ts-ignore
     dispatch(deleteAllIngredients());
   };
 
@@ -74,6 +79,7 @@ function BurgerOrder() {
   });
 
   const handleOrderClose = () => {
+    //@ts-ignore
     dispatch(removeOrder());
   };
 

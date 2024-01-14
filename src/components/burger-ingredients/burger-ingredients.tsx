@@ -29,8 +29,10 @@ function BurgerIngredients() {
       dispatch(getIngredients())
         .unwrap()
         // @ts-ignore
-        .catch((err) => {
-          toast.error(err);
+        .catch((err: unknown) => {
+          if (err instanceof Error) {
+            toast.error(err.message);
+          }
         });
     }
   }, [dispatch, error]);

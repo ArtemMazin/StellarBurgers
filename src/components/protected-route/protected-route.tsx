@@ -4,7 +4,7 @@ import { useSelector } from 'react-redux';
 import { Navigate, useLocation } from 'react-router-dom';
 
 interface IProtected {
-  onlyUnAuth: boolean;
+  onlyUnAuth?: boolean;
   component: JSX.Element;
 }
 

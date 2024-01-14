@@ -1,20 +1,40 @@
 import React, { useCallback, useRef } from 'react';
-import PropTypes from 'prop-types';
 import { updateIngredients, deleteIngredient } from '@/services/constructor/constructor-slice';
 import { ConstructorElement, DragIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import { useDrag, useDrop } from 'react-dnd';
 import { useDispatch } from 'react-redux';
 import styles from './ingredient.module.css';
-import ingredientPropTypes from '@/utils/prop-types';
 import { ItemTypes } from '@/utils/drag-configs';
+import { TIngredient } from '@/utils/types';
+import { Identifier } from 'dnd-core';
 
-function Ingredient({ card, index, id, ingredients }) {
+type TDragObject = {
+  id: string;
+  index: number;
+};
+
+type TCollectedProps = {
+  isDragging: boolean;
+};
+
+type TDropCollectedProps = {
+  handlerId: Identifier | null;
+};
+
+type TIngredientProps = {
+  card: TIngredient;
+  index: number;
+  id: string;
+  ingredients: TIngredient[];
+};
+
+function Ingredient({ card, index, id, ingredients }: TIngredientProps) {
   const dispatch = useDispatch();
 
-  const ref = useRef(null);
+  const ref = useRef<HTMLDivElement | null>(null);
 
   const moveCard = useCallback(
-    (dragIndex, hoverIndex) => {
+    (dragIndex: number, hoverIndex: number) => {
       const dragCard = ingredients[dragIndex];
       const ingredientsArray = [...ingredients];
       ingredientsArray.splice(dragIndex, 1);
@@ -24,7 +44,7 @@ function Ingredient({ card, index, id, ingredients }) {
     },
     [dispatch, ingredients],
   );
-  const [{ handlerId }, drop] = useDrop({
+  const [{ handlerId }, drop] = useDrop<TDragObject, unknown, TDropCollectedProps>({
     accept: ItemTypes.SORTER,
     collect(monitor) {
       return {
@@ -44,7 +64,7 @@ function Ingredient({ card, index, id, ingredients }) {
       const hoverBoundingRect = ref.current?.getBoundingClientRect();
       const hoverMiddleY = (hoverBoundingRect.bottom - hoverBoundingRect.top) / 2;
       const clientOffset = monitor.getClientOffset();
-      const hoverClientY = clientOffset.y - hoverBoundingRect.top;
+      const hoverClientY = clientOffset!.y - hoverBoundingRect.top;
 
       if (dragIndex < hoverIndex && hoverClientY < hoverMiddleY) {
         return;
@@ -60,7 +80,7 @@ function Ingredient({ card, index, id, ingredients }) {
     },
   });
 
-  const [{ isDragging }, drag] = useDrag({
+  const [{ isDragging }, drag] = useDrag<TDragObject, unknown, TCollectedProps>({
     type: ItemTypes.SORTER,
     item: () => {
       return { id, index };
@@ -70,7 +90,7 @@ function Ingredient({ card, index, id, ingredients }) {
     }),
   });
 
-  const getStyles = (isDragging) => {
+  const getStyles = (isDragging: boolean) => {
     return {
       opacity: isDragging ? 0 : 1,
       transform: isDragging ? 'scale(0.8)' : '',
@@ -100,10 +120,3 @@ function Ingredient({ card, index, id, ingredients }) {
 }
 
 export default Ingredient;
-
-Ingredient.propTypes = {
-  card: ingredientPropTypes.isRequired,
-  index: PropTypes.number.isRequired,
-  id: PropTypes.string.isRequired,
-  ingredients: PropTypes.arrayOf(ingredientPropTypes).isRequired,
-};
