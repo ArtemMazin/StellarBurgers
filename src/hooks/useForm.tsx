@@ -25,14 +25,11 @@ export function useFormAndValidation({ initialValues = {}, initialValid = {} }) 
     handleChangeValidation(e);
   }
 
-  const resetForm = useCallback(
-    (newIsValid = false) => {
-      setValues(initialValues);
-      setErrors(initialValues);
-      setIsFormValid(newIsValid);
-    },
-    [initialValues],
-  );
+  const resetForm = useCallback(() => {
+    setValues(initialValues);
+    setErrors(initialValues);
+    setIsFormValid(false);
+  }, [initialValues]);
 
   return {
     isFormValid,
