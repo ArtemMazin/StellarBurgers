@@ -4,8 +4,9 @@ import { REG_EXP_PASSWORD, messages } from '@/utils/constants';
 import { Input } from '@ya.praktikum/react-developer-burger-ui-components';
 import styles from './input.module.css';
 import { useSelector } from 'react-redux';
-import PropTypes from 'prop-types';
 import { useResize } from '@/hooks/useResize';
+import { TInputProps } from '@/utils/types';
+import { TICons } from '@ya.praktikum/react-developer-burger-ui-components/dist/ui/icons';
 
 function InputWithPassword({
   icon = 'ShowIcon',
@@ -14,18 +15,18 @@ function InputWithPassword({
   value,
   error,
   inputValid,
-}) {
+}: TInputProps) {
   const [disabled, setDisabled] = useState(true);
-  const [currentIcon, setCurrentIcon] = useState(icon);
-  const [currentType, setCurrentType] = useState('password');
+  const [currentIcon, setCurrentIcon] = useState<keyof TICons>(icon);
+  const [currentType, setCurrentType] = useState<'password' | 'text' | 'email'>('password');
   const user = useSelector(currentUser);
 
   const { isMobile } = useResize();
 
-  const inputRef = React.useRef(null);
+  const inputRef = React.useRef<HTMLInputElement | null>(null);
   const onIconClick = () => {
     setDisabled(false);
-    setTimeout(() => inputRef.current.focus(), 0);
+    setTimeout(() => inputRef.current?.focus(), 0);
     changeIcon();
   };
 
@@ -77,12 +78,3 @@ function InputWithPassword({
 }
 
 export default InputWithPassword;
-
-InputWithPassword.propTypes = {
-  handleInput: PropTypes.func.isRequired,
-  value: PropTypes.string,
-  error: PropTypes.string,
-  inputValid: PropTypes.bool.isRequired,
-  icon: PropTypes.string,
-  placeholder: PropTypes.string,
-};

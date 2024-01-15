@@ -1,10 +1,10 @@
 import { Input } from '@ya.praktikum/react-developer-burger-ui-components';
 import styles from './input.module.css';
-import PropTypes from 'prop-types';
 import React from 'react';
 import { useResize } from '@/hooks/useResize';
+import { TInputProps } from '@/utils/types';
 
-function InputWithToken({ handleInput, value, error, inputValid }) {
+function InputWithToken({ handleInput, value, error, inputValid }: TInputProps) {
   const { isMobile } = useResize();
 
   return (
@@ -24,10 +24,3 @@ function InputWithToken({ handleInput, value, error, inputValid }) {
 }
 
 export default InputWithToken;
-
-InputWithToken.propTypes = {
-  handleInput: PropTypes.func.isRequired,
-  value: PropTypes.string,
-  error: PropTypes.string,
-  inputValid: PropTypes.bool.isRequired,
-};

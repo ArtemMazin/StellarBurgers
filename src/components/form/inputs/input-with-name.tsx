@@ -4,20 +4,21 @@ import { REG_EXP_NAME, messages } from '@/utils/constants';
 import { Input } from '@ya.praktikum/react-developer-burger-ui-components';
 import { useSelector } from 'react-redux';
 import styles from './input.module.css';
-import PropTypes from 'prop-types';
 import { useResize } from '@/hooks/useResize';
+import { TICons } from '@ya.praktikum/react-developer-burger-ui-components/dist/ui/icons';
+import { TInputProps } from '@/utils/types';
 
-function InputWithName({ isIcon = false, handleInput, value, error, inputValid }) {
+function InputWithName({ isIcon = false, handleInput, value, error, inputValid }: TInputProps) {
   const [disabled, setDisabled] = useState(true);
-  const [currentIcon, setCurrentIcon] = useState('EditIcon');
+  const [currentIcon, setCurrentIcon] = useState<keyof TICons>('EditIcon');
   const user = useSelector(currentUser);
 
   const { isMobile } = useResize();
 
-  const inputRef = React.useRef(null);
+  const inputRef = React.useRef<HTMLInputElement | null>(null);
   const onIconClick = () => {
     setDisabled(false);
-    setTimeout(() => inputRef.current.focus(), 0);
+    setTimeout(() => inputRef.current?.focus(), 0);
   };
 
   return (
@@ -30,7 +31,7 @@ function InputWithName({ isIcon = false, handleInput, value, error, inputValid }
       extraClass={styles.input}
       error={!inputValid}
       errorText={error}
-      icon={isIcon && currentIcon}
+      {...(isIcon && { icon: currentIcon })}
       disabled={user && disabled}
       value={value || ''}
       required
@@ -47,11 +48,3 @@ function InputWithName({ isIcon = false, handleInput, value, error, inputValid }
 }
 
 export default InputWithName;
-
-InputWithName.propTypes = {
-  handleInput: PropTypes.func.isRequired,
-  value: PropTypes.string,
-  error: PropTypes.string,
-  inputValid: PropTypes.bool.isRequired,
-  isIcon: PropTypes.bool,
-};

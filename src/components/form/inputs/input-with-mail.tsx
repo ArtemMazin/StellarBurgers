@@ -4,8 +4,9 @@ import { REG_EXP_EMAIL, messages } from '@/utils/constants';
 import { Input } from '@ya.praktikum/react-developer-burger-ui-components';
 import styles from './input.module.css';
 import { useSelector } from 'react-redux';
-import PropTypes from 'prop-types';
 import { useResize } from '@/hooks/useResize';
+import { TICons } from '@ya.praktikum/react-developer-burger-ui-components/dist/ui/icons';
+import { TInputProps } from '@/utils/types';
 
 function InputWithMail({
   isIcon = false,
@@ -14,17 +15,17 @@ function InputWithMail({
   error,
   inputValid,
   placeholder = 'Логин',
-}) {
+}: TInputProps) {
   const [disabled, setDisabled] = useState(true);
-  const [currentIcon, setCurrentIcon] = useState('EditIcon');
+  const [currentIcon, setCurrentIcon] = useState<keyof TICons>('EditIcon');
   const user = useSelector(currentUser);
 
   const { isMobile } = useResize();
 
-  const inputRef = React.useRef(null);
+  const inputRef = React.useRef<HTMLInputElement | null>(null);
   const onIconClick = () => {
     setDisabled(false);
-    setTimeout(() => inputRef.current.focus(), 0);
+    setTimeout(() => inputRef.current?.focus(), 0);
   };
 
   return (
@@ -35,7 +36,7 @@ function InputWithMail({
       size={isMobile ? 'small' : 'default'}
       extraClass={styles.input}
       placeholder={placeholder}
-      icon={isIcon && currentIcon}
+      {...(isIcon && { icon: currentIcon })}
       value={value || ''}
       error={!inputValid}
       errorText={error}
@@ -53,12 +54,3 @@ function InputWithMail({
 }
 
 export default InputWithMail;
-
-InputWithMail.propTypes = {
-  handleInput: PropTypes.func.isRequired,
-  value: PropTypes.string,
-  error: PropTypes.string,
-  inputValid: PropTypes.bool.isRequired,
-  isIcon: PropTypes.bool,
-  placeholder: PropTypes.string,
-};

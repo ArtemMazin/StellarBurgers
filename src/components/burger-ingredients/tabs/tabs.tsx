@@ -3,13 +3,13 @@ import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
 import styles from './tabs.module.css';
 import { BUNS, MAIN, SAUCES } from '@/utils/tabs-config';
 
-interface ITabs {
+type TTabsProps = {
   handleTab: (value: string) => void;
   activeTab: string;
-}
+};
 
 const Tabs = React.forwardRef(function Tabs(
-  { handleTab, activeTab }: ITabs,
+  { handleTab, activeTab }: TTabsProps,
   ref: React.ForwardedRef<HTMLDivElement>,
 ) {
   function scrollTab(value: string) {
