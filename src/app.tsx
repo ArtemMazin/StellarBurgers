@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 import React, { useEffect } from 'react';
 import { Routes, Route, useLocation, useNavigate } from 'react-router-dom';
-import ErrorBoundary from './components/error-boundary/error-boendary';
+import ErrorBoundary from './components/error-boundary/error-boundary';
 import Login from './pages/login/login';
 import Register from './pages/register/register';
 import ForgotPassword from './pages/forgot-password/forgot-password';

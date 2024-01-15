@@ -40,7 +40,7 @@ function BurgerIngredients() {
   const handleTab = (tabName: string) => {
     setActiveTab(tabName);
   };
-  const tabsRef = useRef<HTMLDivElement | null>(null);
+  const tabsRef = useRef<HTMLDivElement>(null);
 
   const content = useStatus({
     loading: (
