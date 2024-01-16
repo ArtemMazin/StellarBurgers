@@ -11,7 +11,6 @@ import { URL } from './utils/url-config';
 import Home from './pages/home/home';
 import NotFound from './pages/not-found-404/not-found';
 import { OnlyAuth, OnlyUnAuth } from './components/protected-route/protected-route';
-import { useDispatch } from 'react-redux';
 import { getUser } from './services/user/actions';
 import Modal from './components/modal/modal';
 import IngredientDetails from './components/modal/ingredient-details/ingredient-details';
@@ -22,9 +21,10 @@ import ProfileForm from './pages/profile/profile-form/profile-form';
 import Layout from './components/layout/layout';
 import { messages } from './utils/constants';
 import { useResize } from './hooks/useResize';
+import { useAppDispatch } from './redux-hooks';
 
 export default function App() {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const location = useLocation();
   const navigate = useNavigate();
   const background = location.state && location.state.background;
@@ -37,7 +37,6 @@ export default function App() {
 
   useEffect(() => {
     if (localStorage.getItem('accessToken')) {
-      //@ts-ignore
       dispatch(getUser())
         .unwrap()
         .then(() => toast.info(messages.SUCCESS_LOGIN))

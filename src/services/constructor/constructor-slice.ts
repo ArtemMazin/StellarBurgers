@@ -1,15 +1,23 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { TIngredient } from '@/utils/types';
+import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 import { v4 as uuidv4 } from 'uuid';
+
+type TConstructorSlice = {
+  bun: TIngredient | null;
+  ingredients: TIngredient[];
+};
+
+const initialState: TConstructorSlice = {
+  bun: null,
+  ingredients: [],
+};
 
 export const constructorSlice = createSlice({
   name: 'constructorIngredients',
-  initialState: {
-    bun: null,
-    ingredients: [],
-  },
+  initialState,
   reducers: {
     addIngredient: {
-      reducer: (state, action) => {
+      reducer: (state, action: PayloadAction<TIngredient>) => {
         state.ingredients.push(action.payload);
       },
       prepare: (item) => {
@@ -17,13 +25,8 @@ export const constructorSlice = createSlice({
         return { payload: { ...item, customId } };
       },
     },
-    updateIngredients: {
-      reducer: (state, action) => {
-        state.ingredients = action.payload;
-      },
-    },
     chooseBun: {
-      reducer: (state, action) => {
+      reducer: (state, action: PayloadAction<TIngredient>) => {
         state.bun = action.payload;
       },
       prepare: (item) => {
@@ -31,7 +34,10 @@ export const constructorSlice = createSlice({
         return { payload: { ...item, customId } };
       },
     },
-    deleteIngredient: (state, action) => {
+    updateIngredients: (state, action: PayloadAction<TIngredient[]>) => {
+      state.ingredients = action.payload;
+    },
+    deleteIngredient: (state, action: PayloadAction<TIngredient[]>) => {
       state.ingredients = action.payload;
     },
     deleteAllIngredients: (state) => {

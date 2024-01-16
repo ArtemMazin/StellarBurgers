@@ -6,8 +6,6 @@ import userReducer from './services/user/user-slice';
 import { loadState } from './localstorage';
 import { localStorageMiddleware } from './middleware/localstorage-middleware';
 
-export type RootState = ReturnType<typeof rootReducer>;
-
 const rootReducer = combineReducers({
   initialIngredients: initialIngredientsReducer,
   constructorIngredients: constructorReducer,
@@ -21,3 +19,6 @@ export const store = configureStore({
   preloadedState: loadState(),
   middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(localStorageMiddleware),
 });
+
+export type RootState = ReturnType<typeof rootReducer>;
+export type AppDispatch = typeof store.dispatch;
