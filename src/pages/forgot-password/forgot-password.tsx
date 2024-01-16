@@ -7,28 +7,35 @@ import InputWithMail from '@/components/form/inputs/input-with-mail';
 import { useFormAndValidation } from '@/hooks/useForm';
 import { toast } from 'react-toastify';
 import { URL } from '@/utils/url-config';
+import { messages } from '@/utils/constants';
 
 function ForgotPassword() {
+  const initialValues = {
+    email: '',
+  };
   const initialValid = {
     email: true,
   };
 
-  const { handleInput, values, errors, inputsValid, isFormValid } = useFormAndValidation({
+  const { handleInput, values, errors, inputsValid, isFormValid } = useFormAndValidation(
+    initialValues,
     initialValid,
-  });
+  );
 
   const navigate = useNavigate();
 
-  const handleSubmit = (e) => {
+  const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     resetPassword(values.email)
-      .then((res) => {
+      .then(() => {
         localStorage.setItem('restorePassword', 'Пароль сброшен');
         navigate(URL.RESET_PASSWORD);
-        toast.info(res?.message);
+        toast.info(messages.SUCCESS_PASSWORD_RESET);
       })
-      .catch((err) => {
-        toast.error(err?.message);
+      .catch((err: unknown) => {
+        if (err instanceof Error) {
+          toast.error(err.message);
+        }
       });
   };
 

@@ -1,12 +1,12 @@
 import React from 'react';
 import { TIngredient } from '@/utils/types';
 
-interface ISwitch {
+type TSwitch = {
   children: JSX.Element[];
   element: TIngredient | TIngredient[];
-}
+};
 
-function Switch({ element, children }: ISwitch) {
+function Switch({ element, children }: TSwitch) {
   let renderComponent;
 
   if (Array.isArray(element)) {

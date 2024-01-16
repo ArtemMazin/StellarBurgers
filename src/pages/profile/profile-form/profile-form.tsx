@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/ban-ts-comment */
 import { currentUser } from '@/services/user/selectors';
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
@@ -19,6 +20,7 @@ function ProfileForm() {
   const initialValues = {
     name: user.name,
     email: user.email,
+    password: '',
   };
   const initialValid = {
     name: true,
@@ -27,10 +29,8 @@ function ProfileForm() {
   };
 
   const { handleInput, values, errors, inputsValid, isFormValid, resetForm } = useFormAndValidation(
-    {
-      initialValues,
-      initialValid,
-    },
+    initialValues,
+    initialValid,
   );
 
   useEffect(() => {
@@ -44,16 +44,19 @@ function ProfileForm() {
     }
   }, [user.email, user.name, user.password, values.email, values.name, values.password]);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = (e: React.FormEvent<Element>) => {
     e.preventDefault();
     if (values.email && values.password && values.name) {
+      //@ts-ignore
       dispatch(updateUser({ email: values.email, password: values.password, name: values.name }))
         .unwrap()
         .then(() => {
           toast.info(messages.SUCCESS_PROFILE_UPDATE);
         })
-        .catch((err) => {
-          toast.error(err);
+        .catch((err: unknown) => {
+          if (err instanceof Error) {
+            toast.error(err.message);
+          }
         });
       return;
     }

@@ -6,14 +6,14 @@ import Header from './modal-components/modal-header/modal-header';
 import Title from './modal-components/modal-header/title/title';
 import ButtonClose from './modal-components/modal-header/button/button';
 
-interface IModal {
+type TModalProps = {
   isOpen: object;
   onClose: () => void;
   title: string;
   children: JSX.Element;
-}
+};
 
-const Modal = ({ isOpen, onClose, title, children }: IModal) => {
+const Modal = ({ isOpen, onClose, title, children }: TModalProps) => {
   return (
     <ModalComponents isOpen={isOpen} onClose={onClose}>
       <Overlay>

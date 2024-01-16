@@ -3,11 +3,11 @@ import styles from './ingredients.module.css';
 import Ingredient from './ingredient/ingredient';
 import { TIngredient } from '@/utils/types';
 
-interface IIngredients {
+type TIngredients = {
   ingredients: TIngredient[];
-}
+};
 
-export default function Ingredients({ ingredients }: IIngredients) {
+export default function Ingredients({ ingredients }: TIngredients) {
   return (
     <ul className={`${styles.list} custom-scroll`}>
       {ingredients.length > 0 &&

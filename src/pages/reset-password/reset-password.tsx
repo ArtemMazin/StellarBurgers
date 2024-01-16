@@ -8,34 +8,40 @@ import { restorePassword } from '@/utils/api';
 import { useFormAndValidation } from '@/hooks/useForm';
 import InputWithPassword from '@/components/form/inputs/input-with-password';
 import InputWithToken from '@/components/form/inputs/input-with-token';
+import { messages } from '@/utils/constants';
 
 function ResetPassword() {
+  const initialValues = {
+    password: '',
+    token: '',
+  };
+
   const initialValid = {
     password: true,
     token: true,
   };
 
   const { handleInput, handleChangeValidation, values, errors, inputsValid, isFormValid } =
-    useFormAndValidation({
-      initialValid,
-    });
+    useFormAndValidation(initialValues, initialValid);
 
   const navigate = useNavigate();
 
-  const handleSubmit = (e) => {
+  const handleSubmit = (e: React.FormEvent<Element>) => {
     e.preventDefault();
     restorePassword(values.password, values.token)
-      .then((res) => {
+      .then(() => {
         if (localStorage.getItem('restorePassword')) {
-          toast.info(res?.message);
+          toast.info(messages.SUCCESS_PASSWORD_RESTORE);
           localStorage.removeItem('restorePassword');
           navigate(URL.LOGIN);
         } else {
           navigate(URL.MAIN);
         }
       })
-      .catch((err) => {
-        toast.error(err?.message);
+      .catch((err: unknown) => {
+        if (err instanceof Error) {
+          toast.error(err.message);
+        }
       });
   };
 

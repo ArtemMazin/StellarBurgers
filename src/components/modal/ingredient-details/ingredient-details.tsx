@@ -1,6 +1,5 @@
 import React from 'react';
 import styles from './ingredient-details.module.css';
-import ingredientPropTypes from '@/utils/prop-types';
 import Composition from './composition/composition';
 import { useSelector } from 'react-redux';
 import { useParams } from 'react-router';
@@ -31,7 +30,3 @@ export default function IngredientDetails() {
     </div>
   );
 }
-
-IngredientDetails.propTypes = {
-  card: ingredientPropTypes,
-};

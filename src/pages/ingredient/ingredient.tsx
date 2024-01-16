@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/ban-ts-comment */
 import IngredientDetails from '@/components/modal/ingredient-details/ingredient-details';
 import styles from './ingredient.module.css';
 import React, { useEffect } from 'react';
@@ -14,10 +15,13 @@ function Ingredient() {
 
   useEffect(() => {
     if (loadState() === undefined || error) {
+      //@ts-ignore
       dispatch(getIngredients())
         .unwrap()
-        .catch((err) => {
-          toast.error(err);
+        .catch((err: unknown) => {
+          if (err instanceof Error) {
+            toast.error(err.message);
+          }
         });
     }
   }, [dispatch, error]);

@@ -13,6 +13,8 @@ export const messages = {
   SUCCESS_LOGOUT: 'Вы вышли из аккаунта',
   SUCCESS_ORDER: 'Оформляем заказ',
   SUCCESS_PROFILE_UPDATE: 'Профиль обновлен',
+  SUCCESS_PASSWORD_RESET: 'Пароль сброшен',
+  SUCCESS_PASSWORD_RESTORE: 'Пароль восстановлен',
   ERROR_ORDER_LOGIN: 'Для оформления заказа войдите в аккаунт',
   ERROR_ORDER_INGREDIENTS: 'Выберите булку и ингредиенты',
   ERROR_INPUT_EMAIL: 'Неверный формат почты',

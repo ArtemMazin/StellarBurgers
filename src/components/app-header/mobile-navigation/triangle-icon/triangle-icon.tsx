@@ -1,12 +1,12 @@
 import React from 'react';
 import styles from './triangle-icon.module.css';
 
-interface IIconProps {
+type TIconProps = {
   handleClick: () => void;
   isActive: boolean;
-}
+};
 
-function TriangleIcon({ handleClick, isActive }: IIconProps) {
+function TriangleIcon({ handleClick, isActive }: TIconProps) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"

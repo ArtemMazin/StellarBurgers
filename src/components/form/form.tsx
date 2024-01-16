@@ -5,9 +5,9 @@ import { Button } from '@ya.praktikum/react-developer-burger-ui-components';
 type TFormProps = {
   title: string;
   textButton: string;
-  textButtonReset: string;
-  handle: () => void;
-  handleReset: () => void;
+  textButtonReset?: string;
+  handle: (e: React.FormEvent) => void;
+  handleReset?: () => void;
   isVisibleButtons?: boolean;
   isFormValid: boolean;
   children: React.ReactNode;

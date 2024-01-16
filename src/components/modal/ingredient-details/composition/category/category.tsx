@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import styles from './category.module.css';
 
 type TCategoryProps = {
@@ -15,8 +14,3 @@ export default function Category({ text, value }: TCategoryProps) {
     </div>
   );
 }
-
-Category.propTypes = {
-  text: PropTypes.string.isRequired,
-  value: PropTypes.number.isRequired,
-};

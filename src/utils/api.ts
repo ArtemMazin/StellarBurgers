@@ -1,4 +1,3 @@
-import { object } from 'prop-types';
 import { BASE_API_URL } from './constants';
 import { TIngredient } from './types';
 
@@ -45,7 +44,7 @@ export const fetchWithRefresh = async <T>({ url, options }: TFetchWithRefresh): 
     const res = await fetch(url, options);
     return await checkReponse(res);
   } catch (err) {
-    if (err instanceof object && 'message' in err && err.message === 'jwt expired') {
+    if (err instanceof Object && 'message' in err && err.message === 'jwt expired') {
       const refreshData = await refreshToken(); //обновляем токен
       if (!refreshData.success) {
         return Promise.reject(refreshData);

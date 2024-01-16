@@ -8,13 +8,13 @@ import styles from './menu-link.module.css';
 import { NavLink } from 'react-router-dom';
 import { useResize } from '@/hooks/useResize';
 
-interface ILinkProps {
+type TLinkProps = {
   url: string;
   name: string;
   icon: string;
-}
+};
 
-function MenuLink({ url, name, icon }: ILinkProps) {
+function MenuLink({ url, name, icon }: TLinkProps) {
   const { isMobile } = useResize();
 
   function renderIcon(isActive: boolean) {

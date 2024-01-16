@@ -20,7 +20,6 @@ function ProfileTabs() {
     dispatch(logout())
       .unwrap()
       .then(() => toast.info(messages.SUCCESS_LOGOUT))
-      //@ts-ignore
       .catch((err: unknown) => {
         if (err instanceof Error) {
           toast.error(err.message);

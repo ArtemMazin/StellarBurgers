@@ -4,13 +4,13 @@ import styles from './bun.module.css';
 import { useResize } from '@/hooks/useResize';
 import { TIngredient } from '@/utils/types';
 
-interface IBun {
+type TBun = {
   bun: TIngredient;
   type?: 'top' | 'bottom';
   text: string;
-}
+};
 
-export default function Bun({ bun, type, text }: IBun) {
+export default function Bun({ bun, type, text }: TBun) {
   const { isMobile } = useResize();
 
   return (

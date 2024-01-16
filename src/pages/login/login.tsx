@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/ban-ts-comment */
 import React from 'react';
 import styles from './login.module.css';
 import { Link } from 'react-router-dom';
@@ -14,28 +15,36 @@ import InputWithPassword from '@/components/form/inputs/input-with-password';
 import { messages } from '@/utils/constants';
 
 function Login() {
+  const initialValues = {
+    email: '',
+    password: '',
+  };
   const initialValid = {
     email: true,
     password: true,
   };
-  const { handleInput, values, errors, inputsValid, isFormValid } = useFormAndValidation({
+  const { handleInput, values, errors, inputsValid, isFormValid } = useFormAndValidation(
+    initialValues,
     initialValid,
-  });
+  );
   const { email, password } = values;
 
   const status = useSelector(statusUser);
 
   const dispatch = useDispatch();
 
-  const handleLogin = (e, email, password) => {
+  const handleLogin = (e: React.FormEvent<Element>, email: string, password: string) => {
     e.preventDefault();
 
     if (email && password) {
+      //@ts-ignore
       dispatch(login({ email, password }))
         .unwrap()
         .then(() => toast.info(messages.SUCCESS_LOGIN))
-        .catch((err) => {
-          toast.error(err);
+        .catch((err: unknown) => {
+          if (err instanceof Error) {
+            toast.error(err.message);
+          }
         });
       return;
     }

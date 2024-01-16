@@ -1,14 +1,13 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import styles from './base.module.css';
 import { useResize } from '@/hooks/useResize';
 
-interface IBase {
+type TBase = {
   styleType?: 'top' | 'bottom';
   canDrop: boolean;
-}
+};
 
-function Base({ styleType, canDrop }: IBase) {
+function Base({ styleType, canDrop }: TBase) {
   const { isMobile } = useResize();
 
   let boxShadow = '';
@@ -26,8 +25,3 @@ function Base({ styleType, canDrop }: IBase) {
 }
 
 export default Base;
-
-Base.propTypes = {
-  styleType: PropTypes.oneOf(['top', 'bottom']),
-  canDrop: PropTypes.bool.isRequired,
-};

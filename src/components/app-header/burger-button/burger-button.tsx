@@ -1,12 +1,12 @@
 import React from 'react';
 import styles from './burger-button.module.css';
 
-interface IButtonProps {
+type TButtonProps = {
   toggleHideMenu: () => void;
   buttonActive: boolean;
-}
+};
 
-function BurgerButton({ toggleHideMenu, buttonActive }: IButtonProps) {
+function BurgerButton({ toggleHideMenu, buttonActive }: TButtonProps) {
   return (
     <svg
       width="24"

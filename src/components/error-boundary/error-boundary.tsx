@@ -1,21 +1,21 @@
 import React from 'react';
 
-interface Props {
+type TProps = {
   children?: React.ReactNode;
-}
+};
 
-interface State {
+type TState = {
   hasError: boolean;
-}
+};
 
-class ErrorBoundary extends React.Component<Props, State> {
-  constructor(props: Props) {
+class ErrorBoundary extends React.Component<TProps, TState> {
+  constructor(props: TProps) {
     super(props);
     this.state = { hasError: false };
   }
 
   // с помощью этого метода меняем стейт компонента при возникновении ошибки:
-  static getDerivedStateFromError(): State {
+  static getDerivedStateFromError(): TState {
     return { hasError: true };
   }
 

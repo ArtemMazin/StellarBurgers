@@ -1,7 +1,6 @@
 import React from 'react';
 import styles from './composition.module.css';
 import Category from './category/category';
-import ingredientPropTypes from '@/utils/prop-types';
 import { TIngredient } from '@/utils/types';
 
 type TCompositionProps = {
@@ -18,7 +17,3 @@ export default function Composition({ card }: TCompositionProps) {
     </div>
   );
 }
-
-Composition.propTypes = {
-  card: ingredientPropTypes,
-};

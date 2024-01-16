@@ -21,7 +21,7 @@ export type THandleOverlay = (e: React.MouseEvent<HTMLElement>) => void;
 export type TInputProps = {
   icon?: 'EditIcon' | 'ShowIcon' | 'HideIcon' | 'CloseIcon';
   isIcon?: boolean;
-  handleInput: (e: ChangeEvent<HTMLInputElement>, regExp?: RegExp, error?: string) => void;
+  handleInput: (e: ChangeEvent<HTMLInputElement>, regExp: RegExp, error: string) => void;
   value: string;
   error: string;
   inputValid: boolean;

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/ban-ts-comment */
 import React from 'react';
 import styles from './register.module.css';
 import { Link } from 'react-router-dom';
@@ -12,28 +13,43 @@ import InputWithPassword from '@/components/form/inputs/input-with-password';
 import { messages } from '@/utils/constants';
 
 function Register() {
+  const initialValues = {
+    name: '',
+    email: '',
+    password: '',
+  };
+
   const initialValid = {
     name: true,
     email: true,
     password: true,
   };
 
-  const { handleInput, values, errors, inputsValid, isFormValid } = useFormAndValidation({
+  const { handleInput, values, errors, inputsValid, isFormValid } = useFormAndValidation(
+    initialValues,
     initialValid,
-  });
+  );
   const { name, email, password } = values;
 
   const dispatch = useDispatch();
 
-  const handleRegister = (e, name, email, password) => {
+  const handleRegister = (
+    e: React.FormEvent<Element>,
+    name: string,
+    email: string,
+    password: string,
+  ) => {
     e.preventDefault();
 
     if (name && email && password) {
+      //@ts-ignore
       dispatch(register({ name, email, password }))
         .unwrap()
         .then(() => toast.info(messages.SUCCESS_REGISTRATION))
-        .catch((err) => {
-          toast.error(err);
+        .catch((err: unknown) => {
+          if (err instanceof Error) {
+            toast.error(err.message);
+          }
         });
 
       return;

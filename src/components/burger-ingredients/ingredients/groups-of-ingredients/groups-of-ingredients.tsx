@@ -4,12 +4,12 @@ import CardList from '@/components/card-list/card-list';
 import { useResize } from '@/hooks/useResize';
 import { TIngredient } from '@/utils/types';
 
-interface IGroupsOfIngredients {
+type TGroupsOfIngredients = {
   ingredientsGroup: TIngredient[];
   title: 'Булки' | 'Соусы' | 'Начинки';
-}
+};
 
-export default function GroupsOfIngredients({ ingredientsGroup, title }: IGroupsOfIngredients) {
+export default function GroupsOfIngredients({ ingredientsGroup, title }: TGroupsOfIngredients) {
   const { isMobile } = useResize();
 
   return (

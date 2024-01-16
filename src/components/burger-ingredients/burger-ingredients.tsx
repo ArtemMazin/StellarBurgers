@@ -28,7 +28,6 @@ function BurgerIngredients() {
       // @ts-ignore
       dispatch(getIngredients())
         .unwrap()
-        // @ts-ignore
         .catch((err: unknown) => {
           if (err instanceof Error) {
             toast.error(err.message);

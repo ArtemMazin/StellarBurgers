@@ -5,11 +5,11 @@ import React, { useContext } from 'react';
 import styles from './modal-overlay.module.css';
 import ModalContext from '@/contexts/modalContext';
 
-interface IOverlay {
+type TOverlayProps = {
   children: React.ReactNode;
-}
+};
 
-export default function Overlay({ children }: IOverlay) {
+export default function Overlay({ children }: TOverlayProps) {
   const { handleOverlay } = useContext(ModalContext);
   return (
     <div className={`${styles.modal} ${styles.opened}`} onClick={handleOverlay}>

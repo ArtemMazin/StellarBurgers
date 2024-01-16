@@ -41,7 +41,6 @@ export default function App() {
       dispatch(getUser())
         .unwrap()
         .then(() => toast.info(messages.SUCCESS_LOGIN))
-        //@ts-ignore
         .catch((err: unknown) => {
           if (err instanceof Error) {
             toast.error(err.message);

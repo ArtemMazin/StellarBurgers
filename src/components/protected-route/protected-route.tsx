@@ -3,12 +3,12 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 import { Navigate, useLocation } from 'react-router-dom';
 
-interface IProtected {
+type TProtectedProps = {
   onlyUnAuth?: boolean;
   component: JSX.Element;
-}
+};
 
-const Protected = ({ onlyUnAuth = false, component }: IProtected) => {
+const Protected = ({ onlyUnAuth = false, component }: TProtectedProps) => {
   const user = useSelector(currentUser);
   const location = useLocation();
 
@@ -27,6 +27,6 @@ const Protected = ({ onlyUnAuth = false, component }: IProtected) => {
 };
 
 export const OnlyAuth = Protected;
-export const OnlyUnAuth = ({ component }: IProtected) => (
+export const OnlyUnAuth = ({ component }: TProtectedProps) => (
   <Protected onlyUnAuth={true} component={component} />
 );

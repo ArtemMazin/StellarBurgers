@@ -3,6 +3,7 @@ import styles from './input.module.css';
 import React from 'react';
 import { useResize } from '@/hooks/useResize';
 import { TInputProps } from '@/utils/types';
+import { REG_EXP_PASSWORD } from '@/utils/constants';
 
 function InputWithToken({ handleInput, value, error, inputValid }: TInputProps) {
   const { isMobile } = useResize();
@@ -18,7 +19,7 @@ function InputWithToken({ handleInput, value, error, inputValid }: TInputProps) 
       errorText={error}
       value={value || ''}
       required
-      onChange={handleInput}
+      onChange={(e) => handleInput(e, REG_EXP_PASSWORD, 'Введите код из письма')}
     />
   );
 }
