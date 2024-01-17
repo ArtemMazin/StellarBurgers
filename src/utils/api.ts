@@ -128,7 +128,7 @@ export function logout() {
   });
 }
 
-export function getIngredients(): Promise<Array<TIngredient>> {
+export function getIngredients(): Promise<{ success: boolean; data: TIngredient[] }> {
   return request({ url: `${BASE_API_URL}/ingredients` });
 }
 

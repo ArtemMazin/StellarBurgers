@@ -20,7 +20,7 @@ export const constructorSlice = createSlice({
       reducer: (state, action: PayloadAction<TIngredient>) => {
         state.ingredients.push(action.payload);
       },
-      prepare: (item) => {
+      prepare: (item: Required<Omit<TIngredient, 'customId'>>) => {
         const customId = uuidv4();
         return { payload: { ...item, customId } };
       },
@@ -29,7 +29,7 @@ export const constructorSlice = createSlice({
       reducer: (state, action: PayloadAction<TIngredient>) => {
         state.bun = action.payload;
       },
-      prepare: (item) => {
+      prepare: (item: TIngredient) => {
         const customId = uuidv4();
         return { payload: { ...item, customId } };
       },
