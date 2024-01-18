@@ -3,7 +3,7 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 
 export const createOrder = createAsyncThunk(
   'ingredients/create-order',
-  async (allID, { rejectWithValue }) => {
+  async (allID: string[], { rejectWithValue }) => {
     try {
       const { order } = await api.createOrder(allID);
 
@@ -14,18 +14,26 @@ export const createOrder = createAsyncThunk(
   },
 );
 
+type TInitialOrderSlice = {
+  order: {
+    number: number;
+  } | null;
+  status: string;
+  error: string | undefined | null;
+};
+
+const initialState: TInitialOrderSlice = {
+  order: null,
+  status: 'idle',
+  error: null,
+};
+
 export const orderSlice = createSlice({
   name: 'order',
-  initialState: {
-    order: null,
-    status: 'idle',
-    error: null,
-  },
+  initialState,
   reducers: {
-    removeOrder: {
-      reducer: (state) => {
-        state.order = null;
-      },
+    removeOrder(state) {
+      state.order = null;
     },
   },
   extraReducers(builder) {

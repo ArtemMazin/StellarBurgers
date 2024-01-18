@@ -27,3 +27,19 @@ export type TInputProps = {
   inputValid: boolean;
   placeholder?: string;
 };
+
+export type TLoginSuccess = {
+  success: boolean;
+  accessToken: string;
+  refreshToken: string;
+  user: {
+    email: string;
+    name: string;
+  };
+};
+
+export type TUser = {
+  email: string;
+  name: string;
+  password?: string;
+};

@@ -1,14 +1,20 @@
 import * as api from '@/utils/api';
+import { TLoginSuccess } from '@/utils/types';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 
-const setRefreshToken = (data) => localStorage.setItem('refreshToken', data.refreshToken);
-const setAccessToken = (data) => localStorage.setItem('accessToken', data.accessToken);
+const setRefreshToken = (data: TLoginSuccess) =>
+  localStorage.setItem('refreshToken', data.refreshToken);
+const setAccessToken = (data: TLoginSuccess) =>
+  localStorage.setItem('accessToken', data.accessToken);
 const removeRefreshToken = () => localStorage.removeItem('refreshToken');
 const removeAccessToken = () => localStorage.removeItem('accessToken');
 
 export const register = createAsyncThunk(
   'user/register-user',
-  async ({ name, email, password }, { rejectWithValue }) => {
+  async (
+    { name, email, password }: { name: string; email: string; password: string },
+    { rejectWithValue },
+  ) => {
     try {
       const data = await api.register(name, email, password);
 
@@ -24,7 +30,7 @@ export const register = createAsyncThunk(
 
 export const login = createAsyncThunk(
   'user/login-user',
-  async ({ email, password }, { rejectWithValue }) => {
+  async ({ email, password }: { email: string; password: string }, { rejectWithValue }) => {
     try {
       const data = await api.login(email, password);
 
@@ -53,7 +59,10 @@ export const getUser = createAsyncThunk('user/get-profile-user', async (_, { rej
 
 export const updateUser = createAsyncThunk(
   'user/update-profile-user',
-  async ({ name, email, password }, { rejectWithValue }) => {
+  async (
+    { name, email, password }: { name: string; email: string; password: string },
+    { rejectWithValue },
+  ) => {
     try {
       const data = await api.updateProfileUser(name, email, password);
 

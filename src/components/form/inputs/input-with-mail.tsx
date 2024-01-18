@@ -40,7 +40,7 @@ function InputWithMail({
       value={value || ''}
       error={!inputValid}
       errorText={error}
-      disabled={user && disabled}
+      {...(user && { disabled })}
       required
       onChange={(e) => handleInput(e, REG_EXP_EMAIL, messages.ERROR_INPUT_EMAIL)}
       onIconClick={onIconClick}

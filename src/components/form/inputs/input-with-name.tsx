@@ -32,7 +32,7 @@ function InputWithName({ isIcon = false, handleInput, value, error, inputValid }
       error={!inputValid}
       errorText={error}
       {...(isIcon && { icon: currentIcon })}
-      disabled={user && disabled}
+      {...(user && { disabled })}
       value={value || ''}
       required
       minLength={2}

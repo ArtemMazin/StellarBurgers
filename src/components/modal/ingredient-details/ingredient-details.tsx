@@ -15,18 +15,21 @@ export default function IngredientDetails() {
   const ingredients = useSelector(initialIngredients);
 
   const ingredient =
-    ingredients.length > 0 &&
-    ingredients.filter((item: TIngredient) => item._id === ingredientId)[0];
+    ingredients.length > 0
+      ? ingredients.filter((item: TIngredient) => item._id === ingredientId)[0]
+      : null;
 
   return (
-    <div className={styles.container}>
-      <img
-        src={`${isMobile ? ingredient.image : ingredient.image_large}`}
-        alt={ingredient.name}
-        className={`${styles.image} mb-4`}
-      />
-      <p className={`${styles.name} text text_type_main-medium mb-8`}>{ingredient.name}</p>
-      <Composition card={ingredient} />
-    </div>
+    ingredient && (
+      <div className={styles.container}>
+        <img
+          src={`${isMobile ? ingredient.image : ingredient.image_large}`}
+          alt={ingredient.name}
+          className={`${styles.image} mb-4`}
+        />
+        <p className={`${styles.name} text text_type_main-medium mb-8`}>{ingredient.name}</p>
+        <Composition card={ingredient} />
+      </div>
+    )
   );
 }

@@ -1,11 +1,10 @@
 import { TIngredient } from '@/utils/types';
 import { useMemo } from 'react';
 
-function useTotalPrice(ingredients: TIngredient[], bun: TIngredient) {
+function useTotalPrice(ingredients: TIngredient[], bun: TIngredient | null) {
   const totalPrice = useMemo(
     () =>
-      ingredients &&
-      ingredients.reduce((acc, item) => acc + item.price, 0) + (bun && bun.price * 2),
+      ingredients && bun && ingredients.reduce((acc, item) => acc + item.price, 0) + bun.price * 2,
     [bun, ingredients],
   );
 

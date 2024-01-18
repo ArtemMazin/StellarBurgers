@@ -3,7 +3,7 @@ import { TIngredient } from '@/utils/types';
 
 type TSwitch = {
   children: JSX.Element[];
-  element: TIngredient | TIngredient[];
+  element: TIngredient | TIngredient[] | null;
 };
 
 function Switch({ element, children }: TSwitch) {

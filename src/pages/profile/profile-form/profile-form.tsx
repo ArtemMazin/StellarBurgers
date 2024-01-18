@@ -18,8 +18,8 @@ function ProfileForm() {
   const dispatch = useDispatch();
 
   const initialValues = {
-    name: user.name,
-    email: user.email,
+    name: user !== null ? user.name : '',
+    email: user !== null ? user.email : '',
     password: '',
   };
   const initialValid = {
@@ -34,15 +34,17 @@ function ProfileForm() {
   );
 
   useEffect(() => {
-    if (
-      values.name.trim() !== user.name ||
-      values.email !== user.email ||
-      user.password ||
-      values.password
-    ) {
-      setVisibleButtons(true);
+    if (user !== null) {
+      if (
+        values.name.trim() !== user.name ||
+        values.email !== user.email ||
+        user.password ||
+        values.password
+      ) {
+        setVisibleButtons(true);
+      }
     }
-  }, [user.email, user.name, user.password, values.email, values.name, values.password]);
+  }, [user, values.email, values.name, values.password]);
 
   const handleSubmit = (e: React.FormEvent<Element>) => {
     e.preventDefault();

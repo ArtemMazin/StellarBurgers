@@ -1,13 +1,22 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { getUser, login, logout, register, updateUser } from './actions';
+import { TUser } from '@/utils/types';
+
+type TInitialUserSlice = {
+  user: TUser | null;
+  status: string;
+  error: string | undefined | null;
+};
+
+const initialState: TInitialUserSlice = {
+  user: null,
+  status: 'idle',
+  error: null,
+};
 
 export const userSlice = createSlice({
   name: 'user',
-  initialState: {
-    user: null,
-    status: 'idle',
-    error: null,
-  },
+  initialState,
   reducers: {},
   extraReducers(builder) {
     builder

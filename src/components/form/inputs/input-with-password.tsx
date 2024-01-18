@@ -64,7 +64,7 @@ function InputWithPassword({
       value={value || ''}
       error={!inputValid}
       errorText={error}
-      disabled={user && disabled}
+      {...(user && { disabled })}
       required
       minLength={6}
       onChange={(e) => handleInput(e, REG_EXP_PASSWORD, messages.ERROR_INPUT_PASSWORD)}

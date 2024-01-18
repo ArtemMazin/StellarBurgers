@@ -1,7 +1,7 @@
 import { TIngredient } from '@/utils/types';
 import { useMemo } from 'react';
 
-function useCounter(bun: TIngredient, ingredients: TIngredient[], item: TIngredient) {
+function useCounter(bun: TIngredient | null, ingredients: TIngredient[], item: TIngredient) {
   const count = useMemo(
     () =>
       bun && bun._id === item._id

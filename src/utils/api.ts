@@ -1,5 +1,5 @@
 import { BASE_API_URL } from './constants';
-import { TIngredient } from './types';
+import { TIngredient, TLoginSuccess } from './types';
 
 const checkReponse = <T>(res: Response): Promise<T> => {
   return res.ok ? res.json() : res.json().then((err) => Promise.reject(err));
@@ -60,7 +60,7 @@ export const fetchWithRefresh = async <T>({ url, options }: TFetchWithRefresh): 
   }
 };
 
-export function register(name: string, email: string, password: string) {
+export function register(name: string, email: string, password: string): Promise<TLoginSuccess> {
   return request({
     url: `${BASE_API_URL}/auth/register`,
     options: {
@@ -73,7 +73,7 @@ export function register(name: string, email: string, password: string) {
   });
 }
 
-export function login(email: string, password: string) {
+export function login(email: string, password: string): Promise<TLoginSuccess> {
   return request({
     url: `${BASE_API_URL}/auth/login`,
     options: {
@@ -86,7 +86,7 @@ export function login(email: string, password: string) {
   });
 }
 
-export function getProfileUser() {
+export function getProfileUser(): Promise<Pick<TLoginSuccess, 'success' | 'user'>> {
   return fetchWithRefresh({
     url: `${BASE_API_URL}/auth/user`,
     options: {
@@ -99,7 +99,11 @@ export function getProfileUser() {
   });
 }
 
-export function updateProfileUser(name: string, email: string, password: string) {
+export function updateProfileUser(
+  name: string,
+  email: string,
+  password: string,
+): Promise<Pick<TLoginSuccess, 'success' | 'user'>> {
   return fetchWithRefresh({
     url: `${BASE_API_URL}/auth/user`,
     options: {
@@ -132,7 +136,13 @@ export function getIngredients(): Promise<{ success: boolean; data: TIngredient[
   return request({ url: `${BASE_API_URL}/ingredients` });
 }
 
-export function createOrder(itemsID: string[]) {
+export function createOrder(itemsID: string[]): Promise<{
+  name: string;
+  order: {
+    number: number;
+  };
+  success: boolean;
+}> {
   return fetchWithRefresh({
     url: `${BASE_API_URL}/orders`,
     options: {

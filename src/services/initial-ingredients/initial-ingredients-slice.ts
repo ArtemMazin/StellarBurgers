@@ -17,7 +17,7 @@ export const getIngredients = createAsyncThunk(
 
 type TInitialIngredientsSlice = {
   initialIngredients: TIngredient[];
-  status?: string;
+  status: string;
   error?: string;
 };
 
