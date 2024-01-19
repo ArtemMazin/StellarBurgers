@@ -1,21 +1,20 @@
-/* eslint-disable @typescript-eslint/ban-ts-comment */
 import IngredientDetails from '@/components/modal/ingredient-details/ingredient-details';
 import styles from './ingredient.module.css';
 import React, { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { getIngredients } from '@/services/initial-ingredients/initial-ingredients-slice';
 import { toast } from 'react-toastify';
 import { loadState } from '@/localstorage';
 import { errorIngredients } from '@/services/initial-ingredients/selectors';
+import { useAppDispatch } from '@/redux-hooks';
 
 function Ingredient() {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
   const error = useSelector(errorIngredients);
 
   useEffect(() => {
     if (loadState() === undefined || error) {
-      //@ts-ignore
       dispatch(getIngredients())
         .unwrap()
         .catch((err: unknown) => {

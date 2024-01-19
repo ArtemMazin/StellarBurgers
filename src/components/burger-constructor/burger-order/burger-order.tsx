@@ -1,10 +1,9 @@
-/* eslint-disable @typescript-eslint/ban-ts-comment */
 import React from 'react';
 import { Button, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import styles from './burger-order.module.css';
 import Modal from '@/components/modal/modal';
 import OrderDetails from '@/components/modal/order-details/order-details';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import useTotalPrice from '@/hooks/useTotalPrice';
 import { allIngredients, selectedBun } from '@/services/constructor/selectors';
 import { currentOrder, orderStatus } from '@/services/order/selectors';
@@ -18,6 +17,7 @@ import { messages } from '@/utils/constants';
 import { useResize } from '@/hooks/useResize';
 import { useConstructor } from '@/components/layout/layout';
 import { TIngredient } from '@/utils/types';
+import { useAppDispatch } from '@/redux-hooks';
 
 function BurgerOrder() {
   const [isConstructorOpen, showConstructor] = useConstructor();
@@ -29,7 +29,7 @@ function BurgerOrder() {
 
   const totalPrice = useTotalPrice(ingredients, bun);
 
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
   const navigate = useNavigate();
 
@@ -60,7 +60,6 @@ function BurgerOrder() {
     }
 
     toast.success(messages.SUCCESS_ORDER);
-    //@ts-ignore
     dispatch(createOrder(getAllId(bun, ingredients)))
       .unwrap()
       .catch((err: unknown) => {
@@ -68,7 +67,6 @@ function BurgerOrder() {
           toast.error(err.message);
         }
       });
-    //@ts-ignore
     dispatch(deleteAllIngredients());
   };
 
@@ -79,7 +77,6 @@ function BurgerOrder() {
   });
 
   const handleOrderClose = () => {
-    //@ts-ignore
     dispatch(removeOrder());
   };
 

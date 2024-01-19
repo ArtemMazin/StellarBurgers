@@ -1,7 +1,6 @@
-/* eslint-disable @typescript-eslint/ban-ts-comment */
 import { currentUser } from '@/services/user/selectors';
 import React, { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { useFormAndValidation } from '@/hooks/useForm';
 import InputWithName from '@/components/form/inputs/input-with-name';
 import InputWithMail from '@/components/form/inputs/input-with-mail';
@@ -10,12 +9,13 @@ import Form from '@/components/form/form';
 import { toast } from 'react-toastify';
 import { updateUser } from '@/services/user/actions';
 import { messages } from '@/utils/constants';
+import { useAppDispatch } from '@/redux-hooks';
 
 function ProfileForm() {
   const [isVisibleButtons, setVisibleButtons] = useState(false);
   const user = useSelector(currentUser);
 
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
   const initialValues = {
     name: user !== null ? user.name : '',
@@ -49,7 +49,6 @@ function ProfileForm() {
   const handleSubmit = (e: React.FormEvent<Element>) => {
     e.preventDefault();
     if (values.email && values.password && values.name) {
-      //@ts-ignore
       dispatch(updateUser({ email: values.email, password: values.password, name: values.name }))
         .unwrap()
         .then(() => {

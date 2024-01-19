@@ -1,8 +1,8 @@
 import React, { useEffect } from 'react';
 import ModalContext from '@/contexts/modalContext';
 import { createPortal } from 'react-dom';
-import { useDispatch } from 'react-redux';
 import { THandleOverlay } from '@/utils/types';
+import { useAppDispatch } from '@/redux-hooks';
 
 const modalRoot = document.getElementById('modals') as HTMLElement;
 
@@ -13,7 +13,7 @@ type TModalComponentsProps = {
 };
 
 export default function ModalComponents({ isOpen, onClose, children }: TModalComponentsProps) {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
   useEffect(() => {
     if (!isOpen) return;

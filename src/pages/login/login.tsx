@@ -1,9 +1,8 @@
-/* eslint-disable @typescript-eslint/ban-ts-comment */
 import React from 'react';
 import styles from './login.module.css';
 import { Link } from 'react-router-dom';
 import Form from '@/components/form/form';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { useFormAndValidation } from '@/hooks/useForm';
 import { login } from '@/services/user/actions';
 import useStatus from '@/hooks/useStatus';
@@ -13,6 +12,7 @@ import { toast } from 'react-toastify';
 import InputWithMail from '@/components/form/inputs/input-with-mail';
 import InputWithPassword from '@/components/form/inputs/input-with-password';
 import { messages } from '@/utils/constants';
+import { useAppDispatch } from '@/redux-hooks';
 
 function Login() {
   const initialValues = {
@@ -31,13 +31,12 @@ function Login() {
 
   const status = useSelector(statusUser);
 
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
   const handleLogin = (e: React.FormEvent<Element>, email: string, password: string) => {
     e.preventDefault();
 
     if (email && password) {
-      //@ts-ignore
       dispatch(login({ email, password }))
         .unwrap()
         .then(() => toast.info(messages.SUCCESS_LOGIN))

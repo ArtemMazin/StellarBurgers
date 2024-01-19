@@ -21,5 +21,6 @@ export const messages = {
   ERROR_INPUT_NAME: 'Имя может содержать только латиницу, кириллицу, пробел или дефис',
   ERROR_INPUT_PASSWORD: 'Пароль должен содержать минимум одну букву и одну цифру',
   ERROR_FORM_FIELDS: 'Заполните все поля формы',
+  ERROR_PASSWORD_RESTORE: 'Введите код из письма',
   WARN_ORDER_WAITING: 'Заказ оформляется, подождите',
 };

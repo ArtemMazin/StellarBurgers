@@ -117,7 +117,7 @@ export function updateProfileUser(
   });
 }
 
-export function logout() {
+export function logout(): Promise<{ success: boolean; message: string }> {
   return fetchWithRefresh({
     url: `${BASE_API_URL}/auth/logout`,
     options: {
@@ -156,7 +156,7 @@ export function createOrder(itemsID: string[]): Promise<{
   });
 }
 
-export function resetPassword(email: string) {
+export function resetPassword(email: string): Promise<{ success: boolean; message: string }> {
   return request({
     url: `${BASE_API_URL}/password-reset`,
     options: {
@@ -169,7 +169,10 @@ export function resetPassword(email: string) {
   });
 }
 
-export function restorePassword(password: string, token: string) {
+export function restorePassword(
+  password: string,
+  token: string,
+): Promise<{ success: boolean; message: string }> {
   return request({
     url: `${BASE_API_URL}/password-reset/reset`,
     options: {

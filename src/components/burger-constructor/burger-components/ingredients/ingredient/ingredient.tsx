@@ -2,11 +2,11 @@ import React, { useCallback, useRef } from 'react';
 import { updateIngredients, deleteIngredient } from '@/services/constructor/constructor-slice';
 import { ConstructorElement, DragIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import { useDrag, useDrop } from 'react-dnd';
-import { useDispatch } from 'react-redux';
 import styles from './ingredient.module.css';
 import { ItemTypes } from '@/utils/drag-configs';
 import { TIngredient } from '@/utils/types';
 import { Identifier } from 'dnd-core';
+import { useAppDispatch } from '@/redux-hooks';
 
 type TDragObject = {
   id: string;
@@ -29,7 +29,7 @@ type TIngredientProps = {
 };
 
 function Ingredient({ card, index, id, ingredients }: TIngredientProps) {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
   const ref = useRef<HTMLDivElement | null>(null);
 

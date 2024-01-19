@@ -1,22 +1,20 @@
-/* eslint-disable @typescript-eslint/ban-ts-comment */
 import React from 'react';
 import { logout } from '@/services/user/actions';
 import styles from './profile-tabs.module.css';
-import { useDispatch } from 'react-redux';
 import { toast } from 'react-toastify';
 import { NavLink, useMatch } from 'react-router-dom';
 import { messages } from '@/utils/constants';
 import { useResize } from '@/hooks/useResize';
+import { useAppDispatch } from '@/redux-hooks';
 
 function ProfileTabs() {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
   const { isMobile } = useResize();
 
   const profileMatch = useMatch('/profile');
 
   const handleLogout = () => {
-    //@ts-ignore
     dispatch(logout())
       .unwrap()
       .then(() => toast.info(messages.SUCCESS_LOGOUT))

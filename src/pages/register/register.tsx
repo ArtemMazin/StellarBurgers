@@ -1,16 +1,15 @@
-/* eslint-disable @typescript-eslint/ban-ts-comment */
 import React from 'react';
 import styles from './register.module.css';
 import { Link } from 'react-router-dom';
 import Form from '@/components/form/form';
 import { useFormAndValidation } from '@/hooks/useForm';
-import { useDispatch } from 'react-redux';
 import { register } from '@/services/user/actions';
 import { toast } from 'react-toastify';
 import InputWithName from '@/components/form/inputs/input-with-name';
 import InputWithMail from '@/components/form/inputs/input-with-mail';
 import InputWithPassword from '@/components/form/inputs/input-with-password';
 import { messages } from '@/utils/constants';
+import { useAppDispatch } from '@/redux-hooks';
 
 function Register() {
   const initialValues = {
@@ -31,7 +30,7 @@ function Register() {
   );
   const { name, email, password } = values;
 
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
   const handleRegister = (
     e: React.FormEvent<Element>,
@@ -42,7 +41,6 @@ function Register() {
     e.preventDefault();
 
     if (name && email && password) {
-      //@ts-ignore
       dispatch(register({ name, email, password }))
         .unwrap()
         .then(() => toast.info(messages.SUCCESS_REGISTRATION))
@@ -79,6 +77,7 @@ function Register() {
             value={values?.email}
             error={errors?.email}
             inputValid={inputsValid?.email}
+            placeholder={'E-mail'}
           />
           <InputWithPassword
             handleInput={handleInput}
