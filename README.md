@@ -8,6 +8,10 @@
 - взаимодействие с api
 - pc и mobile версии
 
+## Ссылка на проект
+
+[Посмотреть проект](https://stellar-burgers-murex.vercel.app/)
+
 ## Технологии
 
 - [React](https://react.dev/)
@@ -15,9 +19,5 @@
 - [Redux](https://redux.js.org/)
 - [TypeScript](https://www.typescriptlang.org/)
 - [Jest](https://jestjs.io/ru/)
-
-## Ссылка на проект
-
-[Посмотреть проект](https://stellar-burgers-murex.vercel.app/)
 
 ![](src/images/preview.png)![](src/images/preview-mobile.png)
