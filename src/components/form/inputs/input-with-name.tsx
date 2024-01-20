@@ -2,16 +2,16 @@ import React, { useState } from 'react';
 import { currentUser } from '@/services/user/selectors';
 import { REG_EXP_NAME, messages } from '@/utils/constants';
 import { Input } from '@ya.praktikum/react-developer-burger-ui-components';
-import { useSelector } from 'react-redux';
 import styles from './input.module.css';
 import { useResize } from '@/hooks/useResize';
 import { TICons } from '@ya.praktikum/react-developer-burger-ui-components/dist/ui/icons';
 import { TInputProps } from '@/utils/types';
+import { useAppSelector } from '@/redux-hooks';
 
 function InputWithName({ isIcon = false, handleInput, value, error, inputValid }: TInputProps) {
   const [disabled, setDisabled] = useState(true);
   const [currentIcon, setCurrentIcon] = useState<keyof TICons>('EditIcon');
-  const user = useSelector(currentUser);
+  const user = useAppSelector(currentUser);
 
   const { isMobile } = useResize();
 

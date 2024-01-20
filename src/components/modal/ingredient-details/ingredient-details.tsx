@@ -1,18 +1,18 @@
 import React from 'react';
 import styles from './ingredient-details.module.css';
 import Composition from './composition/composition';
-import { useSelector } from 'react-redux';
 import { useParams } from 'react-router';
 import { initialIngredients } from '@/services/initial-ingredients/selectors';
 import { useResize } from '@/hooks/useResize';
 import { TIngredient } from '@/utils/types';
+import { useAppSelector } from '@/redux-hooks';
 
 export default function IngredientDetails() {
   const { ingredientId } = useParams();
 
   const { isMobile } = useResize();
 
-  const ingredients = useSelector(initialIngredients);
+  const ingredients = useAppSelector(initialIngredients);
 
   const ingredient =
     ingredients.length > 0

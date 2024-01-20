@@ -1,15 +1,15 @@
 import React from 'react';
 import styles from './profile.module.css';
-import { useSelector } from 'react-redux';
 import { statusUser } from '@/services/user/selectors';
 import useStatus from '@/hooks/useStatus';
 import Preloader from '@/components/preloader/preloader';
 import ProfileTabs from '@/components/profile-tabs/profile-tabs';
 import { Outlet } from 'react-router-dom';
 import { useResize } from '@/hooks/useResize';
+import { useAppSelector } from '@/redux-hooks';
 
 function Profile() {
-  const status = useSelector(statusUser);
+  const status = useAppSelector(statusUser);
 
   const { isMobile } = useResize();
 

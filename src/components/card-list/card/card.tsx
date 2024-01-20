@@ -3,7 +3,6 @@
 import React from 'react';
 import styles from './card.module.css';
 import { Button, Counter, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
-import { useSelector } from 'react-redux';
 import useCounter from '@/hooks/useCounter';
 import { allIngredients, selectedBun } from '@/services/constructor/selectors';
 import { ItemTypes, config } from '@/utils/drag-configs';
@@ -11,15 +10,15 @@ import { useDrag } from 'react-dnd';
 import { Link, useLocation } from 'react-router-dom';
 import { useResize } from '@/hooks/useResize';
 import { TIngredient } from '@/utils/types';
-import { useAppDispatch } from '@/redux-hooks';
+import { useAppDispatch, useAppSelector } from '@/redux-hooks';
 
 type TCardProps = {
   item: TIngredient;
 };
 
 export default function Card({ item }: TCardProps) {
-  const ingredients = useSelector(allIngredients);
-  const bun = useSelector(selectedBun);
+  const ingredients = useAppSelector(allIngredients);
+  const bun = useAppSelector(selectedBun);
 
   const location = useLocation();
 

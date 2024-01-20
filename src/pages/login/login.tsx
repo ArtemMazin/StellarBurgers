@@ -2,7 +2,6 @@ import React from 'react';
 import styles from './login.module.css';
 import { Link } from 'react-router-dom';
 import Form from '@/components/form/form';
-import { useSelector } from 'react-redux';
 import { useFormAndValidation } from '@/hooks/useForm';
 import { login } from '@/services/user/actions';
 import useStatus from '@/hooks/useStatus';
@@ -12,7 +11,7 @@ import { toast } from 'react-toastify';
 import InputWithMail from '@/components/form/inputs/input-with-mail';
 import InputWithPassword from '@/components/form/inputs/input-with-password';
 import { messages } from '@/utils/constants';
-import { useAppDispatch } from '@/redux-hooks';
+import { useAppDispatch, useAppSelector } from '@/redux-hooks';
 
 function Login() {
   const initialValues = {
@@ -29,7 +28,7 @@ function Login() {
   );
   const { email, password } = values;
 
-  const status = useSelector(statusUser);
+  const status = useAppSelector(statusUser);
 
   const dispatch = useAppDispatch();
 

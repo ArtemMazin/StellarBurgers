@@ -1,17 +1,16 @@
 import IngredientDetails from '@/components/modal/ingredient-details/ingredient-details';
 import styles from './ingredient.module.css';
 import React, { useEffect } from 'react';
-import { useSelector } from 'react-redux';
 import { getIngredients } from '@/services/initial-ingredients/initial-ingredients-slice';
 import { toast } from 'react-toastify';
 import { loadState } from '@/localstorage';
 import { errorIngredients } from '@/services/initial-ingredients/selectors';
-import { useAppDispatch } from '@/redux-hooks';
+import { useAppDispatch, useAppSelector } from '@/redux-hooks';
 
 function Ingredient() {
   const dispatch = useAppDispatch();
 
-  const error = useSelector(errorIngredients);
+  const error = useAppSelector(errorIngredients);
 
   useEffect(() => {
     if (loadState() === undefined || error) {

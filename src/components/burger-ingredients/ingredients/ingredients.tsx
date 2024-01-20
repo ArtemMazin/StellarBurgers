@@ -1,10 +1,10 @@
 import React, { useRef } from 'react';
-import { useSelector } from 'react-redux';
 import styles from './ingredients.module.css';
 import useFilteredIngredients from '@/hooks/useFilteredIngredients';
 import GroupsOfIngredients from './groups-of-ingredients/groups-of-ingredients';
 import { initialIngredients } from '@/services/initial-ingredients/selectors';
 import { BUNS, MAIN, SAUCES } from '@/utils/tabs-config';
+import { useAppSelector } from '@/redux-hooks';
 
 type TIngredientsProps = {
   tabsRef: React.RefObject<HTMLDivElement>;
@@ -13,7 +13,7 @@ type TIngredientsProps = {
 };
 
 const Ingredients = ({ tabsRef, handleTab, activeTab }: TIngredientsProps) => {
-  const ingredients = useSelector(initialIngredients);
+  const ingredients = useAppSelector(initialIngredients);
 
   const { buns, sauces, main } = useFilteredIngredients(ingredients);
 

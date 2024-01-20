@@ -1,6 +1,5 @@
 import { currentUser } from '@/services/user/selectors';
 import React, { useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
 import { useFormAndValidation } from '@/hooks/useForm';
 import InputWithName from '@/components/form/inputs/input-with-name';
 import InputWithMail from '@/components/form/inputs/input-with-mail';
@@ -9,11 +8,11 @@ import Form from '@/components/form/form';
 import { toast } from 'react-toastify';
 import { updateUser } from '@/services/user/actions';
 import { messages } from '@/utils/constants';
-import { useAppDispatch } from '@/redux-hooks';
+import { useAppDispatch, useAppSelector } from '@/redux-hooks';
 
 function ProfileForm() {
   const [isVisibleButtons, setVisibleButtons] = useState(false);
-  const user = useSelector(currentUser);
+  const user = useAppSelector(currentUser);
 
   const dispatch = useAppDispatch();
 

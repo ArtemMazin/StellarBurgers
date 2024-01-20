@@ -1,6 +1,6 @@
+import { useAppSelector } from '@/redux-hooks';
 import { currentUser } from '@/services/user/selectors';
 import React from 'react';
-import { useSelector } from 'react-redux';
 import { Navigate, useLocation } from 'react-router-dom';
 
 type TProtectedProps = {
@@ -9,7 +9,7 @@ type TProtectedProps = {
 };
 
 const Protected = ({ onlyUnAuth = false, component }: TProtectedProps) => {
-  const user = useSelector(currentUser);
+  const user = useAppSelector(currentUser);
   const location = useLocation();
 
   if (onlyUnAuth && user) {
