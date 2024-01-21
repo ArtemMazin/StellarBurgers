@@ -4,15 +4,20 @@ import { useResize } from '@/hooks/useResize';
 
 type TTitleProps = {
   title: string;
+  type?: 'text' | 'digits';
 };
 
-export default function Title({ title }: TTitleProps) {
+export default function Title({ title, type }: TTitleProps) {
   const { isMobile } = useResize();
 
   return (
     <h2
-      className={`${styles.title} ${
-        isMobile ? 'text text_type_main-medium' : 'text text_type_main-large'
+      className={`text ${styles.title} ${
+        type === 'text'
+          ? isMobile
+            ? 'text_type_main-medium'
+            : 'text_type_main-large'
+          : 'text_type_digits-default'
       }`}
     >
       {title}

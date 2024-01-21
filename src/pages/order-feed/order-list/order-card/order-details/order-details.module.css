@@ -1,0 +1,14 @@
+.status {
+  color: var(--colors-interface-success);
+}
+
+.total_price {
+  display: flex;
+  justify-content: space-between;
+}
+
+.price {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
