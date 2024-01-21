@@ -1,0 +1,9 @@
+.main {
+  box-sizing: border-box;
+}
+
+.content {
+  display: grid;
+  justify-content: space-between;
+  grid-template-columns: repeat(2, minmax(320px, 600px));
+}

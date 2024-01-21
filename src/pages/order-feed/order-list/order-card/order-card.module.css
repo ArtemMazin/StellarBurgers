@@ -1,0 +1,23 @@
+.card {
+  display: flex;
+  flex-direction: column;
+  border-radius: var(--common-border-radius-s);
+  background-color: var(--background);
+  gap: 24px;
+}
+
+.ingredients {
+  display: flex;
+  justify-content: space-between;
+}
+
+.order_id {
+  display: flex;
+  justify-content: space-between;
+}
+
+.price {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}

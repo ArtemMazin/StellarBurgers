@@ -1,0 +1,27 @@
+.images {
+  display: flex;
+  flex-direction: row-reverse;
+  padding: 0;
+  list-style-type: none;
+}
+
+.image_container {
+  width: 64px;
+  height: 64px;
+  margin-left: -20px;
+}
+
+.image_container:last-child {
+  margin-left: 0;
+}
+
+.card_image {
+  width: 64px;
+  height: 64px;
+  box-sizing: border-box;
+  padding: 4px 0;
+  border: 2px solid var(--colors-interface-accent);
+  border-radius: 50%;
+  background-color: var(--background-alt);
+  object-fit: contain;
+}

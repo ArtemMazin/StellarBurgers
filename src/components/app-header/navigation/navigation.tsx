@@ -13,7 +13,7 @@ function Navigation() {
         </li>
 
         <li>
-          <MenuLink url={URL.HISTORY_ORDERS} icon="order" name="Лента заказов" />
+          <MenuLink url={URL.FEED} icon="order" name="Лента заказов" />
         </li>
 
         <li>

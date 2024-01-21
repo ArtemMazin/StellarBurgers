@@ -21,6 +21,7 @@ import Layout from './components/layout/layout';
 import { messages } from './utils/constants';
 import { useResize } from './hooks/useResize';
 import { useAppDispatch } from './redux-hooks';
+import OrderFeed from './pages/order-feed/order-feed';
 
 export default function App() {
   const dispatch = useAppDispatch();
@@ -52,6 +53,7 @@ export default function App() {
       <Routes location={background || location}>
         <Route path={URL.MAIN} element={<Layout />}>
           <Route index element={<Home />} />
+          <Route path={URL.FEED} element={<OrderFeed />} />
           <Route path={URL.LOGIN} element={<OnlyUnAuth component={<Login />} />} />
           <Route path={URL.REGISTER} element={<OnlyUnAuth component={<Register />} />} />
           <Route
