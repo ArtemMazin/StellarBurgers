@@ -4,8 +4,29 @@ import OrderCard from './order-card/order-card';
 
 const OrderList = () => {
   return (
-    <section>
+    <section className={styles.container}>
       <ul className={`custom-scroll ${styles.list}`}>
+        <li>
+          <OrderCard />
+        </li>
+        <li>
+          <OrderCard />
+        </li>
+        <li>
+          <OrderCard />
+        </li>
+        <li>
+          <OrderCard />
+        </li>
+        <li>
+          <OrderCard />
+        </li>
+        <li>
+          <OrderCard />
+        </li>
+        <li>
+          <OrderCard />
+        </li>
         <li>
           <OrderCard />
         </li>
