@@ -70,37 +70,39 @@ function ProfileForm() {
   };
 
   return (
-    <Form
-      title={''}
-      textButton={'Сохранить'}
-      textButtonReset={'Отмена'}
-      isVisibleButtons={isVisibleButtons}
-      isFormValid={isFormValid}
-      handle={handleSubmit}
-      handleReset={handleReset}
-    >
-      <InputWithName
-        handleInput={handleInput}
-        value={values?.name}
-        error={errors?.name}
-        inputValid={inputsValid?.name}
-        isIcon={true}
-      />
-      <InputWithMail
-        handleInput={handleInput}
-        value={values?.email}
-        error={errors?.email}
-        inputValid={inputsValid?.email}
-        isIcon={true}
-      />
-      <InputWithPassword
-        handleInput={handleInput}
-        value={values?.password}
-        error={errors?.password}
-        inputValid={inputsValid?.password}
-        icon="EditIcon"
-      />
-    </Form>
+    <div className="mt-30 ml-15">
+      <Form
+        title={''}
+        textButton={'Сохранить'}
+        textButtonReset={'Отмена'}
+        isVisibleButtons={isVisibleButtons}
+        isFormValid={isFormValid}
+        handle={handleSubmit}
+        handleReset={handleReset}
+      >
+        <InputWithName
+          handleInput={handleInput}
+          value={values?.name}
+          error={errors?.name}
+          inputValid={inputsValid?.name}
+          isIcon={true}
+        />
+        <InputWithMail
+          handleInput={handleInput}
+          value={values?.email}
+          error={errors?.email}
+          inputValid={inputsValid?.email}
+          isIcon={true}
+        />
+        <InputWithPassword
+          handleInput={handleInput}
+          value={values?.password}
+          error={errors?.password}
+          inputValid={inputsValid?.password}
+          icon="EditIcon"
+        />
+      </Form>
+    </div>
   );
 }
 

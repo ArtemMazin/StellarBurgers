@@ -4,7 +4,7 @@ import Ingredient from './ingredient/ingredient';
 
 const Ingredients = () => {
   return (
-    <div className={styles.ingredient_container}>
+    <div className={`custom-scroll ${styles.ingredient_container}`}>
       <ul className={styles.ingredient_list}>
         <li className={styles.ingredient_row}>
           <Ingredient />

@@ -9,7 +9,7 @@ function Navigation() {
     <nav className={styles.nav}>
       <ul className={styles.links}>
         <li>
-          <MenuLink url={URL.MAIN} icon="burger" name="Конструктор бургеров" />
+          <MenuLink url={URL.MAIN} icon="burger" name="Конструктор" />
         </li>
 
         <li>

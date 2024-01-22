@@ -4,6 +4,7 @@
   border-radius: var(--common-border-radius-s);
   background-color: var(--background);
   gap: 24px;
+  text-align: start;
 }
 
 .ingredients {

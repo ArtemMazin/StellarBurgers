@@ -22,6 +22,7 @@ import { messages } from './utils/constants';
 import { useResize } from './hooks/useResize';
 import { useAppDispatch } from './redux-hooks';
 import OrderFeed from './pages/order-feed/order-feed';
+import Orders from './pages/profile/orders/orders';
 
 export default function App() {
   const dispatch = useAppDispatch();
@@ -64,7 +65,7 @@ export default function App() {
           <Route path={URL.INGREDIENT} element={<Ingredient />} />
           <Route path={`${URL.PROFILE}/*`} element={<OnlyAuth component={<Profile />} />}>
             <Route index element={<ProfileForm />} />
-            <Route path={URL.PROFILE_ORDERS} element={<></>} />
+            <Route path={URL.PROFILE_ORDERS} element={<Orders />} />
           </Route>
           <Route path="*" element={<NotFound />} />
         </Route>
