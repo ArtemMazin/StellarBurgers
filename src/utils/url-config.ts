@@ -8,4 +8,6 @@ export const URL = {
   PROFILE_ORDERS: 'orders',
   INGREDIENT: 'ingredients/:ingredientId',
   FEED: 'feed',
+  ORDER: 'feed/:number',
+  PROFILE_ORDER: 'profile/orders/:number',
 };

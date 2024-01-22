@@ -23,6 +23,7 @@ import { useResize } from './hooks/useResize';
 import { useAppDispatch } from './redux-hooks';
 import OrderFeed from './pages/order-feed/order-feed';
 import Orders from './pages/profile/orders/orders';
+import OrderDetails from './components/order-list/order-card/order-details/order-details';
 
 export default function App() {
   const dispatch = useAppDispatch();
@@ -82,6 +83,42 @@ export default function App() {
                 title={`${isMobile ? '' : 'Детали ингредиента'}`}
               >
                 <IngredientDetails />
+              </Modal>
+            }
+          />
+        </Routes>
+      )}
+
+      {background && (
+        <Routes>
+          <Route
+            path={URL.ORDER}
+            element={
+              <Modal
+                isOpen={background}
+                onClose={handleModalClose}
+                title="#034533"
+                title_type="digits"
+              >
+                <OrderDetails />
+              </Modal>
+            }
+          />
+        </Routes>
+      )}
+
+      {background && (
+        <Routes>
+          <Route
+            path={URL.PROFILE_ORDER}
+            element={
+              <Modal
+                isOpen={background}
+                onClose={handleModalClose}
+                title="#12345"
+                title_type="digits"
+              >
+                <OrderDetails />
               </Modal>
             }
           />

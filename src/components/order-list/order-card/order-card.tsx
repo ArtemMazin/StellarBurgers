@@ -1,19 +1,23 @@
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
-import React, { useState } from 'react';
+import React from 'react';
 import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import styles from './order-card.module.css';
 import ImageList from './image-list/image-list';
-import Modal from '@/components/modal/modal';
-import OrderDetails from './order-details/order-details';
+import { Link, useLocation } from 'react-router-dom';
+import { URL } from '@/utils/url-config';
 
 const OrderCard = () => {
-  const [modal, setModal] = useState(false);
-  const handleClose = () => {
-    setModal(false);
-  };
+  const location = useLocation();
+
+  const path = location.pathname;
+
   return (
-    <div className={`p-6 ${styles.card}`} onClick={() => setModal(!modal)}>
+    <Link
+      to={`${path === '/' + URL.FEED ? '/feed/12345' : '/profile/orders/5'}`}
+      className={`p-6 ${styles.card}`}
+      state={{ background: location }}
+    >
       <div className={styles.order_id}>
         <span className="text text_type_digits-default">#034535</span>
         <span className="text text_type_main-small text_color_inactive">Сегодня, 16:20</span>
@@ -28,12 +32,7 @@ const OrderCard = () => {
           <CurrencyIcon type="primary" />
         </div>
       </div>
-      {modal && (
-        <Modal isOpen={{}} onClose={handleClose} title="#034533" title_type="digits">
-          <OrderDetails />
-        </Modal>
-      )}
-    </div>
+    </Link>
   );
 };
 export default OrderCard;
