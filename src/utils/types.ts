@@ -43,3 +43,9 @@ export type TUser = {
   name: string;
   password?: string;
 };
+
+export enum WebsocketStatus {
+  CONNECTING = 'CONNECTING...',
+  ONLINE = 'ONLINE',
+  OFFLINE = 'OFFLINE',
+}
