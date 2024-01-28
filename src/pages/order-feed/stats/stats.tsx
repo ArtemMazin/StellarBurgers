@@ -1,6 +1,9 @@
 import React from 'react';
 import Board from './board/board';
-import { totalOrdersSelector, totalTodayOrdersSelector } from '@/services/ws/ws-selectors';
+import {
+  totalOrdersSelector,
+  totalTodayOrdersSelector,
+} from '@/services/order-feed/order-feed-selectors';
 import { useAppSelector } from '@/redux-hooks';
 
 const Stats = () => {

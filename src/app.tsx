@@ -94,12 +94,7 @@ export default function App() {
           <Route
             path={URL.ORDER}
             element={
-              <Modal
-                isOpen={background}
-                onClose={handleModalClose}
-                title="#034533"
-                title_type="digits"
-              >
+              <Modal isOpen={background} onClose={handleModalClose} title_type="digits">
                 <OrderDetails />
               </Modal>
             }
@@ -112,12 +107,7 @@ export default function App() {
           <Route
             path={URL.PROFILE_ORDER}
             element={
-              <Modal
-                isOpen={background}
-                onClose={handleModalClose}
-                title="#12345"
-                title_type="digits"
-              >
+              <Modal isOpen={background} onClose={handleModalClose} title_type="digits">
                 <OrderDetails />
               </Modal>
             }

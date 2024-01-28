@@ -3,7 +3,7 @@ import styles from './order-feed.module.css';
 import Stats from './stats/stats';
 import OrderList from '@/components/order-list/order-list';
 import { useAppDispatch } from '@/redux-hooks';
-import { wsClose, wsConnect } from '@/services/ws/ws-slice';
+import { wsClose, wsConnect } from '@/services/order-feed/order-feed-slice';
 
 // type TOrderFeed {
 // }

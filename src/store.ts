@@ -5,15 +5,18 @@ import orderReducer from './services/order/order-slice';
 import userReducer from './services/user/user-slice';
 import { loadState } from './localstorage';
 import { localStorageMiddleware } from './middleware/localstorage-middleware';
-import { wsMiddleware } from './middleware/ws-middleware';
-import wsReducer from './services/ws/ws-slice';
+import { wsOrdersMiddleware } from './middleware/order-feed-middleware';
+import wsOrdersReducer from './services/order-feed/order-feed-slice';
+import wsHistoryOrdersReducer from './services/history-orders/history-orders-slice';
+import { wsHistoryOrdersMiddleware } from './middleware/history-orders-middleware';
 
 const rootReducer = combineReducers({
   initialIngredients: initialIngredientsReducer,
   constructorIngredients: constructorReducer,
   order: orderReducer,
   user: userReducer,
-  orders: wsReducer,
+  orders: wsOrdersReducer,
+  historyOrders: wsHistoryOrdersReducer,
 });
 
 export const store = configureStore({
@@ -21,7 +24,11 @@ export const store = configureStore({
   devTools: true,
   preloadedState: loadState(),
   middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware().concat(localStorageMiddleware, wsMiddleware),
+    getDefaultMiddleware().concat(
+      localStorageMiddleware,
+      wsOrdersMiddleware,
+      wsHistoryOrdersMiddleware,
+    ),
 });
 
 export type RootState = ReturnType<typeof rootReducer>;

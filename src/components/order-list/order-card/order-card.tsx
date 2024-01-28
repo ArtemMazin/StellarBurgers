@@ -7,20 +7,18 @@ import ImageList from './image-list/image-list';
 import { Link, useLocation } from 'react-router-dom';
 import { URL } from '@/utils/url-config';
 import { TOrder } from '@/utils/types';
+import useDate from '@/hooks/useDate';
 
 type TOrderCardProps = {
   order: TOrder;
 };
 
 const OrderCard = ({ order }: TOrderCardProps) => {
+  const date = useDate(order.createdAt);
+
   const location = useLocation();
 
   const path = location.pathname;
-
-  const date = new Date(order.createdAt);
-  const hours = date.getHours();
-  const minutes =
-    date.getMinutes().toString().length > 1 ? date.getMinutes() : '0' + date.getMinutes();
 
   return (
     <Link
@@ -32,9 +30,7 @@ const OrderCard = ({ order }: TOrderCardProps) => {
     >
       <div className={styles.order_id}>
         <span className="text text_type_digits-default">{'#' + order.number}</span>
-        <span className="text text_type_main-small text_color_inactive">
-          {'Сегодня, ' + hours + ':' + minutes}
-        </span>
+        <span className="text text_type_main-small text_color_inactive">{date}</span>
       </div>
       <div>
         <span className="text text_type_main-medium">{order.name}</span>

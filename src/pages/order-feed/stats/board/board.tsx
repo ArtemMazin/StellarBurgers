@@ -1,6 +1,6 @@
 import React from 'react';
 import styles from './board.module.css';
-import { ordersSelector } from '@/services/ws/ws-selectors';
+import { ordersSelector } from '@/services/order-feed/order-feed-selectors';
 import { useAppSelector } from '@/redux-hooks';
 
 const Board = () => {
