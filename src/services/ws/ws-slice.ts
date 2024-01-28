@@ -1,11 +1,11 @@
-import { WebsocketStatus } from '@/utils/types';
+import { TOrder, WebsocketStatus } from '@/utils/types';
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 
 type TinitialState = {
   wsStatus: WebsocketStatus;
   success: boolean;
   wsError: string | undefined;
-  orders: object[] | null;
+  orders: TOrder[] | null;
   total: number;
   totalToday: number;
 };

@@ -49,3 +49,13 @@ export enum WebsocketStatus {
   ONLINE = 'ONLINE',
   OFFLINE = 'OFFLINE',
 }
+
+export type TOrder = {
+  ingredients: string[];
+  _id: '';
+  status: string;
+  name: string;
+  number: number;
+  createdAt: string;
+  updatedAt: string;
+};
