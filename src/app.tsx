@@ -23,13 +23,15 @@ import { useResize } from './hooks/useResize';
 import { useAppDispatch } from './redux-hooks';
 import OrderFeed from './pages/order-feed/order-feed';
 import Orders from './pages/profile/orders/orders';
-import OrderDetails from './components/order-list/order-card/order-details/order-details';
+import OrderFeedDetails from './components/order-feed-details/order-feed-details';
 
 export default function App() {
   const dispatch = useAppDispatch();
   const location = useLocation();
   const navigate = useNavigate();
   const background = location.state && location.state.background;
+  const order = location.state && location.state.order;
+  const items = location.state && location.state.items;
 
   const { isMobile } = useResize();
 
@@ -95,7 +97,7 @@ export default function App() {
             path={URL.ORDER}
             element={
               <Modal isOpen={background} onClose={handleModalClose} title_type="digits">
-                <OrderDetails />
+                <OrderFeedDetails order={order} items={items} />
               </Modal>
             }
           />
@@ -108,7 +110,7 @@ export default function App() {
             path={URL.PROFILE_ORDER}
             element={
               <Modal isOpen={background} onClose={handleModalClose} title_type="digits">
-                <OrderDetails />
+                <OrderFeedDetails order={order} items={items} />
               </Modal>
             }
           />

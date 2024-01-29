@@ -1,27 +1,17 @@
 import React from 'react';
-import styles from './order-details.module.css';
+import styles from './order-feed-details.module.css';
 import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import Ingredients from './ingredients/ingredients';
-import { useAppSelector } from '@/redux-hooks';
-import { useParams } from 'react-router-dom';
-import useOrder from '@/hooks/useOrder';
 import useDate from '@/hooks/useDate';
-import { ordersSelector } from '@/services/order-feed/order-feed-selectors';
-import { initialIngredients } from '@/services/initial-ingredients/selectors';
+import { TIngredient, TOrder } from '@/utils/types';
 
-const OrderDetails = () => {
-  const { number } = useParams();
+type TOrderFeedDetailsProps = {
+  order: TOrder;
+  items: TIngredient[];
+};
 
-  const ingredients = useAppSelector(initialIngredients);
-  const orders = useAppSelector(ordersSelector);
-
-  const order = useOrder(orders, number);
-
+const OrderFeedDetails = ({ order, items }: TOrderFeedDetailsProps) => {
   const date = useDate(order && order.createdAt);
-
-  const items =
-    order &&
-    order.ingredients.map((order) => ingredients.find((ingredient) => ingredient._id === order));
 
   return (
     <>
@@ -44,4 +34,4 @@ const OrderDetails = () => {
   );
 };
 
-export default OrderDetails;
+export default OrderFeedDetails;

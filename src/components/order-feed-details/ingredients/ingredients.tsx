@@ -11,11 +11,13 @@ const Ingredients = ({ items }: TIngredientsProps) => {
   return (
     <div className={`custom-scroll ${styles.ingredient_container}`}>
       <ul className={styles.ingredient_list}>
-        {items?.map((ingredient) => (
-          <li className={styles.ingredient_row} key={ingredient?.customId}>
-            <Ingredient ingredient={ingredient} />
-          </li>
-        ))}
+        {items
+          ?.map((ingredient, i) => (
+            <li className={styles.ingredient_row} key={ingredient?.customId || i}>
+              <Ingredient ingredient={ingredient} />
+            </li>
+          ))
+          .reverse()}
       </ul>
     </div>
   );

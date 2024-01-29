@@ -11,13 +11,16 @@ const ImageList = ({ items }: TImageListProps) => {
   return (
     <ul className={styles.images}>
       {items.length <= 5
-        ? items.map((item) => (
-            <li className={styles.image_container} key={item?.customId}>
+        ? items.map((item, i) => (
+            <li className={styles.image_container} key={item?.customId || i}>
               <img src={item?.image_mobile} alt={item?.name} className={styles.card_image} />
             </li>
           ))
-        : items.slice(-6).map((item) => (
-            <li className={`${styles.image_container} ${styles.card_count}`} key={item?.customId}>
+        : items.slice(-6).map((item, i) => (
+            <li
+              className={`${styles.image_container} ${styles.card_count}`}
+              key={item?.customId || i}
+            >
               <img src={item?.image_mobile} alt={item?.name} className={styles.card_image} />
               <span className={styles.count}>+{length}</span>
             </li>
