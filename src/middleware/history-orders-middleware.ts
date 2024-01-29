@@ -32,10 +32,10 @@ export const wsHistoryOrdersMiddleware: Middleware<RootState> = (store) => (next
       const { data } = event;
       const parsedData = JSON.parse(data);
 
-      if (parsedData.message === 'Invalid or missing token') {
-        dispatch(wsError('Error'));
-        return;
-      }
+      // if (parsedData.message === 'Invalid or missing token') {
+      //   dispatch(wsError('Error'));
+      //   return;
+      // }
 
       dispatch(getOrders(parsedData));
     };

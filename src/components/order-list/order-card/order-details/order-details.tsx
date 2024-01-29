@@ -7,15 +7,21 @@ import { useParams } from 'react-router-dom';
 import useOrder from '@/hooks/useOrder';
 import useDate from '@/hooks/useDate';
 import { ordersSelector } from '@/services/order-feed/order-feed-selectors';
+import { initialIngredients } from '@/services/initial-ingredients/selectors';
 
 const OrderDetails = () => {
   const { number } = useParams();
 
+  const ingredients = useAppSelector(initialIngredients);
   const orders = useAppSelector(ordersSelector);
 
   const order = useOrder(orders, number);
 
-  const date = useDate(order!.createdAt);
+  const date = useDate(order && order.createdAt);
+
+  const items =
+    order &&
+    order.ingredients.map((order) => ingredients.find((ingredient) => ingredient._id === order));
 
   return (
     <>
@@ -25,7 +31,7 @@ const OrderDetails = () => {
       </div>
       <div className="mb-10">
         <h3 className="mb-6 text text_type_main-medium">Состав:</h3>
-        <Ingredients />
+        <Ingredients items={items} />
       </div>
       <div className={`mb-10 ${styles.total_price}`}>
         <span className="text text_type_main-default text_color_inactive">{date}</span>

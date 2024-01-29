@@ -6,6 +6,7 @@ import { useMatch } from 'react-router-dom';
 import { ordersSelector } from '@/services/order-feed/order-feed-selectors';
 import { wsClose, wsConnect } from '@/services/history-orders/history-orders-slice';
 import { historyOrdersSelector } from '@/services/history-orders/history-orders-selectors';
+import { initialIngredients } from '@/services/initial-ingredients/selectors';
 
 const OrderList = () => {
   const dispatch = useAppDispatch();
@@ -13,6 +14,7 @@ const OrderList = () => {
   const match = useMatch('/profile/orders');
 
   const orders = useAppSelector(match ? historyOrdersSelector : ordersSelector);
+  const ingredients = useAppSelector(initialIngredients);
 
   const token = localStorage.getItem('accessToken');
 
@@ -30,7 +32,7 @@ const OrderList = () => {
     <ul className={styles.list}>
       {orders?.map((order) => (
         <li key={order._id}>
-          <OrderCard order={order} />
+          <OrderCard order={order} ingredients={ingredients} />
         </li>
       ))}
     </ul>

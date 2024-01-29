@@ -6,19 +6,24 @@ import styles from './order-card.module.css';
 import ImageList from './image-list/image-list';
 import { Link, useLocation } from 'react-router-dom';
 import { URL } from '@/utils/url-config';
-import { TOrder } from '@/utils/types';
+import { TIngredient, TOrder } from '@/utils/types';
 import useDate from '@/hooks/useDate';
 
 type TOrderCardProps = {
   order: TOrder;
+  ingredients: TIngredient[];
 };
 
-const OrderCard = ({ order }: TOrderCardProps) => {
+const OrderCard = ({ order, ingredients }: TOrderCardProps) => {
   const date = useDate(order.createdAt);
 
   const location = useLocation();
 
   const path = location.pathname;
+
+  const items = order.ingredients.map((order) =>
+    ingredients.find((ingredient) => ingredient._id === order),
+  );
 
   return (
     <Link
@@ -36,7 +41,7 @@ const OrderCard = ({ order }: TOrderCardProps) => {
         <span className="text text_type_main-medium">{order.name}</span>
       </div>
       <div className={styles.ingredients}>
-        <ImageList />
+        <ImageList items={items} />
         <div className={styles.price}>
           <span className="text text_type_digits-default">480</span>
           <CurrencyIcon type="primary" />

@@ -1,27 +1,27 @@
 import React from 'react';
 import styles from './image-list.module.css';
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-ignore
-import ImgPath from '@/images/bun-01.png';
+import { TIngredient } from '@/utils/types';
 
-const ImageList = () => {
+type TImageListProps = {
+  items: (TIngredient | undefined)[];
+};
+
+const ImageList = ({ items }: TImageListProps) => {
+  const length = items.length - 5;
   return (
     <ul className={styles.images}>
-      <li className={styles.image_container}>
-        <img src={ImgPath} alt="" className={styles.card_image} />
-      </li>
-      <li className={styles.image_container}>
-        <img src={ImgPath} alt="" className={styles.card_image} />
-      </li>
-      <li className={styles.image_container}>
-        <img src={ImgPath} alt="" className={styles.card_image} />
-      </li>
-      <li className={styles.image_container}>
-        <img src={ImgPath} alt="" className={styles.card_image} />
-      </li>
-      <li className={styles.image_container}>
-        <img src={ImgPath} alt="" className={styles.card_image} />
-      </li>
+      {items.length <= 5
+        ? items.map((item) => (
+            <li className={styles.image_container} key={item?.customId}>
+              <img src={item?.image_mobile} alt={item?.name} className={styles.card_image} />
+            </li>
+          ))
+        : items.slice(-6).map((item) => (
+            <li className={`${styles.image_container} ${styles.card_count}`} key={item?.customId}>
+              <img src={item?.image_mobile} alt={item?.name} className={styles.card_image} />
+              <span className={styles.count}>+{length}</span>
+            </li>
+          ))}
     </ul>
   );
 };
