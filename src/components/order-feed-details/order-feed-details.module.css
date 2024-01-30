@@ -1,4 +1,8 @@
 .status {
+  display: block;
+}
+
+.status_accent {
   color: var(--colors-interface-success);
 }
 

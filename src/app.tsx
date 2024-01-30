@@ -33,6 +33,7 @@ export default function App() {
   const background = location.state && location.state.background;
   const order = location.state && location.state.order;
   const items = location.state && location.state.items;
+  const price = location.state && location.state.price;
 
   const { isMobile } = useResize();
 
@@ -94,7 +95,7 @@ export default function App() {
             path={URL.ORDER}
             element={
               <Modal isOpen={background} onClose={handleModalClose} title_type="digits">
-                <OrderFeedDetails order={order} items={items} />
+                <OrderFeedDetails order={order} items={items} price={price} />
               </Modal>
             }
           />
@@ -102,7 +103,7 @@ export default function App() {
             path={URL.PROFILE_ORDER}
             element={
               <Modal isOpen={background} onClose={handleModalClose} title_type="digits">
-                <OrderFeedDetails order={order} items={items} />
+                <OrderFeedDetails order={order} items={items} price={price} />
               </Modal>
             }
           />

@@ -7,6 +7,7 @@ import ImageList from './image-list/image-list';
 import { Link, useLocation, useMatch } from 'react-router-dom';
 import { TIngredient, TOrder } from '@/utils/types';
 import useDate from '@/hooks/useDate';
+import { useOrderStatus } from '@/hooks/useOrderStatus';
 
 type TOrderCardProps = {
   order: TOrder;
@@ -26,11 +27,13 @@ const OrderCard = ({ order, ingredients }: TOrderCardProps) => {
 
   const price = items.reduce((acc, item) => (acc += item!.price), 0);
 
+  const status = useOrderStatus(order);
+
   return (
     <Link
       to={`${match ? `/feed/${order.number}` : `/profile/orders/${order.number}`}`}
       className={`p-6 ${styles.card}`}
-      state={{ background: location, order, items }}
+      state={{ background: location, order, items, price }}
     >
       <div className={styles.order_id}>
         <span className="text text_type_digits-default">{'#' + order.number}</span>
@@ -38,8 +41,12 @@ const OrderCard = ({ order, ingredients }: TOrderCardProps) => {
       </div>
       <div>
         <span className="text text_type_main-medium">{order.name}</span>
-        <span className={`text text_type_main-default ${styles.status} ${styles.status_accent}`}>
-          {!match && order.status}
+        <span
+          className={`text text_type_main-default ${styles.status} ${
+            status === 'Выполнен' && styles.status_accent
+          }`}
+        >
+          {!match && status}
         </span>
       </div>
       <div className={styles.ingredients}>
