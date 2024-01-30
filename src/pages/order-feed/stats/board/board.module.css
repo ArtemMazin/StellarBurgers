@@ -6,9 +6,10 @@
 .numbers {
   display: flex;
   width: 280px;
-  height: 152px;
-  flex-direction: column;
+  height: 155px;
+  flex-flow: column wrap;
   padding: 0;
+  margin: 0;
   gap: 8px;
   list-style-type: none;
 }

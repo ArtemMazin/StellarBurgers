@@ -31,9 +31,6 @@ export default function App() {
   const location = useLocation();
   const navigate = useNavigate();
   const background = location.state && location.state.background;
-  const background_feed_order = location.state && location.state.background_feed_order;
-  const background_profile_history_order =
-    location.state && location.state.background_profile_history_order;
   const order = location.state && location.state.order;
   const items = location.state && location.state.items;
 
@@ -58,11 +55,7 @@ export default function App() {
 
   return (
     <ErrorBoundary>
-      <Routes
-        location={
-          background || background_feed_order || background_profile_history_order || location
-        }
-      >
+      <Routes location={background || location}>
         <Route path={URL.MAIN} element={<Layout />}>
           <Route index element={<Home />} />
           <Route path={URL.FEED} element={<OrderFeed />} />
@@ -97,32 +90,18 @@ export default function App() {
               </Modal>
             }
           />
-        </Routes>
-      )}
-
-      {background_feed_order && (
-        <Routes>
           <Route
             path={URL.ORDER}
             element={
-              <Modal isOpen={background_feed_order} onClose={handleModalClose} title_type="digits">
+              <Modal isOpen={background} onClose={handleModalClose} title_type="digits">
                 <OrderFeedDetails order={order} items={items} />
               </Modal>
             }
           />
-        </Routes>
-      )}
-
-      {background_profile_history_order && (
-        <Routes>
           <Route
             path={URL.PROFILE_ORDER}
             element={
-              <Modal
-                isOpen={background_profile_history_order}
-                onClose={handleModalClose}
-                title_type="digits"
-              >
+              <Modal isOpen={background} onClose={handleModalClose} title_type="digits">
                 <OrderFeedDetails order={order} items={items} />
               </Modal>
             }

@@ -6,8 +6,6 @@ type TinitialState = {
   success: boolean;
   wsError: string | undefined;
   orders: TOrder[] | null;
-  total: number;
-  totalToday: number;
 };
 
 const initialState: TinitialState = {
@@ -15,8 +13,6 @@ const initialState: TinitialState = {
   success: false,
   wsError: undefined,
   orders: null,
-  total: 0,
-  totalToday: 0,
 };
 
 export const wsHistoryOrdersSlice = createSlice({
@@ -40,8 +36,6 @@ export const wsHistoryOrdersSlice = createSlice({
     onMessage: (state, action) => {
       state.success = action.payload.success;
       state.orders = action.payload.orders.reverse();
-      state.total = action.payload.total;
-      state.totalToday = action.payload.totalToday;
     },
   },
 });

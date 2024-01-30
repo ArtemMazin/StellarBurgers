@@ -24,15 +24,13 @@ const OrderCard = ({ order, ingredients }: TOrderCardProps) => {
     ingredients.find((ingredient) => ingredient._id === order),
   );
 
+  const price = items.reduce((acc, item) => (acc += item!.price), 0);
+
   return (
     <Link
       to={`${match ? `/feed/${order.number}` : `/profile/orders/${order.number}`}`}
       className={`p-6 ${styles.card}`}
-      state={
-        match
-          ? { background_feed_order: location, order, items }
-          : { background_profile_history_order: location, order, items }
-      }
+      state={{ background: location, order, items }}
     >
       <div className={styles.order_id}>
         <span className="text text_type_digits-default">{'#' + order.number}</span>
@@ -40,11 +38,14 @@ const OrderCard = ({ order, ingredients }: TOrderCardProps) => {
       </div>
       <div>
         <span className="text text_type_main-medium">{order.name}</span>
+        <span className={`text text_type_main-default ${styles.status} ${styles.status_accent}`}>
+          {!match && order.status}
+        </span>
       </div>
       <div className={styles.ingredients}>
         <ImageList items={items} />
         <div className={styles.price}>
-          <span className="text text_type_digits-default">480</span>
+          <span className="text text_type_digits-default">{price}</span>
           <CurrencyIcon type="primary" />
         </div>
       </div>

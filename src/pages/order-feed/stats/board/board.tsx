@@ -8,7 +8,7 @@ const Board = () => {
     ?.filter((item) => item.status === 'done')
     .slice(0, 10);
   const ordersInWork = useAppSelector(ordersSelector)
-    ?.filter((item) => item.status !== 'done')
+    ?.filter((item) => item.status === 'pending')
     .slice(0, 10);
 
   return (

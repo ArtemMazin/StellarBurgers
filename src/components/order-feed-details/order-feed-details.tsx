@@ -13,11 +13,14 @@ type TOrderFeedDetailsProps = {
 const OrderFeedDetails = ({ order, items }: TOrderFeedDetailsProps) => {
   const date = useDate(order && order.createdAt);
 
+  // const price = items.reduce((acc, item) => (acc += item!.price), 0);
+  console.log(order.status);
+
   return (
     <>
       <div className="mb-15">
         <h3 className="mb-2 text text_type_main-medium">{order?.name}</h3>
-        <span className={`text text_type_main-default ${styles.status}`}>Выполнен</span>
+        <span className={`text text_type_main-default ${styles.status}`}>{order.status}</span>
       </div>
       <div className="mb-10">
         <h3 className="mb-6 text text_type_main-medium">Состав:</h3>

@@ -25,3 +25,11 @@
   align-items: center;
   gap: 8px;
 }
+
+.status {
+  display: block;
+}
+
+.status_accent {
+  color: var(--colors-interface-success);
+}
