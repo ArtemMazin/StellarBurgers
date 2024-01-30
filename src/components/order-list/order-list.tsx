@@ -4,7 +4,7 @@ import OrderCard from './order-card/order-card';
 import { useAppDispatch, useAppSelector } from '@/redux-hooks';
 import { useMatch } from 'react-router-dom';
 import { ordersSelector } from '@/services/order-feed/order-feed-selectors';
-import { wsClose, wsConnect } from '@/services/history-orders/history-orders-slice';
+import { onClose, wsConnect } from '@/services/history-orders/history-orders-slice';
 import { historyOrdersSelector } from '@/services/history-orders/history-orders-selectors';
 import { initialIngredients } from '@/services/initial-ingredients/selectors';
 
@@ -24,7 +24,7 @@ const OrderList = () => {
         wsConnect(`wss://norma.nomoreparties.space/orders?token=${token?.split('Bearer ')[1]}`),
       );
     return () => {
-      dispatch(wsClose());
+      dispatch(onClose());
     };
   }, [dispatch, match, token]);
 

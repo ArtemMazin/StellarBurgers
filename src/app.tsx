@@ -24,12 +24,16 @@ import { useAppDispatch } from './redux-hooks';
 import OrderFeed from './pages/order-feed/order-feed';
 import Orders from './pages/profile/orders/orders';
 import OrderFeedDetails from './components/order-feed-details/order-feed-details';
+import Order from './pages/order/order';
 
 export default function App() {
   const dispatch = useAppDispatch();
   const location = useLocation();
   const navigate = useNavigate();
   const background = location.state && location.state.background;
+  const background_feed_order = location.state && location.state.background_feed_order;
+  const background_profile_history_order =
+    location.state && location.state.background_profile_history_order;
   const order = location.state && location.state.order;
   const items = location.state && location.state.items;
 
@@ -54,10 +58,15 @@ export default function App() {
 
   return (
     <ErrorBoundary>
-      <Routes location={background || location}>
+      <Routes
+        location={
+          background || background_feed_order || background_profile_history_order || location
+        }
+      >
         <Route path={URL.MAIN} element={<Layout />}>
           <Route index element={<Home />} />
           <Route path={URL.FEED} element={<OrderFeed />} />
+          <Route path={URL.ORDER} element={<Order />} />
           <Route path={URL.LOGIN} element={<OnlyUnAuth component={<Login />} />} />
           <Route path={URL.REGISTER} element={<OnlyUnAuth component={<Register />} />} />
           <Route
@@ -91,12 +100,12 @@ export default function App() {
         </Routes>
       )}
 
-      {background && (
+      {background_feed_order && (
         <Routes>
           <Route
             path={URL.ORDER}
             element={
-              <Modal isOpen={background} onClose={handleModalClose} title_type="digits">
+              <Modal isOpen={background_feed_order} onClose={handleModalClose} title_type="digits">
                 <OrderFeedDetails order={order} items={items} />
               </Modal>
             }
@@ -104,12 +113,16 @@ export default function App() {
         </Routes>
       )}
 
-      {background && (
+      {background_profile_history_order && (
         <Routes>
           <Route
             path={URL.PROFILE_ORDER}
             element={
-              <Modal isOpen={background} onClose={handleModalClose} title_type="digits">
+              <Modal
+                isOpen={background_profile_history_order}
+                onClose={handleModalClose}
+                title_type="digits"
+              >
                 <OrderFeedDetails order={order} items={items} />
               </Modal>
             }

@@ -3,7 +3,7 @@ import styles from './order-feed.module.css';
 import Stats from './stats/stats';
 import OrderList from '@/components/order-list/order-list';
 import { useAppDispatch } from '@/redux-hooks';
-import { wsClose, wsConnect } from '@/services/order-feed/order-feed-slice';
+import { onClose, wsConnect } from '@/services/order-feed/order-feed-slice';
 
 // type TOrderFeed {
 // }
@@ -13,7 +13,7 @@ const OrderFeed = () => {
   useEffect(() => {
     dispatch(wsConnect('wss://norma.nomoreparties.space/orders/all'));
     return () => {
-      dispatch(wsClose());
+      dispatch(onClose());
     };
   }, [dispatch]);
 

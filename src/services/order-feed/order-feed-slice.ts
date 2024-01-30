@@ -27,17 +27,17 @@ export const wsOrdersSlice = createSlice({
       state.wsStatus = WebsocketStatus.CONNECTING;
     },
 
-    wsOpen: (state) => {
+    onOpen: (state) => {
       state.wsStatus = WebsocketStatus.ONLINE;
       state.wsError = '';
     },
-    wsClose: (state) => {
+    onClose: (state) => {
       state.wsStatus = WebsocketStatus.OFFLINE;
     },
-    wsError: (state, action: PayloadAction<string>) => {
+    onError: (state, action: PayloadAction<string>) => {
       state.wsError = action.payload;
     },
-    getOrders: (state, action) => {
+    onMessage: (state, action) => {
       state.success = action.payload.success;
       state.orders = action.payload.orders;
       state.total = action.payload.total;
@@ -46,5 +46,5 @@ export const wsOrdersSlice = createSlice({
   },
 });
 
-export const { wsConnect, wsOpen, wsError, wsClose, getOrders } = wsOrdersSlice.actions;
+export const { wsConnect, onOpen, onError, onClose, onMessage } = wsOrdersSlice.actions;
 export default wsOrdersSlice.reducer;

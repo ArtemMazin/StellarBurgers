@@ -28,7 +28,11 @@ const OrderCard = ({ order, ingredients }: TOrderCardProps) => {
     <Link
       to={`${match ? `/feed/${order.number}` : `/profile/orders/${order.number}`}`}
       className={`p-6 ${styles.card}`}
-      state={{ background: location, order, items }}
+      state={
+        match
+          ? { background_feed_order: location, order, items }
+          : { background_profile_history_order: location, order, items }
+      }
     >
       <div className={styles.order_id}>
         <span className="text text_type_digits-default">{'#' + order.number}</span>
