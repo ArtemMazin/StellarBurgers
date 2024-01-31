@@ -1,4 +1,5 @@
 import { RootState } from '@/store';
+import { refreshToken } from '@/utils/api';
 import { ActionCreatorWithPayload, ActionCreatorWithoutPayload } from '@reduxjs/toolkit';
 import { Middleware } from 'redux';
 
@@ -39,6 +40,18 @@ export const socketMiddleware =
       socket.onmessage = (event: MessageEvent<string>) => {
         const { data } = event;
         const parsedData = JSON.parse(data);
+
+        if (parsedData.message === 'Invalid or missing token') {
+          refreshToken()
+            .then((refreshData) => {
+              const wssURL = new URL(url);
+              wssURL.searchParams.set('token', refreshData.accessToken.replace('Bearer ', ''));
+              dispatch(wsConnect(wssURL.toString()));
+            })
+            .catch((err) => {
+              dispatch(onError(err.message));
+            });
+        }
 
         dispatch(onMessage(parsedData));
       };

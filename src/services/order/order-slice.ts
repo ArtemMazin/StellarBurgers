@@ -1,4 +1,5 @@
 import * as api from '@/utils/api';
+import { TOrder } from '@/utils/types';
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 
 export const createOrder = createAsyncThunk(
@@ -14,7 +15,21 @@ export const createOrder = createAsyncThunk(
   },
 );
 
+export const getOrderById = createAsyncThunk(
+  'ingredients/get-order-by-id',
+  async (number: string, { rejectWithValue }) => {
+    try {
+      const currentOrder = await api.getOrder(number);
+
+      return currentOrder;
+    } catch (error) {
+      return rejectWithValue('Не получилось найти заказ, попробуйте снова');
+    }
+  },
+);
+
 type TInitialOrderSlice = {
+  currentOrder: TOrder | null;
   order: {
     number: number;
   } | null;
@@ -23,6 +38,7 @@ type TInitialOrderSlice = {
 };
 
 const initialState: TInitialOrderSlice = {
+  currentOrder: null,
   order: null,
   status: 'idle',
   error: null,
@@ -49,6 +65,10 @@ export const orderSlice = createSlice({
       .addCase(createOrder.rejected, (state, action) => {
         state.status = 'failed';
         state.error = action.error.message;
+      })
+      .addCase(getOrderById.fulfilled, (state, action) => {
+        state.status = 'succeeded';
+        state.currentOrder = action.payload;
       });
   },
 });
