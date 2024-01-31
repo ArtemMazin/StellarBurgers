@@ -61,6 +61,7 @@ export default function App() {
           <Route index element={<Home />} />
           <Route path={URL.FEED} element={<OrderFeed />} />
           <Route path={URL.ORDER} element={<Order />} />
+          <Route path={URL.PROFILE_ORDER} element={<Order />} />
           <Route path={URL.LOGIN} element={<OnlyUnAuth component={<Login />} />} />
           <Route path={URL.REGISTER} element={<OnlyUnAuth component={<Register />} />} />
           <Route
