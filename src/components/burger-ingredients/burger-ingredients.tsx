@@ -14,10 +14,8 @@ import { useAppDispatch, useAppSelector } from '@/redux-hooks';
 
 function BurgerIngredients() {
   const [activeTab, setActiveTab] = useState<string>(BUNS);
-
   const status = useAppSelector(statusIngredients);
   const error = useAppSelector(errorIngredients);
-
   const { isMobile } = useResize();
 
   const dispatch = useAppDispatch();

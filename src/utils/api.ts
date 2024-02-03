@@ -185,7 +185,7 @@ export function restorePassword(
   });
 }
 
-export function getOrder(number: string): Promise<TOrder> {
+export function getOrder(number: string): Promise<{ success: boolean; orders: TOrder[] }> {
   return request({
     url: `${BASE_API_URL}/orders/${number}`,
     options: {

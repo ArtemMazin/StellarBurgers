@@ -2,6 +2,7 @@ import { useAppSelector } from '@/redux-hooks';
 import { currentUser } from '@/services/user/selectors';
 import React from 'react';
 import { Navigate, useLocation } from 'react-router-dom';
+import Preloader from '@/components/preloader/preloader';
 
 type TProtectedProps = {
   onlyUnAuth?: boolean;
@@ -9,8 +10,12 @@ type TProtectedProps = {
 };
 
 const Protected = ({ onlyUnAuth = false, component }: TProtectedProps) => {
-  const user = useAppSelector(currentUser);
+  const { user, isAuthChecked } = useAppSelector(currentUser);
   const location = useLocation();
+
+  if (!isAuthChecked) {
+    return <Preloader />;
+  }
 
   if (onlyUnAuth && user) {
     // Пользователь авторизован, но роут предназначен для неавторизованного пользователя

@@ -68,7 +68,7 @@ export const orderSlice = createSlice({
       })
       .addCase(getOrderById.fulfilled, (state, action) => {
         state.status = 'succeeded';
-        state.currentOrder = action.payload;
+        state.currentOrder = action.payload.orders[0];
       });
   },
 });

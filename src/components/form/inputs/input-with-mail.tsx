@@ -18,7 +18,7 @@ function InputWithMail({
 }: TInputProps) {
   const [disabled, setDisabled] = useState(true);
   const [currentIcon, setCurrentIcon] = useState<keyof TICons>('EditIcon');
-  const user = useAppSelector(currentUser);
+  const user = useAppSelector(currentUser).user;
 
   const { isMobile } = useResize();
 

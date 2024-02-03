@@ -41,7 +41,7 @@ export type TLoginSuccess = {
 export type TUser = {
   email: string;
   name: string;
-  password?: string;
+  password: string;
 };
 
 export enum WebsocketStatus {

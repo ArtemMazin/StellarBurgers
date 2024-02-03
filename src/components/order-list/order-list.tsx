@@ -4,7 +4,7 @@ import OrderCard from './order-card/order-card';
 import { useAppDispatch, useAppSelector } from '@/redux-hooks';
 import { useMatch } from 'react-router-dom';
 import { ordersSelector } from '@/services/order-feed/order-feed-selectors';
-import { onClose, wsConnect } from '@/services/history-orders/history-orders-slice';
+import { connect, disconnect } from '@/services/history-orders/actions';
 import { historyOrdersSelector } from '@/services/history-orders/history-orders-selectors';
 import { initialIngredients } from '@/services/initial-ingredients/selectors';
 
@@ -16,21 +16,20 @@ const OrderList = () => {
   const orders = useAppSelector(match ? historyOrdersSelector : ordersSelector);
   const ingredients = useAppSelector(initialIngredients);
 
-  const token = localStorage.getItem('accessToken');
-
   useEffect(() => {
+    const token = localStorage.getItem('accessToken');
     match &&
       dispatch(
-        wsConnect(`wss://norma.nomoreparties.space/orders?token=${token?.split('Bearer ')[1]}`),
+        connect(`wss://norma.nomoreparties.space/orders?token=${token?.split('Bearer ')[1]}`),
       );
     return () => {
-      dispatch(onClose());
+      match && dispatch(disconnect());
     };
-  }, [dispatch, match, token]);
+  }, [dispatch, match]);
 
   return (
     <ul className={styles.list}>
-      {orders?.map((order) => (
+      {orders.map((order) => (
         <li key={order._id}>
           <OrderCard order={order} ingredients={ingredients} />
         </li>

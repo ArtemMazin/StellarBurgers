@@ -19,7 +19,7 @@ function InputWithPassword({
   const [disabled, setDisabled] = useState(true);
   const [currentIcon, setCurrentIcon] = useState<keyof TICons>(icon);
   const [currentType, setCurrentType] = useState<'password' | 'text' | 'email'>('password');
-  const user = useAppSelector(currentUser);
+  const user = useAppSelector(currentUser).user;
 
   const { isMobile } = useResize();
 

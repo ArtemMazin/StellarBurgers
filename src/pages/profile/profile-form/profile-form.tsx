@@ -12,7 +12,7 @@ import { useAppDispatch, useAppSelector } from '@/redux-hooks';
 
 function ProfileForm() {
   const [isVisibleButtons, setVisibleButtons] = useState(false);
-  const user = useAppSelector(currentUser);
+  const { user } = useAppSelector(currentUser);
 
   const dispatch = useAppDispatch();
 
@@ -37,7 +37,6 @@ function ProfileForm() {
       if (
         values.name.trim() !== user.name ||
         values.email !== user.email ||
-        user.password ||
         values.password
       ) {
         setVisibleButtons(true);

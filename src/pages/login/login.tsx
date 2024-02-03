@@ -4,14 +4,11 @@ import { Link } from 'react-router-dom';
 import Form from '@/components/form/form';
 import { useFormAndValidation } from '@/hooks/useForm';
 import { login } from '@/services/user/actions';
-import useStatus from '@/hooks/useStatus';
-import Preloader from '@/components/preloader/preloader';
-import { statusUser } from '@/services/user/selectors';
 import { toast } from 'react-toastify';
 import InputWithMail from '@/components/form/inputs/input-with-mail';
 import InputWithPassword from '@/components/form/inputs/input-with-password';
 import { messages } from '@/utils/constants';
-import { useAppDispatch, useAppSelector } from '@/redux-hooks';
+import { useAppDispatch } from '@/redux-hooks';
 
 function Login() {
   const initialValues = {
@@ -27,8 +24,6 @@ function Login() {
     initialValid,
   );
   const { email, password } = values;
-
-  const status = useAppSelector(statusUser);
 
   const dispatch = useAppDispatch();
 
@@ -51,40 +46,29 @@ function Login() {
     return;
   };
 
-  const content = useStatus({
-    loading: (
-      <div className="pt-20 pl-12">
-        <Preloader />
-      </div>
-    ),
-    content: (
-      <Form
-        title={'Вход'}
-        textButton={'Войти'}
-        handle={(e) => handleLogin(e, email, password)}
-        isFormValid={isFormValid}
-      >
-        <InputWithMail
-          handleInput={handleInput}
-          value={values?.email}
-          error={errors?.email}
-          inputValid={inputsValid?.email}
-        />
-        <InputWithPassword
-          handleInput={handleInput}
-          value={values?.password}
-          error={errors?.password}
-          inputValid={inputsValid?.password}
-        />
-      </Form>
-    ),
-    status,
-  });
-
   return (
     <main className={styles.main}>
       <div className={styles.container}>
-        {content}
+        <Form
+          title={'Вход'}
+          textButton={'Войти'}
+          handle={(e) => handleLogin(e, email, password)}
+          isFormValid={isFormValid}
+        >
+          <InputWithMail
+            handleInput={handleInput}
+            value={values.email}
+            error={errors.email}
+            inputValid={inputsValid.email}
+            placeholder={'E-mail'}
+          />
+          <InputWithPassword
+            handleInput={handleInput}
+            value={values.password}
+            error={errors.password}
+            inputValid={inputsValid.password}
+          />
+        </Form>
         <div>
           <p className="text text_type_main-default text_color_inactive mb-4">
             Вы — новый пользователь?{' '}

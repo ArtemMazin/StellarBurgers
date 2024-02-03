@@ -10,15 +10,13 @@ import { URL } from './utils/url-config';
 import Home from './pages/home/home';
 import NotFound from './pages/not-found-404/not-found';
 import { OnlyAuth, OnlyUnAuth } from './components/protected-route/protected-route';
-import { getUser } from './services/user/actions';
+import { checkUserAuth } from './services/user/actions';
 import Modal from './components/modal/modal';
 import IngredientDetails from './components/modal/ingredient-details/ingredient-details';
 import Ingredient from './pages/ingredient/ingredient';
 import 'react-toastify/dist/ReactToastify.css';
-import { toast } from 'react-toastify';
 import ProfileForm from './pages/profile/profile-form/profile-form';
 import Layout from './components/layout/layout';
-import { messages } from './utils/constants';
 import { useResize } from './hooks/useResize';
 import { useAppDispatch } from './redux-hooks';
 import OrderFeed from './pages/order-feed/order-feed';
@@ -42,16 +40,7 @@ export default function App() {
   };
 
   useEffect(() => {
-    if (localStorage.getItem('accessToken')) {
-      dispatch(getUser())
-        .unwrap()
-        .then(() => toast.info(messages.SUCCESS_LOGIN))
-        .catch((err: unknown) => {
-          if (err instanceof Error) {
-            toast.error(err.message);
-          }
-        });
-    }
+    dispatch(checkUserAuth());
   }, [dispatch]);
 
   return (

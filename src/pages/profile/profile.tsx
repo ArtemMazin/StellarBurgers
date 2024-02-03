@@ -1,27 +1,12 @@
 import React from 'react';
 import styles from './profile.module.css';
-import { statusUser } from '@/services/user/selectors';
-import useStatus from '@/hooks/useStatus';
-import Preloader from '@/components/preloader/preloader';
 import ProfileTabs from '@/components/profile-tabs/profile-tabs';
 import { Outlet } from 'react-router-dom';
 import { useResize } from '@/hooks/useResize';
-import { useAppSelector } from '@/redux-hooks';
 
 function Profile() {
-  const status = useAppSelector(statusUser);
 
   const { isMobile } = useResize();
-
-  const content = useStatus({
-    loading: (
-      <div className={`${isMobile ? 'pt-20 ml-8' : 'pt-20 pl-30 ml-25'}`}>
-        <Preloader />
-      </div>
-    ),
-    content: <Outlet />,
-    status,
-  });
 
   return (
     <main className="container">
@@ -37,7 +22,7 @@ function Profile() {
             </span>
           </div>
         )}
-        <>{content}</>
+        <Outlet/>
       </div>
     </main>
   );

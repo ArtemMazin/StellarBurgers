@@ -25,9 +25,13 @@ const OrderCard = ({ order, ingredients }: TOrderCardProps) => {
     ingredients.find((ingredient) => ingredient._id === order),
   );
 
-  const price = items.reduce((acc, item) => (acc += item!.price), 0);
-
   const status = useOrderStatus(order);
+
+  if (items.includes(undefined)) {
+    return null;
+  }
+
+  const price = items.reduce((acc, item) => (acc += item!.price), 0);
 
   return (
     <Link

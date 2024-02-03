@@ -8,41 +8,39 @@ import { localStorageMiddleware } from './middleware/localstorage-middleware';
 import { socketMiddleware } from './middleware/order-feed-middleware';
 import wsOrdersReducer from './services/order-feed/order-feed-slice';
 import wsHistoryOrdersReducer from './services/history-orders/history-orders-slice';
-
 import {
-  wsConnect as OrdersWsConnect,
-  onOpen as OrdersWsOpen,
-  onClose as OrdersWsClose,
+  connect as OrdersWsConnect,
+  disconnect as OrdersWsDisconnect
+} from './services/order-feed/actions';
+import {
   onMessage as OrdersWsMessage,
   onError as OrdersWsError,
 } from './services/order-feed/order-feed-slice';
-
 import {
-  wsConnect as HistoryOrdersWsConnect,
-  onOpen as HistoryOrdersWsOpen,
-  onClose as HistoryOrdersWsClose,
+  connect as HistoryOrdersWsConnect,
+  disconnect as HistoryOrdersWsDisconnect
+} from './services/history-orders/actions';
+import {
   onMessage as HistoryOrdersWsMessage,
   onError as HistoryOrdersWsError,
 } from './services/history-orders/history-orders-slice';
 
 const wsActions = {
   wsConnect: OrdersWsConnect,
-  onOpen: OrdersWsOpen,
-  onClose: OrdersWsClose,
+  wsDisconnect: OrdersWsDisconnect,
   onError: OrdersWsError,
   onMessage: OrdersWsMessage,
 };
 
 const wsHistoryOrderActions = {
   wsConnect: HistoryOrdersWsConnect,
-  onOpen: HistoryOrdersWsOpen,
-  onClose: HistoryOrdersWsClose,
+  wsDisconnect: HistoryOrdersWsDisconnect,
   onError: HistoryOrdersWsError,
   onMessage: HistoryOrdersWsMessage,
 };
 
 const wsOrdersMiddleware = socketMiddleware(wsActions);
-const wsHistoryOrdersMiddleware = socketMiddleware(wsHistoryOrderActions);
+const wsHistoryOrdersMiddleware = socketMiddleware(wsHistoryOrderActions, true);
 
 const rootReducer = combineReducers({
   initialIngredients: initialIngredientsReducer,
