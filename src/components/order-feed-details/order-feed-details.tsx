@@ -8,7 +8,7 @@ import { useOrderStatus } from '@/hooks/useOrderStatus';
 
 type TOrderFeedDetailsProps = {
   order: TOrder;
-  items: (TIngredient | undefined)[];
+  items: TIngredient[];
   price: number;
 };
 

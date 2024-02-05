@@ -7,6 +7,7 @@ import { ordersSelector } from '@/services/order-feed/order-feed-selectors';
 import { connect, disconnect } from '@/services/history-orders/actions';
 import { historyOrdersSelector } from '@/services/history-orders/history-orders-selectors';
 import { initialIngredients } from '@/services/initial-ingredients/selectors';
+import { WS_API_URL } from '@/utils/constants';
 
 const OrderList = () => {
   const dispatch = useAppDispatch();
@@ -18,12 +19,15 @@ const OrderList = () => {
 
   useEffect(() => {
     const token = localStorage.getItem('accessToken');
-    match &&
-      dispatch(
-        connect(`wss://norma.nomoreparties.space/orders?token=${token?.split('Bearer ')[1]}`),
-      );
+
+    if (match) {
+      dispatch(connect(`${WS_API_URL}?token=${token?.split('Bearer ')[1]}`));
+    }
+
     return () => {
-      match && dispatch(disconnect());
+      if (match) {
+        dispatch(disconnect());
+      }
     };
   }, [dispatch, match]);
 

@@ -1,4 +1,5 @@
 export const BASE_API_URL = 'https://norma.nomoreparties.space/api';
+export const WS_API_URL = 'wss://norma.nomoreparties.space/orders';
 
 export const REG_EXP_EMAIL =
   /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-z\-0-9]+\.)+[a-z]{2,}))$/i;

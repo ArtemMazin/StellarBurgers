@@ -4,7 +4,7 @@ import Ingredient from './ingredient/ingredient';
 import { TIngredient } from '@/utils/types';
 
 type TIngredientsProps = {
-  items: (TIngredient | undefined)[] | null;
+  items: TIngredient[] | null;
 };
 
 const Ingredients = ({ items }: TIngredientsProps) => {

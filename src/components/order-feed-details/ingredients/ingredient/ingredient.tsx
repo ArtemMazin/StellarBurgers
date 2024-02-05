@@ -5,11 +5,11 @@ import { TIngredient } from '@/utils/types';
 
 type TIngredientProps = {
   ingredient?: TIngredient;
-  items: (TIngredient | undefined)[] | null;
+  items: TIngredient[] | null;
 };
 
 const Ingredient = ({ ingredient, items }: TIngredientProps) => {
-  const count = items?.filter((item) => item?._id === ingredient?._id);
+  const count = items?.filter((item) => item._id === ingredient?._id);
 
   return (
     <>

@@ -4,11 +4,12 @@ import Stats from './stats/stats';
 import OrderList from '@/components/order-list/order-list';
 import { useAppDispatch } from '@/redux-hooks';
 import { connect, disconnect } from '../../services/order-feed/actions';
+import { WS_API_URL } from '@/utils/constants';
 
 const OrderFeed = () => {
   const dispatch = useAppDispatch();
   useEffect(() => {
-    dispatch(connect('wss://norma.nomoreparties.space/orders/all'));
+    dispatch(connect(`${WS_API_URL}/all`));
     return () => {
       dispatch(disconnect());
     };

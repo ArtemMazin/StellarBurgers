@@ -21,17 +21,14 @@ const OrderCard = ({ order, ingredients }: TOrderCardProps) => {
 
   const match = useMatch('/feed');
 
-  const items = order.ingredients.map((order) =>
-    ingredients.find((ingredient) => ingredient._id === order),
+  const items = order.ingredients.map(
+    // find не вернет undefined, т.к. order.ingredients формируется из ingredients (условие ingredient._id === order всегда выполнится).
+    (order) => ingredients.find((ingredient) => ingredient._id === order) as TIngredient,
   );
 
   const status = useOrderStatus(order);
 
-  if (items.includes(undefined)) {
-    return null;
-  }
-
-  const price = items.reduce((acc, item) => (acc += item!.price), 0);
+  const price = items.reduce((acc, item) => (acc += item.price), 0);
 
   return (
     <Link

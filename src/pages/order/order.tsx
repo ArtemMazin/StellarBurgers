@@ -6,24 +6,23 @@ import { useParams } from 'react-router-dom';
 import { getOrderById } from '@/services/order/order-slice';
 import { getIngredients } from '@/services/initial-ingredients/initial-ingredients-slice';
 import styles from './order.module.css';
+import { TIngredient } from '@/utils/types';
 
 function Order() {
   const { number } = useParams();
 
   const ingredients = useAppSelector(initialIngredients);
   const order = useAppSelector((store) => {
-    let order =
-      store.orders.orders && number && store.orders.orders.find((o) => o.number === +number);
-    if (order) {
-      return order;
+    if (!number) return null;
+
+    if (store.orders.orders.length) {
+      const data = store.orders.orders.find((o) => o.number === +number);
+      if (data) return data;
     }
 
-    order =
-      store.historyOrders.orders &&
-      number &&
-      store.historyOrders.orders.find((o) => o.number === +number);
-    if (order) {
-      return order;
+    if (store.historyOrders.orders.length) {
+      const data = store.historyOrders.orders.find((o) => o.number === +number);
+      if (data) return data;
     }
 
     return store.order.currentOrder;
@@ -42,11 +41,12 @@ function Order() {
     return null;
   }
 
-  const items = order.ingredients.map((order) =>
-    ingredients.find((ingredient) => ingredient._id === order),
+  const items = order.ingredients.map(
+    // find не вернет undefined, т.к. order.ingredients формируется из ingredients (условие ingredient._id === order всегда выполнится).
+    (order) => ingredients.find((ingredient) => ingredient._id === order) as TIngredient,
   );
 
-  const price = items?.reduce((acc, item) => (acc += item!.price), 0);
+  const price = items?.reduce((acc, item) => (acc += item.price), 0);
 
   return (
     <div className={styles.container}>
