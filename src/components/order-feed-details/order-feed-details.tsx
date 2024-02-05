@@ -1,8 +1,7 @@
 import React from 'react';
 import styles from './order-feed-details.module.css';
-import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
+import { CurrencyIcon, FormattedDate } from '@ya.praktikum/react-developer-burger-ui-components';
 import Ingredients from './ingredients/ingredients';
-import useDate from '@/hooks/useDate';
 import { TIngredient, TOrder } from '@/utils/types';
 import { useOrderStatus } from '@/hooks/useOrderStatus';
 
@@ -13,8 +12,6 @@ type TOrderFeedDetailsProps = {
 };
 
 const OrderFeedDetails = ({ order, items, price }: TOrderFeedDetailsProps) => {
-  const date = useDate(order && order.createdAt);
-
   const status = useOrderStatus(order);
 
   return (
@@ -34,7 +31,10 @@ const OrderFeedDetails = ({ order, items, price }: TOrderFeedDetailsProps) => {
         <Ingredients items={items} />
       </div>
       <div className={`mb-10 ${styles.total_price}`}>
-        <span className="text text_type_main-default text_color_inactive">{date}</span>
+        <FormattedDate
+          date={new Date(order.createdAt)}
+          className="text_type_main-default text_color_inactive"
+        />
         <div className={styles.price}>
           <span className="text text_type_digits-default">{price}</span>
           <CurrencyIcon type="primary" />

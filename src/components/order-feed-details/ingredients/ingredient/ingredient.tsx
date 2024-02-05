@@ -4,13 +4,10 @@ import styles from './ingredient.module.css';
 import { TIngredient } from '@/utils/types';
 
 type TIngredientProps = {
-  ingredient?: TIngredient;
-  items: TIngredient[] | null;
+  ingredient?: TIngredient & { count?: number };
 };
 
-const Ingredient = ({ ingredient, items }: TIngredientProps) => {
-  const count = items?.filter((item) => item._id === ingredient?._id);
-
+const Ingredient = ({ ingredient }: TIngredientProps) => {
   return (
     <>
       {ingredient && (
@@ -25,7 +22,7 @@ const Ingredient = ({ ingredient, items }: TIngredientProps) => {
           </span>
           <div className={styles.ingredient_price}>
             <span className={`text text_type_digits-default ${styles.ingredient_count}`}>
-              {count?.length} x {ingredient.price}
+              {ingredient.count} x {ingredient.price}
             </span>
             <CurrencyIcon type="primary" />
           </div>

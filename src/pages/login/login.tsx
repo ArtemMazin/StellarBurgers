@@ -27,7 +27,7 @@ function Login() {
 
   const dispatch = useAppDispatch();
 
-  const handleLogin = (e: React.FormEvent<Element>, email: string, password: string) => {
+  const handleLogin = (e: React.FormEvent<Element>) => {
     e.preventDefault();
 
     if (email && password) {
@@ -49,12 +49,7 @@ function Login() {
   return (
     <main className={styles.main}>
       <div className={styles.container}>
-        <Form
-          title={'Вход'}
-          textButton={'Войти'}
-          handle={(e) => handleLogin(e, email, password)}
-          isFormValid={isFormValid}
-        >
+        <Form title={'Вход'} textButton={'Войти'} handle={handleLogin} isFormValid={isFormValid}>
           <InputWithMail
             handleInput={handleInput}
             value={values.email}

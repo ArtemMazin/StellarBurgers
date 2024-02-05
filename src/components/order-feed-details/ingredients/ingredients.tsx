@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import styles from './ingredients.module.css';
 import Ingredient from './ingredient/ingredient';
 import { TIngredient } from '@/utils/types';
@@ -8,14 +8,24 @@ type TIngredientsProps = {
 };
 
 const Ingredients = ({ items }: TIngredientsProps) => {
-  const uniqItems = Array.from(new Set(items));
+  const uniqItems = useMemo(() => {
+    const uniqIngredients = Array.from(new Set(items));
+
+    if (!uniqIngredients.length) return [];
+
+    return uniqIngredients.map((ingredient) => {
+      const count = items?.filter((item) => item._id === ingredient._id).length;
+
+      return { ...ingredient, count };
+    });
+  }, [items]);
 
   return (
     <div className={`custom-scroll ${styles.ingredient_container}`}>
       <ul className={styles.ingredient_list}>
         {uniqItems?.map((ingredient, i) => (
           <li className={styles.ingredient_row} key={ingredient?.customId || i}>
-            <Ingredient ingredient={ingredient} items={items} />
+            <Ingredient ingredient={ingredient} />
           </li>
         ))}
       </ul>

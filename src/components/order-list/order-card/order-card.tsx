@@ -1,12 +1,11 @@
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 import React from 'react';
-import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
+import { CurrencyIcon, FormattedDate } from '@ya.praktikum/react-developer-burger-ui-components';
 import styles from './order-card.module.css';
 import ImageList from './image-list/image-list';
 import { Link, useLocation, useMatch } from 'react-router-dom';
 import { TIngredient, TOrder } from '@/utils/types';
-import useDate from '@/hooks/useDate';
 import { useOrderStatus } from '@/hooks/useOrderStatus';
 
 type TOrderCardProps = {
@@ -15,8 +14,6 @@ type TOrderCardProps = {
 };
 
 const OrderCard = ({ order, ingredients }: TOrderCardProps) => {
-  const date = useDate(order.createdAt);
-
   const location = useLocation();
 
   const match = useMatch('/feed');
@@ -38,7 +35,10 @@ const OrderCard = ({ order, ingredients }: TOrderCardProps) => {
     >
       <div className={styles.order_id}>
         <span className="text text_type_digits-default">{'#' + order.number}</span>
-        <span className="text text_type_main-small text_color_inactive">{date}</span>
+        <FormattedDate
+          date={new Date(order.createdAt)}
+          className="text_type_main-small text_color_inactive"
+        />
       </div>
       <div>
         <span className="text text_type_main-medium">{order.name}</span>
