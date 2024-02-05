@@ -5,10 +5,6 @@ import Container from './modal-components/modal-container/modal-container';
 import Header from './modal-components/modal-header/modal-header';
 import Title from './modal-components/modal-header/title/title';
 import ButtonClose from './modal-components/modal-header/button/button';
-import { useParams } from 'react-router-dom';
-import { useAppSelector } from '@/redux-hooks';
-import useOrder from '@/hooks/useOrder';
-import { ordersSelector } from '@/services/order-feed/order-feed-selectors';
 
 type TModalProps = {
   isOpen: object;
@@ -19,18 +15,12 @@ type TModalProps = {
 };
 
 const Modal = ({ isOpen, onClose, title = '', title_type = 'text', children }: TModalProps) => {
-  const { number } = useParams();
-
-  const orders = useAppSelector(ordersSelector);
-
-  const order = useOrder(orders, number);
-
   return (
     <ModalComponents isOpen={isOpen} onClose={onClose}>
       <Overlay>
         <Container>
           <Header>
-            <Title title={order ? '#' + order.number : title} type={title_type} />
+            <Title title={title} type={title_type} />
             <ButtonClose />
           </Header>
           {children}

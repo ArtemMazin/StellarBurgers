@@ -1,4 +1,4 @@
-import { TOrder, WebsocketStatus } from '@/utils/types';
+import { TOrder } from '@/utils/types';
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 
 type TInitialState = {

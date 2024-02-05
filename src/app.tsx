@@ -29,6 +29,7 @@ export default function App() {
   const location = useLocation();
   const navigate = useNavigate();
   const background = location.state && location.state.background;
+  const background_order = location.state && location.state.background_order;
   const order = location.state && location.state.order;
   const items = location.state && location.state.items;
   const price = location.state && location.state.price;
@@ -45,7 +46,7 @@ export default function App() {
 
   return (
     <ErrorBoundary>
-      <Routes location={background || location}>
+      <Routes location={background || background_order || location}>
         <Route path={URL.MAIN} element={<Layout />}>
           <Route index element={<Home />} />
           <Route path={URL.FEED} element={<OrderFeed />} />
@@ -81,10 +82,19 @@ export default function App() {
               </Modal>
             }
           />
+        </Routes>
+      )}
+      {background_order && (
+        <Routes>
           <Route
             path={URL.ORDER}
             element={
-              <Modal isOpen={background} onClose={handleModalClose} title_type="digits">
+              <Modal
+                isOpen={background_order}
+                onClose={handleModalClose}
+                title={'#' + order.number}
+                title_type="digits"
+              >
                 <OrderFeedDetails order={order} items={items} price={price} />
               </Modal>
             }
@@ -92,7 +102,12 @@ export default function App() {
           <Route
             path={URL.PROFILE_ORDER}
             element={
-              <Modal isOpen={background} onClose={handleModalClose} title_type="digits">
+              <Modal
+                isOpen={background_order}
+                onClose={handleModalClose}
+                title={'#' + order.number}
+                title_type="digits"
+              >
                 <OrderFeedDetails order={order} items={items} price={price} />
               </Modal>
             }
