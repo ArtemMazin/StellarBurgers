@@ -1,5 +1,4 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
 import styles from './burger-components.module.css';
 import Bun from './bun/bun';
 import Ingredients from './ingredients/ingredients';
@@ -9,10 +8,11 @@ import Base from './base/base';
 import { useDrop } from 'react-dnd';
 import Switch from './switch-components/switch-components';
 import { useResize } from '@/hooks/useResize';
+import { useAppSelector } from '@/redux-hooks';
 
 export default function BurgerComponents() {
-  const bun = useSelector(selectedBun);
-  const ingredients = useSelector(allIngredients);
+  const bun = useAppSelector(selectedBun);
+  const ingredients = useAppSelector(allIngredients);
 
   const { isMobile } = useResize();
 

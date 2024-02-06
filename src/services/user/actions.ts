@@ -1,6 +1,8 @@
 import * as api from '@/utils/api';
-import { TLoginSuccess } from '@/utils/types';
-import { createAsyncThunk } from '@reduxjs/toolkit';
+import { TLoginSuccess, TUser } from '@/utils/types';
+import { createAsyncThunk, ThunkAction } from '@reduxjs/toolkit';
+import { setAuthChecked, setUser } from '@/services/user/user-slice';
+import { RootState } from '@/store';
 
 const setRefreshToken = (data: TLoginSuccess) =>
   localStorage.setItem('refreshToken', data.refreshToken);
@@ -9,10 +11,10 @@ const setAccessToken = (data: TLoginSuccess) =>
 const removeRefreshToken = () => localStorage.removeItem('refreshToken');
 const removeAccessToken = () => localStorage.removeItem('accessToken');
 
-export const register = createAsyncThunk(
+export const register = createAsyncThunk<TLoginSuccess, TUser>(
   'user/register-user',
   async (
-    { name, email, password }: { name: string; email: string; password: string },
+    { name, email, password },
     { rejectWithValue },
   ) => {
     try {
@@ -28,7 +30,7 @@ export const register = createAsyncThunk(
   },
 );
 
-export const login = createAsyncThunk(
+export const login = createAsyncThunk<TLoginSuccess, Omit<TUser, 'name'>>(
   'user/login-user',
   async ({ email, password }: { email: string; password: string }, { rejectWithValue }) => {
     try {
@@ -44,20 +46,16 @@ export const login = createAsyncThunk(
   },
 );
 
-export const getUser = createAsyncThunk('user/get-profile-user', async (_, { rejectWithValue }) => {
-  try {
-    const data = await api.getProfileUser();
 
-    return data;
-  } catch (error) {
-    removeRefreshToken();
-    removeAccessToken();
+export const getUser = (): ThunkAction<Promise<void>, RootState, unknown, ReturnType<typeof setUser>> => {
+  return (dispatch) => {
+    return api.getProfileUser().then((res) => {
+      dispatch(setUser(res.user));
+    });
+  };
+};
 
-    return rejectWithValue('Не удалось войти в аккаунт');
-  }
-});
-
-export const updateUser = createAsyncThunk(
+export const updateUser = createAsyncThunk<Pick<TLoginSuccess, 'success' | 'user'>, TUser>(
   'user/update-profile-user',
   async (
     { name, email, password }: { name: string; email: string; password: string },
@@ -82,3 +80,19 @@ export const logout = createAsyncThunk('user/logout', async (_, { rejectWithValu
     return rejectWithValue('Не удалось выйти из аккаунта, попробуйте снова');
   }
 });
+
+export const checkUserAuth = (): ThunkAction<void, RootState, unknown, ReturnType<typeof setUser | typeof setAuthChecked>> => {
+  return (dispatch) => {
+    if (localStorage.getItem("accessToken")) {
+      dispatch(getUser())
+        .catch(() => {
+          localStorage.removeItem("accessToken");
+          localStorage.removeItem("refreshToken");
+          dispatch(setUser(null));
+        })
+        .finally(() => dispatch(setAuthChecked(true)));
+    } else {
+      dispatch(setAuthChecked(true));
+    }
+  };
+};

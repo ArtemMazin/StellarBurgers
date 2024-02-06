@@ -1,5 +1,5 @@
 import { BASE_API_URL } from './constants';
-import { TIngredient, TLoginSuccess } from './types';
+import { TIngredient, TLoginSuccess, TOrder } from './types';
 
 const checkReponse = <T>(res: Response): Promise<T> => {
   return res.ok ? res.json() : res.json().then((err) => Promise.reject(err));
@@ -181,6 +181,18 @@ export function restorePassword(
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({ password, token }),
+    },
+  });
+}
+
+export function getOrder(number: string): Promise<{ success: boolean; orders: TOrder[] }> {
+  return request({
+    url: `${BASE_API_URL}/orders/${number}`,
+    options: {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+      },
     },
   });
 }

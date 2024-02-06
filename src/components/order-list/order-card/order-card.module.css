@@ -1,0 +1,35 @@
+.card {
+  display: flex;
+  flex-direction: column;
+  border-radius: var(--common-border-radius-s);
+  background-color: var(--background);
+  color: var(--text-primary-color);
+  cursor: pointer;
+  gap: 24px;
+  text-align: start;
+  text-decoration: none;
+}
+
+.ingredients {
+  display: flex;
+  justify-content: space-between;
+}
+
+.order_id {
+  display: flex;
+  justify-content: space-between;
+}
+
+.price {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.status {
+  display: block;
+}
+
+.status_accent {
+  color: var(--colors-interface-success);
+}

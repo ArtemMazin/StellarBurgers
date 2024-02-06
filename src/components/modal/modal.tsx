@@ -9,17 +9,18 @@ import ButtonClose from './modal-components/modal-header/button/button';
 type TModalProps = {
   isOpen: object;
   onClose: () => void;
-  title: string;
+  title?: string;
+  title_type?: 'text' | 'digits';
   children: JSX.Element;
 };
 
-const Modal = ({ isOpen, onClose, title, children }: TModalProps) => {
+const Modal = ({ isOpen, onClose, title = '', title_type = 'text', children }: TModalProps) => {
   return (
     <ModalComponents isOpen={isOpen} onClose={onClose}>
       <Overlay>
         <Container>
           <Header>
-            <Title title={title} />
+            <Title title={title} type={title_type} />
             <ButtonClose />
           </Header>
           {children}

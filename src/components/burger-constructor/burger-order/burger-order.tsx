@@ -3,7 +3,6 @@ import { Button, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-co
 import styles from './burger-order.module.css';
 import Modal from '@/components/modal/modal';
 import OrderDetails from '@/components/modal/order-details/order-details';
-import { useSelector } from 'react-redux';
 import useTotalPrice from '@/hooks/useTotalPrice';
 import { allIngredients, selectedBun } from '@/services/constructor/selectors';
 import { currentOrder, orderStatus } from '@/services/order/selectors';
@@ -17,15 +16,15 @@ import { messages } from '@/utils/constants';
 import { useResize } from '@/hooks/useResize';
 import { useConstructor } from '@/components/layout/layout';
 import { TIngredient } from '@/utils/types';
-import { useAppDispatch } from '@/redux-hooks';
+import { useAppDispatch, useAppSelector } from '@/redux-hooks';
 
 function BurgerOrder() {
   const [isConstructorOpen, showConstructor] = useConstructor();
 
-  const ingredients = useSelector(allIngredients);
-  const bun = useSelector(selectedBun);
-  const order = useSelector(currentOrder);
-  const status = useSelector(orderStatus);
+  const ingredients = useAppSelector(allIngredients);
+  const bun = useAppSelector(selectedBun);
+  const order = useAppSelector(currentOrder);
+  const status = useAppSelector(orderStatus);
 
   const totalPrice = useTotalPrice(ingredients, bun);
 

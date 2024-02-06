@@ -4,21 +4,18 @@ import Ingredients from './ingredients/ingredients';
 import { BUNS } from '@/utils/tabs-config';
 import useStatus from '@/hooks/useStatus';
 import Preloader from '../preloader/preloader';
-import { useSelector } from 'react-redux';
 import { errorIngredients, statusIngredients } from '@/services/initial-ingredients/selectors';
 import { getIngredients } from '@/services/initial-ingredients/initial-ingredients-slice';
 import { toast } from 'react-toastify';
 import { loadState } from '@/localstorage';
 import { useResize } from '@/hooks/useResize';
 import styles from './burger-ingredients.module.css';
-import { useAppDispatch } from '@/redux-hooks';
+import { useAppDispatch, useAppSelector } from '@/redux-hooks';
 
 function BurgerIngredients() {
   const [activeTab, setActiveTab] = useState<string>(BUNS);
-
-  const status = useSelector(statusIngredients);
-  const error = useSelector(errorIngredients);
-
+  const status = useAppSelector(statusIngredients);
+  const error = useAppSelector(errorIngredients);
   const { isMobile } = useResize();
 
   const dispatch = useAppDispatch();

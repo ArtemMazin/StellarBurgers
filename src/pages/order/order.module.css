@@ -1,0 +1,10 @@
+.container {
+  max-width: 640px;
+  margin: 120px auto 0;
+}
+
+.number {
+  display: block;
+  margin-bottom: 40px;
+  text-align: center;
+}

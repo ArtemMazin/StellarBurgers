@@ -1,0 +1,19 @@
+.board {
+  display: flex;
+  justify-content: space-between;
+}
+
+.numbers {
+  display: flex;
+  width: 280px;
+  height: 155px;
+  flex-flow: column wrap;
+  padding: 0;
+  margin: 0;
+  gap: 8px;
+  list-style-type: none;
+}
+
+.numbers_accent {
+  color: var(--colors-interface-success);
+}

@@ -1,0 +1,20 @@
+.order_container {
+  max-height: 70vh;
+  overflow-y: auto;
+}
+
+.stats_container {
+  display: flex;
+  flex-direction: column;
+  gap: 60px;
+}
+
+.main {
+  box-sizing: border-box;
+}
+
+.content {
+  display: grid;
+  justify-content: space-between;
+  grid-template-columns: minmax(320px, 600px) minmax(320px, 584px);
+}

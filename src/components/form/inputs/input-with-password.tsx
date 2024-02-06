@@ -3,10 +3,10 @@ import { currentUser } from '@/services/user/selectors';
 import { REG_EXP_PASSWORD, messages } from '@/utils/constants';
 import { Input } from '@ya.praktikum/react-developer-burger-ui-components';
 import styles from './input.module.css';
-import { useSelector } from 'react-redux';
 import { useResize } from '@/hooks/useResize';
 import { TInputProps } from '@/utils/types';
 import { TICons } from '@ya.praktikum/react-developer-burger-ui-components/dist/ui/icons';
+import { useAppSelector } from '@/redux-hooks';
 
 function InputWithPassword({
   icon = 'ShowIcon',
@@ -19,7 +19,7 @@ function InputWithPassword({
   const [disabled, setDisabled] = useState(true);
   const [currentIcon, setCurrentIcon] = useState<keyof TICons>(icon);
   const [currentType, setCurrentType] = useState<'password' | 'text' | 'email'>('password');
-  const user = useSelector(currentUser);
+  const user = useAppSelector(currentUser).user;
 
   const { isMobile } = useResize();
 

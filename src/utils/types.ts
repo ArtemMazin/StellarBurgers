@@ -41,5 +41,21 @@ export type TLoginSuccess = {
 export type TUser = {
   email: string;
   name: string;
-  password?: string;
+  password: string;
+};
+
+export enum WebsocketStatus {
+  CONNECTING = 'CONNECTING...',
+  ONLINE = 'ONLINE',
+  OFFLINE = 'OFFLINE',
+}
+
+export type TOrder = {
+  ingredients: string[];
+  _id: '';
+  status: string;
+  name: string;
+  number: number;
+  createdAt: string;
+  updatedAt: string;
 };

@@ -10,23 +10,29 @@ import { URL } from './utils/url-config';
 import Home from './pages/home/home';
 import NotFound from './pages/not-found-404/not-found';
 import { OnlyAuth, OnlyUnAuth } from './components/protected-route/protected-route';
-import { getUser } from './services/user/actions';
+import { checkUserAuth } from './services/user/actions';
 import Modal from './components/modal/modal';
 import IngredientDetails from './components/modal/ingredient-details/ingredient-details';
 import Ingredient from './pages/ingredient/ingredient';
 import 'react-toastify/dist/ReactToastify.css';
-import { toast } from 'react-toastify';
 import ProfileForm from './pages/profile/profile-form/profile-form';
 import Layout from './components/layout/layout';
-import { messages } from './utils/constants';
 import { useResize } from './hooks/useResize';
 import { useAppDispatch } from './redux-hooks';
+import OrderFeed from './pages/order-feed/order-feed';
+import Orders from './pages/profile/orders/orders';
+import OrderFeedDetails from './components/order-feed-details/order-feed-details';
+import Order from './pages/order/order';
 
 export default function App() {
   const dispatch = useAppDispatch();
   const location = useLocation();
   const navigate = useNavigate();
   const background = location.state && location.state.background;
+  const background_order = location.state && location.state.background_order;
+  const order = location.state && location.state.order;
+  const items = location.state && location.state.items;
+  const price = location.state && location.state.price;
 
   const { isMobile } = useResize();
 
@@ -35,23 +41,17 @@ export default function App() {
   };
 
   useEffect(() => {
-    if (localStorage.getItem('accessToken')) {
-      dispatch(getUser())
-        .unwrap()
-        .then(() => toast.info(messages.SUCCESS_LOGIN))
-        .catch((err: unknown) => {
-          if (err instanceof Error) {
-            toast.error(err.message);
-          }
-        });
-    }
+    dispatch(checkUserAuth());
   }, [dispatch]);
 
   return (
     <ErrorBoundary>
-      <Routes location={background || location}>
+      <Routes location={background || background_order || location}>
         <Route path={URL.MAIN} element={<Layout />}>
           <Route index element={<Home />} />
+          <Route path={URL.FEED} element={<OrderFeed />} />
+          <Route path={URL.ORDER} element={<Order />} />
+          <Route path={URL.PROFILE_ORDER} element={<OnlyAuth component={<Order />} />} />
           <Route path={URL.LOGIN} element={<OnlyUnAuth component={<Login />} />} />
           <Route path={URL.REGISTER} element={<OnlyUnAuth component={<Register />} />} />
           <Route
@@ -62,7 +62,7 @@ export default function App() {
           <Route path={URL.INGREDIENT} element={<Ingredient />} />
           <Route path={`${URL.PROFILE}/*`} element={<OnlyAuth component={<Profile />} />}>
             <Route index element={<ProfileForm />} />
-            <Route path={URL.PROFILE_ORDERS} element={<></>} />
+            <Route path={URL.PROFILE_ORDERS} element={<Orders />} />
           </Route>
           <Route path="*" element={<NotFound />} />
         </Route>
@@ -79,6 +79,36 @@ export default function App() {
                 title={`${isMobile ? '' : 'Детали ингредиента'}`}
               >
                 <IngredientDetails />
+              </Modal>
+            }
+          />
+        </Routes>
+      )}
+      {background_order && (
+        <Routes>
+          <Route
+            path={URL.ORDER}
+            element={
+              <Modal
+                isOpen={background_order}
+                onClose={handleModalClose}
+                title={'#' + order.number}
+                title_type="digits"
+              >
+                <OrderFeedDetails order={order} items={items} price={price} />
+              </Modal>
+            }
+          />
+          <Route
+            path={URL.PROFILE_ORDER}
+            element={
+              <Modal
+                isOpen={background_order}
+                onClose={handleModalClose}
+                title={'#' + order.number}
+                title_type="digits"
+              >
+                <OrderFeedDetails order={order} items={items} price={price} />
               </Modal>
             }
           />

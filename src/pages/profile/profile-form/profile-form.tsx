@@ -1,6 +1,5 @@
 import { currentUser } from '@/services/user/selectors';
 import React, { useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
 import { useFormAndValidation } from '@/hooks/useForm';
 import InputWithName from '@/components/form/inputs/input-with-name';
 import InputWithMail from '@/components/form/inputs/input-with-mail';
@@ -9,11 +8,11 @@ import Form from '@/components/form/form';
 import { toast } from 'react-toastify';
 import { updateUser } from '@/services/user/actions';
 import { messages } from '@/utils/constants';
-import { useAppDispatch } from '@/redux-hooks';
+import { useAppDispatch, useAppSelector } from '@/redux-hooks';
 
 function ProfileForm() {
   const [isVisibleButtons, setVisibleButtons] = useState(false);
-  const user = useSelector(currentUser);
+  const { user } = useAppSelector(currentUser);
 
   const dispatch = useAppDispatch();
 
@@ -38,7 +37,6 @@ function ProfileForm() {
       if (
         values.name.trim() !== user.name ||
         values.email !== user.email ||
-        user.password ||
         values.password
       ) {
         setVisibleButtons(true);
@@ -71,37 +69,39 @@ function ProfileForm() {
   };
 
   return (
-    <Form
-      title={''}
-      textButton={'Сохранить'}
-      textButtonReset={'Отмена'}
-      isVisibleButtons={isVisibleButtons}
-      isFormValid={isFormValid}
-      handle={handleSubmit}
-      handleReset={handleReset}
-    >
-      <InputWithName
-        handleInput={handleInput}
-        value={values?.name}
-        error={errors?.name}
-        inputValid={inputsValid?.name}
-        isIcon={true}
-      />
-      <InputWithMail
-        handleInput={handleInput}
-        value={values?.email}
-        error={errors?.email}
-        inputValid={inputsValid?.email}
-        isIcon={true}
-      />
-      <InputWithPassword
-        handleInput={handleInput}
-        value={values?.password}
-        error={errors?.password}
-        inputValid={inputsValid?.password}
-        icon="EditIcon"
-      />
-    </Form>
+    <div className="mt-30 ml-15">
+      <Form
+        title={''}
+        textButton={'Сохранить'}
+        textButtonReset={'Отмена'}
+        isVisibleButtons={isVisibleButtons}
+        isFormValid={isFormValid}
+        handle={handleSubmit}
+        handleReset={handleReset}
+      >
+        <InputWithName
+          handleInput={handleInput}
+          value={values?.name}
+          error={errors?.name}
+          inputValid={inputsValid?.name}
+          isIcon={true}
+        />
+        <InputWithMail
+          handleInput={handleInput}
+          value={values?.email}
+          error={errors?.email}
+          inputValid={inputsValid?.email}
+          isIcon={true}
+        />
+        <InputWithPassword
+          handleInput={handleInput}
+          value={values?.password}
+          error={errors?.password}
+          inputValid={inputsValid?.password}
+          icon="EditIcon"
+        />
+      </Form>
+    </div>
   );
 }
 
