@@ -1,4 +1,4 @@
-import * as api from '@/utils/api';
+import * as api from '@/api/orders-api';
 import { TOrder } from '@/utils/types';
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 

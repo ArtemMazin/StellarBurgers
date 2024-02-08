@@ -1,4 +1,4 @@
-import * as api from '@/utils/api';
+import * as api from '@/api/user-api';
 import { TLoginSuccess, TUser } from '@/utils/types';
 import { createAsyncThunk, ThunkAction } from '@reduxjs/toolkit';
 import { setAuthChecked, setUser } from '@/services/user/user-slice';
@@ -13,10 +13,7 @@ const removeAccessToken = () => localStorage.removeItem('accessToken');
 
 export const register = createAsyncThunk<TLoginSuccess, TUser>(
   'user/register-user',
-  async (
-    { name, email, password },
-    { rejectWithValue },
-  ) => {
+  async ({ name, email, password }, { rejectWithValue }) => {
     try {
       const data = await api.register(name, email, password);
 
@@ -46,8 +43,12 @@ export const login = createAsyncThunk<TLoginSuccess, Omit<TUser, 'name'>>(
   },
 );
 
-
-export const getUser = (): ThunkAction<Promise<void>, RootState, unknown, ReturnType<typeof setUser>> => {
+export const getUser = (): ThunkAction<
+  Promise<void>,
+  RootState,
+  unknown,
+  ReturnType<typeof setUser>
+> => {
   return (dispatch) => {
     return api.getProfileUser().then((res) => {
       dispatch(setUser(res.user));
@@ -81,13 +82,18 @@ export const logout = createAsyncThunk('user/logout', async (_, { rejectWithValu
   }
 });
 
-export const checkUserAuth = (): ThunkAction<void, RootState, unknown, ReturnType<typeof setUser | typeof setAuthChecked>> => {
+export const checkUserAuth = (): ThunkAction<
+  void,
+  RootState,
+  unknown,
+  ReturnType<typeof setUser | typeof setAuthChecked>
+> => {
   return (dispatch) => {
-    if (localStorage.getItem("accessToken")) {
+    if (localStorage.getItem('accessToken')) {
       dispatch(getUser())
         .catch(() => {
-          localStorage.removeItem("accessToken");
-          localStorage.removeItem("refreshToken");
+          localStorage.removeItem('accessToken');
+          localStorage.removeItem('refreshToken');
           dispatch(setUser(null));
         })
         .finally(() => dispatch(setAuthChecked(true)));

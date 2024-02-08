@@ -1,4 +1,4 @@
-import * as api from '@/utils/api';
+import * as api from '@/api/ingredients-api';
 import { TIngredient } from '@/utils/types';
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 
