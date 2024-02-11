@@ -28,18 +28,3 @@ export const orders = [
     number: 34194,
   },
 ];
-
-export const order = {
-  _id: '65c7955397ede0001d058165',
-  ingredients: [
-    '643d69a5c3f7b9001cfa093d',
-    '643d69a5c3f7b9001cfa0943',
-    '643d69a5c3f7b9001cfa0943',
-    '643d69a5c3f7b9001cfa093d',
-  ],
-  status: 'done',
-  name: 'Space флюоресцентный бургер',
-  createdAt: '2024-02-10T15:25:07.079Z',
-  updatedAt: '2024-02-10T15:25:07.680Z',
-  number: 34186,
-};

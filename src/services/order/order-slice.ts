@@ -1,5 +1,5 @@
-import * as api from '@/api/orders-api';
-import { TOrder } from '@/utils/types';
+import * as api from '../../api/orders-api';
+import { TOrder } from '../../utils/types';
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 
 export const createOrder = createAsyncThunk(
@@ -37,7 +37,7 @@ type TInitialOrderSlice = {
   error: string | undefined | null;
 };
 
-const initialState: TInitialOrderSlice = {
+export const initialState: TInitialOrderSlice = {
   currentOrder: null,
   order: null,
   status: 'idle',

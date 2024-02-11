@@ -1,6 +1,6 @@
-import { BASE_API_URL } from '@/utils/constants';
+import { BASE_API_URL } from '../utils/constants';
 import { fetchWithRefresh, request } from './api';
-import { TOrder } from '@/utils/types';
+import { TOrder } from '../utils/types';
 
 export function createOrder(itemsID: string[]): Promise<{
   name: string;
