@@ -1,5 +1,5 @@
-import { BASE_API_URL } from '@/utils/constants';
-import { TIngredient } from '@/utils/types';
+import { BASE_API_URL } from '../utils/constants';
+import { TIngredient } from '../utils/types';
 import { request } from './api';
 
 export function getIngredients(): Promise<{ success: boolean; data: TIngredient[] }> {
