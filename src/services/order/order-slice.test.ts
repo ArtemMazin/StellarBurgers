@@ -3,52 +3,58 @@ import { orders } from '../../mocks/orders-mock';
 import orderReducer from './order-slice';
 
 describe('order slice', () => {
-  it('should handle fulfilled createOrder action', () => {
+  const ingredientsId = [
+    '643d69a5c3f7b9001cfa093d',
+    '643d69a5c3f7b9001cfa0943',
+    '643d69a5c3f7b9001cfa093d',
+  ];
+
+  it('should handle fulfilled "createOrder" action', () => {
     const order = orders[0];
-    const action = {
-      type: createOrder.fulfilled,
-      payload: order,
-    };
-    const result = orderReducer(initialState, action);
+
+    const result = orderReducer(
+      initialState,
+      createOrder.fulfilled(order, 'fulfilled', ingredientsId),
+    );
 
     expect(result.status).toEqual('succeeded');
     expect(result.order).toEqual(order);
   });
 
-  it('should set status to loading when createOrder is pending', () => {
-    const action = { type: createOrder.pending.type };
-    const state = orderReducer(initialState, action);
+  it('should set status to loading when "createOrder" is pending', () => {
+    const result = orderReducer(initialState, createOrder.pending('pending', ingredientsId));
 
-    expect(state.status).toEqual('loading');
+    expect(result.status).toEqual('loading');
   });
 
-  it('should set error message when createOrder is rejected', () => {
-    const errorMessage = 'Order creation failed';
-    const action = {
-      type: createOrder.rejected.type,
-      error: { message: errorMessage },
-    };
-    const state = orderReducer(initialState, action);
+  it('should set error message when "createOrder" is rejected', () => {
+    const errorMessage = new Error('Order creation failed');
 
-    expect(state.error).toEqual(errorMessage);
+    const result = orderReducer(
+      initialState,
+      createOrder.rejected(errorMessage, 'rejected', ingredientsId),
+    );
+
+    expect(result.error).toEqual(errorMessage.message);
   });
 
-  it('should remove order when removeOrder is called', () => {
+  it('should remove order when "removeOrder" is called', () => {
     const initialStateWithOrder = { ...initialState, order: orders[0] };
     const action = { type: removeOrder.type };
-    const state = orderReducer(initialStateWithOrder, action);
+    const result = orderReducer(initialStateWithOrder, action);
 
-    expect(state.order).toBeNull();
+    expect(result.order).toBeNull();
   });
 
-  it('should set currentOrder when getOrderById is fulfilled', () => {
+  it('should set currentOrder when "getOrderById" is fulfilled', () => {
     const order = orders[0];
-    const action = {
-      type: getOrderById.fulfilled.type,
-      payload: { orders },
-    };
-    const state = orderReducer(initialState, action);
 
-    expect(state.currentOrder).toEqual(order);
+    const result = orderReducer(
+      initialState,
+      getOrderById.fulfilled({ success: true, orders }, 'fulfilled', '12345'),
+    );
+
+    expect(result.status).toEqual('succeeded');
+    expect(result.currentOrder).toEqual(order);
   });
 });
