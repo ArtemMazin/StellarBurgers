@@ -1,7 +1,7 @@
-import * as api from '@/api/user-api';
+import * as api from '../../api/user-api';
 import { TLoginSuccess, TUser } from '@/utils/types';
 import { createAsyncThunk, ThunkAction } from '@reduxjs/toolkit';
-import { setAuthChecked, setUser } from '@/services/user/user-slice';
+import { setAuthChecked, setUser } from '../../services/user/user-slice';
 import { RootState } from '@/store';
 
 const setRefreshToken = (data: TLoginSuccess) =>

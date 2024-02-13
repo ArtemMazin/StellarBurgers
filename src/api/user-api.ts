@@ -1,6 +1,6 @@
 import { TLoginSuccess } from '@/utils/types';
 import { fetchWithRefresh, request } from './api';
-import { BASE_API_URL } from '@/utils/constants';
+import { BASE_API_URL } from '../utils/constants';
 
 export function register(name: string, email: string, password: string): Promise<TLoginSuccess> {
   return request({
