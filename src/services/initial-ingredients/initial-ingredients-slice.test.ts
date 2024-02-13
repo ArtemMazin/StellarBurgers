@@ -1,6 +1,7 @@
 import { getIngredients, initialState } from './initial-ingredients-slice';
 import initialIngredientsReducer from './initial-ingredients-slice';
 import { ingredients } from '../../mocks/ingredients-mock';
+import { expect, it } from '@jest/globals';
 
 describe('initialIngredientsSlice', () => {
   it('should handle fulfilled "getIngredients" action', () => {
