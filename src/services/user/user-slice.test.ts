@@ -1,20 +1,26 @@
-import { login, logout } from './actions';
-import { userSlice, setUser, setAuthChecked, initialState } from './user-slice';
+import { initialState } from './user-slice';
+import userSliceReducer from './user-slice';
+
+const user = {
+  id: '123',
+  name: 'John Doe',
+  email: 'john@doe.com',
+};
+
+const updatedUser = {
+  id: '456',
+  name: '<NAME>',
+  email: 'jane@doe.com',
+};
 
 describe('userSlice', () => {
   it('should handle setUser action', () => {
-    const user = {
-      id: '123',
-      name: 'John Doe',
-      email: 'john@doe.com',
-    };
-
     const action = {
-      type: setUser.type,
+      type: 'user/setUser',
       payload: user,
     };
 
-    const result = userSlice.reducer(initialState, action);
+    const result = userSliceReducer(initialState, action);
 
     expect(result.user).toEqual(user);
   });
@@ -23,37 +29,53 @@ describe('userSlice', () => {
     const isAuthChecked = true;
 
     const action = {
-      type: setAuthChecked.type,
+      type: 'user/setAuthChecked',
       payload: isAuthChecked,
     };
 
-    const result = userSlice.reducer(initialState, action);
+    const result = userSliceReducer(initialState, action);
 
     expect(result.isAuthChecked).toEqual(isAuthChecked);
   });
 
   it('should handle login.fulfilled action', () => {
-    const user = {
-      id: '123',
-      name: 'Jane Doe',
-      email: 'jane@doe.com',
-    };
-
     const action = {
-      type: login.fulfilled.type,
+      type: 'user/login-user/fulfilled',
       payload: { user },
     };
 
-    const result = userSlice.reducer(initialState, action);
+    const result = userSliceReducer(initialState, action);
 
     expect(result.user).toEqual(user);
   });
 
   it('should handle logout.fulfilled action', () => {
-    const action = { type: logout.fulfilled.type };
+    const action = { type: 'user/logout-user/fulfilled' };
 
-    const result = userSlice.reducer(initialState, action);
+    const result = userSliceReducer(initialState, action);
 
     expect(result.user).toBeNull();
+  });
+
+  it('should handle updateUser.fulfilled action', () => {
+    const action = {
+      type: 'user/update-profile-user/fulfilled',
+      payload: { user: updatedUser },
+    };
+
+    const result = userSliceReducer(initialState, action);
+
+    expect(result.user).toEqual(updatedUser);
+  });
+
+  it('should handle register.fulfilled action', () => {
+    const action = {
+      type: 'user/register-user/fulfilled',
+      payload: { user },
+    };
+
+    const result = userSliceReducer(initialState, action);
+
+    expect(result.user).toEqual(user);
   });
 });

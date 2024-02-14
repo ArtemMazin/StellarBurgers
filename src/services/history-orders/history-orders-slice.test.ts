@@ -1,5 +1,5 @@
 import { orders } from '../../mocks/orders-mock';
-import { onError, onMessage, initialState } from './history-orders-slice';
+import { initialState } from './history-orders-slice';
 import wsHistoryOrdersReducer from './history-orders-slice';
 
 describe('historyOrdersSlice', () => {
@@ -7,7 +7,7 @@ describe('historyOrdersSlice', () => {
     const errorMessage = 'Error connecting to socket';
 
     const action = {
-      type: onError.type,
+      type: 'socket-profile-orders/onError',
       payload: errorMessage,
     };
 
@@ -18,7 +18,7 @@ describe('historyOrdersSlice', () => {
 
   it('should handle onMessage action', () => {
     const action = {
-      type: onMessage.type,
+      type: 'socket-profile-orders/onMessage',
       payload: { orders },
     };
 

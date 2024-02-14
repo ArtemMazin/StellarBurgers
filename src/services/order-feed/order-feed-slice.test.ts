@@ -1,4 +1,4 @@
-import { onError, onMessage, initialState } from './order-feed-slice';
+import { initialState } from './order-feed-slice';
 import { orders } from '../../mocks/orders-mock';
 import wsOrdersReducer from './order-feed-slice';
 
@@ -7,7 +7,7 @@ describe('wsOrdersSlice', () => {
     const errorMessage = 'Error connecting to socket';
 
     const action = {
-      type: onError.type,
+      type: 'socket-orders/onError',
       payload: errorMessage,
     };
 
@@ -18,7 +18,7 @@ describe('wsOrdersSlice', () => {
 
   it('should handle onMessage action and update state', () => {
     const action = {
-      type: onMessage.type,
+      type: 'socket-orders/onMessage',
       payload: {
         orders,
         total: 10,

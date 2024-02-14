@@ -1,4 +1,4 @@
-import { getIngredients, initialState } from './initial-ingredients-slice';
+import { initialState } from './initial-ingredients-slice';
 import initialIngredientsReducer from './initial-ingredients-slice';
 import { ingredients } from '../../mocks/ingredients-mock';
 import { expect, it } from '@jest/globals';
@@ -6,7 +6,7 @@ import { expect, it } from '@jest/globals';
 describe('initialIngredientsSlice', () => {
   it('should handle fulfilled "getIngredients" action', () => {
     const action = {
-      type: getIngredients.fulfilled.type,
+      type: 'ingredients/get-ingredients/fulfilled',
       payload: ingredients,
     };
 
@@ -18,7 +18,7 @@ describe('initialIngredientsSlice', () => {
 
   it('should set status to loading when "getIngredients" is pending', () => {
     const action = {
-      type: getIngredients.pending.type,
+      type: 'ingredients/get-ingredients/pending',
     };
 
     const result = initialIngredientsReducer(initialState, action);
@@ -31,7 +31,7 @@ describe('initialIngredientsSlice', () => {
     const errorMessage = new Error('Error fetching ingredients');
 
     const action = {
-      type: getIngredients.rejected.type,
+      type: 'ingredients/get-ingredients/rejected',
       error: errorMessage,
     };
 

@@ -1,4 +1,4 @@
-import { createOrder, getOrderById, initialState, removeOrder } from './order-slice';
+import { initialState } from './order-slice';
 import { orders } from '../../mocks/orders-mock';
 import orderReducer from './order-slice';
 
@@ -7,7 +7,7 @@ describe('order slice', () => {
     const order = orders[0];
 
     const action = {
-      type: createOrder.fulfilled.type,
+      type: 'ingredients/create-order/fulfilled',
       payload: order,
     };
 
@@ -19,7 +19,7 @@ describe('order slice', () => {
 
   it('should set status to loading when "createOrder" is pending', () => {
     const action = {
-      type: createOrder.pending.type,
+      type: 'ingredients/create-order/pending',
     };
 
     const result = orderReducer(initialState, action);
@@ -30,7 +30,7 @@ describe('order slice', () => {
   it('should set error message when "createOrder" is rejected', () => {
     const errorMessage = new Error('Order creation failed');
     const action = {
-      type: createOrder.rejected.type,
+      type: 'ingredients/create-order/rejected',
       error: errorMessage,
     };
 
@@ -41,7 +41,7 @@ describe('order slice', () => {
 
   it('should remove order when "removeOrder" is called', () => {
     const initialStateWithOrder = { ...initialState, order: orders[0] };
-    const action = { type: removeOrder.type };
+    const action = { type: 'order/removeOrder' };
     const result = orderReducer(initialStateWithOrder, action);
 
     expect(result.order).toBeNull();
@@ -51,7 +51,7 @@ describe('order slice', () => {
     const order = orders[0];
 
     const action = {
-      type: getOrderById.fulfilled.type,
+      type: 'ingredients/get-order-by-id/fulfilled',
       payload: { success: true, orders },
     };
 

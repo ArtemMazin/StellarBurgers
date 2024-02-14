@@ -1,12 +1,5 @@
 import { ingredient, ingredients } from '../../mocks/ingredients-mock';
-import {
-  addIngredient,
-  chooseBun,
-  deleteAllIngredients,
-  deleteIngredient,
-  initialState,
-  updateIngredients,
-} from './constructor-slice';
+import { initialState } from './constructor-slice';
 import constructorReducer from './constructor-slice';
 
 describe('constructorSlice initialState', () => {
@@ -21,7 +14,7 @@ describe('constructorSlice initialState', () => {
 
   it('should add ingredient with "addIngredient" action', () => {
     const action = {
-      type: addIngredient.type,
+      type: 'constructorIngredients/addIngredient',
       payload: ingredient,
     };
 
@@ -32,7 +25,7 @@ describe('constructorSlice initialState', () => {
 
   it('should choose bun with "chooseBun" action', () => {
     const action = {
-      type: chooseBun.type,
+      type: 'constructorIngredients/chooseBun',
       payload: ingredient,
     };
 
@@ -47,7 +40,7 @@ describe('constructorSlice initialState', () => {
       ingredients: ingredients,
     };
     const action = {
-      type: updateIngredients.type,
+      type: 'constructorIngredients/updateIngredients',
       payload: ingredients[1],
     };
 
@@ -62,7 +55,7 @@ describe('constructorSlice initialState', () => {
       ingredients: ingredients,
     };
     const action = {
-      type: deleteIngredient.type,
+      type: 'constructorIngredients/deleteIngredient',
       payload: ingredients[1],
     };
 
@@ -77,7 +70,7 @@ describe('constructorSlice initialState', () => {
       ingredients: ingredients,
     };
     const action = {
-      type: deleteAllIngredients.type,
+      type: 'constructorIngredients/deleteAllIngredients',
     };
 
     const result = constructorReducer(state, action);
