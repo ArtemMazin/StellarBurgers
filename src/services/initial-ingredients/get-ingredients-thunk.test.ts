@@ -5,7 +5,7 @@ import { expect, jest, it } from '@jest/globals';
 global.fetch = jest.fn();
 
 describe('getIngredientsThunk', () => {
-  it('should dispatch "getIngredients" action', async () => {
+  it('should getIngredients with resolved response', async () => {
     (fetch as jest.Mock).mockResolvedValue({
       ok: true,
       json: () => Promise.resolve({ success: true, data: ingredients }),
@@ -14,12 +14,38 @@ describe('getIngredientsThunk', () => {
     const dispatch = jest.fn();
     const thunk = getIngredients();
 
-    await thunk(dispatch, {} as any, {} as any);
+    await thunk(
+      dispatch,
+      () => ({}),
+      () => ({}),
+    );
     const { calls } = dispatch.mock as jest.MockedFunction<any>;
 
     expect(calls).toHaveLength(2);
-    expect(calls[0][0].type).toEqual(getIngredients.pending.type);
-    expect(calls[1][0].type).toEqual(getIngredients.fulfilled.type);
+    expect(calls[0][0].type).toEqual('ingredients/get-ingredients/pending');
+    expect(calls[1][0].type).toEqual('ingredients/get-ingredients/fulfilled');
     expect(calls[1][0].payload).toEqual(ingredients);
+  });
+
+  it('should getIngredients with rejected response', async () => {
+    (fetch as jest.Mock).mockResolvedValue({
+      ok: false,
+    });
+
+    const dispatch = jest.fn();
+    const thunk = getIngredients();
+
+    await thunk(
+      dispatch,
+      () => ({}),
+      () => ({}),
+    );
+
+    const { calls } = dispatch.mock as jest.MockedFunction<any>;
+
+    expect(calls).toHaveLength(2);
+    expect(calls[0][0].type).toEqual('ingredients/get-ingredients/pending');
+    expect(calls[1][0].type).toEqual('ingredients/get-ingredients/rejected');
+    expect(calls[1][0].meta.rejectedWithValue).toEqual(true);
   });
 });
