@@ -69,7 +69,7 @@ export default function Card({ item }: TCardProps) {
   };
 
   return (
-    <div ref={drag} className={styles.card} data-card="card">
+    <div ref={drag} className={styles.card} data-test="card">
       <Link
         to={`/ingredients/${item._id}`}
         state={{ background: location }}

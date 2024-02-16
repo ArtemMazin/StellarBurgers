@@ -28,7 +28,7 @@ export default function BurgerComponents() {
     <div
       className={`${styles.components} ${!isMobile && 'mb-10'}`}
       ref={drop}
-      data-card="drop-zone"
+      data-test="drop-zone"
     >
       {
         <Switch element={bun}>
