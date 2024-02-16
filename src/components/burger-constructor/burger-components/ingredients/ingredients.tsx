@@ -12,7 +12,7 @@ export default function Ingredients({ ingredients }: TIngredients) {
     <ul className={`${styles.list} custom-scroll`}>
       {ingredients.length > 0 &&
         ingredients.map((card, index) => (
-          <li key={card.customId}>
+          <li key={card.customId} data-test="ingredient">
             <Ingredient card={card} index={index} id={card.customId} ingredients={ingredients} />
           </li>
         ))}
