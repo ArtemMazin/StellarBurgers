@@ -1,39 +1,45 @@
 import { expect, jest, it } from '@jest/globals';
-import { createOrder } from './order-slice';
+import { updateUser } from './actions';
 
 global.fetch = jest.fn();
 
-describe('createOrderThunk', () => {
-  it('should createOrder with resolved response', async () => {
+const updatedUser = {
+  name: '<NAME>',
+  email: '<EMAIL>',
+  password: '<PASSWORD>',
+};
+
+describe('updateUserThunk', () => {
+  it('should update user with resolved response', async () => {
     (fetch as jest.Mock).mockResolvedValue({
       ok: true,
-      json: () => Promise.resolve({ success: true, order: { number: 1 } }),
+      json: () => Promise.resolve(updatedUser),
     });
-
     const dispatch = jest.fn();
-    const thunk = createOrder(['1', '2', '3']);
+    const thunk = updateUser(updatedUser);
 
     await thunk(
       dispatch,
       () => ({}),
       () => ({}),
     );
+
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const { calls } = dispatch.mock as jest.MockedFunction<any>;
 
     expect(calls).toHaveLength(2);
-    expect(calls[0][0].type).toEqual('ingredients/create-order/pending');
-    expect(calls[1][0].type).toEqual('ingredients/create-order/fulfilled');
-    expect(calls[1][0].payload).toEqual({ number: 1 });
+    expect(calls[0][0].type).toEqual('user/update-profile-user/pending');
+    expect(calls[1][0].type).toEqual('user/update-profile-user/fulfilled');
+    expect(calls[1][0].payload).toEqual(updatedUser);
   });
 
-  it('should createOrder with rejected response', async () => {
+  it('should update user with rejected response', async () => {
     (fetch as jest.Mock).mockResolvedValue({
       ok: false,
     });
 
     const dispatch = jest.fn();
-    const thunk = createOrder(['1', '2', '3']);
+    const thunk = updateUser(updatedUser);
 
     await thunk(
       dispatch,
@@ -44,8 +50,8 @@ describe('createOrderThunk', () => {
     const { calls } = dispatch.mock as jest.MockedFunction<any>;
 
     expect(calls).toHaveLength(2);
-    expect(calls[0][0].type).toEqual('ingredients/create-order/pending');
-    expect(calls[1][0].type).toEqual('ingredients/create-order/rejected');
+    expect(calls[0][0].type).toEqual('user/update-profile-user/pending');
+    expect(calls[1][0].type).toEqual('user/update-profile-user/rejected');
     expect(calls[1][0].meta.rejectedWithValue).toEqual(true);
   });
 });

@@ -19,6 +19,7 @@ describe('getIngredientsThunk', () => {
       () => ({}),
       () => ({}),
     );
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const { calls } = dispatch.mock as jest.MockedFunction<any>;
 
     expect(calls).toHaveLength(2);
@@ -40,7 +41,7 @@ describe('getIngredientsThunk', () => {
       () => ({}),
       () => ({}),
     );
-
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const { calls } = dispatch.mock as jest.MockedFunction<any>;
 
     expect(calls).toHaveLength(2);

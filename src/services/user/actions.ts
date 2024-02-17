@@ -74,9 +74,10 @@ export const updateUser = createAsyncThunk<Pick<TLoginSuccess, 'success' | 'user
 
 export const logout = createAsyncThunk('user/logout', async (_, { rejectWithValue }) => {
   try {
-    await api.logout();
+    const response = await api.logout();
     removeRefreshToken();
     removeAccessToken();
+    return response;
   } catch (error) {
     return rejectWithValue('Не удалось выйти из аккаунта, попробуйте снова');
   }

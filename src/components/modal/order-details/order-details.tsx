@@ -10,7 +10,7 @@ export default function OrderDetails({ order }: TOrderDetailsProps) {
   const { isMobile } = useResize();
 
   return (
-    <div className={styles.container}>
+    <div className={styles.container} data-test="order-details">
       <p className={`text text_type_digits-large mb-8 ${isMobile && styles.number}`}>
         {order && order.number}
       </p>
