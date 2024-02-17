@@ -8,7 +8,7 @@ type TInitialState = {
   totalToday: number;
 };
 
-const initialState: TInitialState = {
+export const initialState: TInitialState = {
   wsError: null,
   orders: [],
   total: 0,

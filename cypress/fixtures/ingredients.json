@@ -1,0 +1,89 @@
+{
+  "success": true,
+  "data": [
+    {
+      "_id": "643d69a5c3f7b9001cfa093c",
+      "name": "Краторная булка N-200i",
+      "type": "bun",
+      "proteins": "80",
+      "fat": "24",
+      "carbohydrates": "53",
+      "calories": "420",
+      "price": "1255",
+      "image": "https://code.s3.yandex.net/react/code/bun-02.png",
+      "image_mobile": "https://code.s3.yandex.net/react/code/bun-02-mobile.png",
+      "image_large": "https://code.s3.yandex.net/react/code/bun-02-large.png",
+      "__v": "0"
+    },
+    {
+      "calories": 643,
+      "carbohydrates": 85,
+      "fat": 26,
+      "image": "https://code.s3.yandex.net/react/code/bun-01.png",
+      "image_large": "https://code.s3.yandex.net/react/code/bun-01-large.png",
+      "image_mobile": "https://code.s3.yandex.net/react/code/bun-01-mobile.png",
+      "name": "Флюоресцентная булка R2-D3",
+      "price": 988,
+      "proteins": 44,
+      "type": "bun",
+      "__v": 0,
+      "_id": "643d69a5c3f7b9001cfa093d"
+    },
+    {
+      "calories": 30,
+      "carbohydrates": 40,
+      "fat": 20,
+      "image": "https://code.s3.yandex.net/react/code/sauce-02.png",
+      "image_large": "https://code.s3.yandex.net/react/code/sauce-02-large.png",
+      "image_mobile": "https://code.s3.yandex.net/react/code/sauce-02-mobile.png",
+      "name": "Соус Spicy-X",
+      "price": 90,
+      "proteins": 30,
+      "type": "sauce",
+      "__v": 0,
+      "_id": "643d69a5c3f7b9001cfa0942"
+    },
+    {
+      "calories": 99,
+      "carbohydrates": 42,
+      "fat": 24,
+      "image": "https://code.s3.yandex.net/react/code/sauce-03.png",
+      "image_large": "https://code.s3.yandex.net/react/code/sauce-03-large.png",
+      "image_mobile": "https://code.s3.yandex.net/react/code/sauce-03-mobile.png",
+      "name": "Соус традиционный галактический",
+      "price": 15,
+      "proteins": 42,
+      "type": "sauce",
+      "__v": 0,
+      "_id": "643d69a5c3f7b9001cfa0944"
+    },
+    {
+      "calories": 643,
+      "carbohydrates": 85,
+      "fat": 26,
+      "image": "https://code.s3.yandex.net/react/code/meat-03.png",
+      "image_large": "https://code.s3.yandex.net/react/code/meat-03-large.png",
+      "image_mobile": "https://code.s3.yandex.net/react/code/meat-03-mobile.png",
+      "name": "Филе Люминесцентного тетраодонтимформа",
+      "price": 988,
+      "proteins": 44,
+      "type": "main",
+      "__v": 0,
+      "_id": "643d69a5c3f7b9001cfa093e"
+    },
+    {
+      "calories": 6,
+      "carbohydrates": 3,
+      "fat": 2,
+      "image": "https://code.s3.yandex.net/react/code/salad.png",
+      "image_large": "https://code.s3.yandex.net/react/code/salad-large.png",
+      "image_mobile": "https://code.s3.yandex.net/react/code/salad-mobile.png",
+      "name": "Мини-салат Экзо-Плантаго",
+      "price": 4400,
+      "proteins": 1,
+      "type": "main",
+      "__v": 0,
+      "_id": "643d69a5c3f7b9001cfa0949"
+    }
+  ]
+}

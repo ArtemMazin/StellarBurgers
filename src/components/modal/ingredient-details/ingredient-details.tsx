@@ -21,7 +21,7 @@ export default function IngredientDetails() {
 
   return (
     ingredient && (
-      <div className={styles.container}>
+      <div className={styles.container} data-test="modal-ingredient">
         <img
           src={`${isMobile ? ingredient.image : ingredient.image_large}`}
           alt={ingredient.name}

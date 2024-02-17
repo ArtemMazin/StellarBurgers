@@ -1,0 +1,9 @@
+{
+  "success": true,
+  "accessToken": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1Y2ZjMDkxOTdlZGUwMDAxZDA1YzZlZiIsImlhdCI6MTcwODEyMDk0MSwiZXhwIjoxNzA4MTIyMTQxfQ.pjAdoh9vOyU9FsOnjYtqjdZ29Wt0om8zaCjySHeGweQ",
+  "refreshToken": "29376029665d7cfbf6c5c3496708f5604b40bafe2dd81b968fdaf436f71cb0a1e7f4c3984f9123d3",
+  "user": {
+    "email": "qwe@qwertys.ru",
+    "name": "qwertys"
+  }
+}

@@ -8,7 +8,7 @@ type TInitialUserSlice = {
   error: string | null;
 };
 
-const initialState: TInitialUserSlice = {
+export const initialState: TInitialUserSlice = {
   user: null,
   isAuthChecked: false,
   error: null,

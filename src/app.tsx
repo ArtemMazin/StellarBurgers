@@ -1,10 +1,10 @@
 import React, { useEffect } from 'react';
 import { Routes, Route, useLocation, useNavigate } from 'react-router-dom';
 import ErrorBoundary from './components/error-boundary/error-boundary';
-import Login from './pages/login/login';
-import Register from './pages/register/register';
-import ForgotPassword from './pages/forgot-password/forgot-password';
-import ResetPassword from './pages/reset-password/reset-password';
+import Login from './pages/auth/login/login';
+import Register from './pages/auth/register/register';
+import ForgotPassword from './pages/auth/password-reset/password-reset';
+import ResetPassword from './pages/auth/password-restore/password-restore';
 import Profile from './pages/profile/profile';
 import { URL } from './utils/url-config';
 import Home from './pages/home/home';

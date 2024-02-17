@@ -1,5 +1,5 @@
 import { RootState } from '@/store';
-import { refreshToken } from '@/utils/api';
+import { refreshToken } from '@/api/api';
 import { ActionCreatorWithPayload, ActionCreatorWithoutPayload } from '@reduxjs/toolkit';
 import { Middleware } from 'redux';
 

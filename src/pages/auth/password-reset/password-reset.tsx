@@ -1,8 +1,8 @@
 import React from 'react';
-import styles from './forgot-password.module.css';
+import styles from './password-reset.module.css';
 import Form from '@/components/form/form';
 import { Link, useNavigate } from 'react-router-dom';
-import { resetPassword } from '@/utils/api';
+import { resetPassword } from '@/api/user-api';
 import InputWithMail from '@/components/form/inputs/input-with-mail';
 import { useFormAndValidation } from '@/hooks/useForm';
 import { toast } from 'react-toastify';
