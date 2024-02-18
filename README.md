@@ -10,7 +10,7 @@
 
 ## Ссылка на проект
 
-[Посмотреть проект](https://stellar-burgers-murex.vercel.app/)
+[https://stellar-burgers-murex.vercel.app/](https://stellar-burgers-murex.vercel.app/)
 
 ## Технологии
 
@@ -20,4 +20,17 @@
 - [TypeScript](https://www.typescriptlang.org/)
 - [Jest](https://jestjs.io/ru/)
 
-![](src/images/preview.png)![](src/images/preview-mobile.png)
+## Инструкция по запуску
+
+```bash
+git clone https://github.com/ArtemMazin/StellarBurgers.git
+npm install
+npm run build
+npm start
+npm run test
+npm run cypress
+npm run stylelint
+npm run lint
+```
+
+![](src/images/preview.png)

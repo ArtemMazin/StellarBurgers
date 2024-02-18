@@ -18,10 +18,15 @@ const OrderCard = ({ order, ingredients }: TOrderCardProps) => {
 
   const match = useMatch('/feed');
 
-  const items = order.ingredients.map(
-    // find не вернет undefined, т.к. order.ingredients формируется из ingredients (условие ingredient._id === order всегда выполнится).
-    (order) => ingredients.find((ingredient) => ingredient._id === order) as TIngredient,
-  );
+  const items = order.ingredients.reduce((acc, order) => {
+    const item = ingredients.find((ingredient) => ingredient._id === order);
+
+    if (!item) return acc;
+
+    acc.push(item);
+
+    return acc;
+  }, [] as TIngredient[]);
 
   const status = useOrderStatus(order);
 

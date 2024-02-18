@@ -1,5 +1,5 @@
-import * as api from '@/utils/api';
-import { TIngredient } from '@/utils/types';
+import * as api from '../../api/ingredients-api';
+import { TIngredient } from '../../utils/types';
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 
 export const getIngredients = createAsyncThunk(
@@ -21,7 +21,7 @@ type TInitialIngredientsSlice = {
   error?: string;
 };
 
-const initialState: TInitialIngredientsSlice = {
+export const initialState: TInitialIngredientsSlice = {
   initialIngredients: [],
   status: 'idle',
   error: '',

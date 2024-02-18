@@ -52,7 +52,7 @@ export enum WebsocketStatus {
 
 export type TOrder = {
   ingredients: string[];
-  _id: '';
+  _id: string;
   status: string;
   name: string;
   number: number;

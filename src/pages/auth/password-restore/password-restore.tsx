@@ -1,10 +1,10 @@
 import React from 'react';
-import styles from './reset-password.module.css';
+import styles from './password-restore.module.css';
 import { Link, useNavigate } from 'react-router-dom';
 import Form from '@/components/form/form';
 import { toast } from 'react-toastify';
 import { URL } from '@/utils/url-config';
-import { restorePassword } from '@/utils/api';
+import { restorePassword } from '@/api/user-api';
 import { useFormAndValidation } from '@/hooks/useForm';
 import InputWithPassword from '@/components/form/inputs/input-with-password';
 import InputWithToken from '@/components/form/inputs/input-with-token';

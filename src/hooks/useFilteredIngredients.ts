@@ -7,7 +7,8 @@ function useFilteredIngredients(array: TIngredient[]) {
   const [main, setMain] = useState<TIngredient[]>([]);
 
   useMemo(() => {
-    array.length > 0 &&
+    array &&
+      array.length > 0 &&
       array.filter((item) => {
         switch (item.type) {
           case 'bun':

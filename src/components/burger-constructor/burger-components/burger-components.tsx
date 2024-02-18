@@ -25,7 +25,11 @@ export default function BurgerComponents() {
   }));
 
   return (
-    <div className={`${styles.components} ${!isMobile && 'mb-10'}`} ref={drop}>
+    <div
+      className={`${styles.components} ${!isMobile && 'mb-10'}`}
+      ref={drop}
+      data-test="drop-zone"
+    >
       {
         <Switch element={bun}>
           <Bun bun={bun} type={'top'} text={'(верх)'} />
