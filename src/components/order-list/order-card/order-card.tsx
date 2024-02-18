@@ -7,6 +7,7 @@ import ImageList from './image-list/image-list';
 import { Link, useLocation, useMatch } from 'react-router-dom';
 import { TIngredient, TOrder } from '@/utils/types';
 import { useOrderStatus } from '@/hooks/useOrderStatus';
+import { useResize } from '@/hooks/useResize';
 
 type TOrderCardProps = {
   order: TOrder;
@@ -14,6 +15,8 @@ type TOrderCardProps = {
 };
 
 const OrderCard = ({ order, ingredients }: TOrderCardProps) => {
+  const { isMobile } = useResize();
+
   const location = useLocation();
 
   const match = useMatch('/feed');
@@ -46,7 +49,11 @@ const OrderCard = ({ order, ingredients }: TOrderCardProps) => {
         />
       </div>
       <div>
-        <span className="text text_type_main-medium">{order.name}</span>
+        <span
+          className={`${isMobile ? 'text text_type_main-default' : 'text text_type_main-medium'}`}
+        >
+          {order.name}
+        </span>
         <span
           className={`text text_type_main-default ${styles.status} ${
             status === 'Выполнен' && styles.status_accent

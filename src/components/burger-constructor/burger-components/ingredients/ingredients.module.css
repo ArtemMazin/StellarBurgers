@@ -13,7 +13,7 @@
 
 @media (width < 768px) {
   .list {
-    max-height: 61vh;
+    max-height: 54vh;
     gap: 0;
   }
 }
