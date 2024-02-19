@@ -2,12 +2,12 @@
   display: grid;
   box-sizing: border-box;
   justify-content: space-between;
-  grid-template-columns: repeat(2, minmax(320px, 600px));
+  grid-template-columns: repeat(2, minmax(auto, 600px));
 }
 
 @media (width < 992px) {
   .content {
     justify-content: center;
-    grid-template-columns: minmax(320px, 750px);
+    grid-template-columns: minmax(320px, auto);
   }
 }

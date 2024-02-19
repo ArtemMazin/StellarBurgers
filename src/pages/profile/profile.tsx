@@ -1,18 +1,21 @@
 import React from 'react';
 import styles from './profile.module.css';
 import ProfileTabs from '@/components/profile-tabs/profile-tabs';
-import { Outlet } from 'react-router-dom';
+import { Outlet, useMatch } from 'react-router-dom';
 import { useResize } from '@/hooks/useResize';
 
 function Profile() {
-
   const { isMobile } = useResize();
+
+  const profileMatch = useMatch('/profile');
 
   return (
     <main className="container">
       <div className={styles.main}>
         {isMobile ? (
-          <h1 className="pl-2 pr-2 pt-4 pb-6 text text_type_main-medium">Профиль</h1>
+          <h1 className="pl-2 pr-2 pt-4 pb-6 text text_type_main-medium">
+            {profileMatch ? 'Профиль' : 'История заказов'}
+          </h1>
         ) : (
           <div className={`${styles.nav} ml-5 mt-30`}>
             <ProfileTabs />
@@ -22,7 +25,7 @@ function Profile() {
             </span>
           </div>
         )}
-        <Outlet/>
+        <Outlet />
       </div>
     </main>
   );

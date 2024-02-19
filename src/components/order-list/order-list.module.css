@@ -6,3 +6,9 @@
   gap: 16px;
   list-style-type: none;
 }
+
+@media (width < 992px) {
+  .list {
+    padding: 0;
+  }
+}

@@ -16,5 +16,20 @@
 .content {
   display: grid;
   justify-content: space-between;
-  grid-template-columns: minmax(320px, 600px) minmax(320px, 584px);
+  grid-template-columns: minmax(auto, 600px) minmax(auto, 584px);
+}
+
+@media (width < 992px) {
+  .content {
+    justify-content: stretch;
+    grid-template-columns: minmax(320px, auto);
+  }
+
+  .order_container {
+    max-height: 80vh;
+  }
+
+  .title {
+    text-align: center;
+  }
 }

@@ -49,7 +49,7 @@ function Layout() {
       <ToastContainer theme="dark" />
 
       <MobileMenu isMenuOpen={isMenuOpen} title="Меню">
-        <MobileNavigation />
+        <MobileNavigation toggleHideMenu={toggleHideMenu} />
       </MobileMenu>
     </>
   );

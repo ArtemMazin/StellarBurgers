@@ -7,6 +7,7 @@ import { ItemTypes } from '@/utils/drag-configs';
 import { TIngredient } from '@/utils/types';
 import { Identifier } from 'dnd-core';
 import { useAppDispatch } from '@/redux-hooks';
+import { useResize } from '@/hooks/useResize';
 
 type TDragObject = {
   id: string;
@@ -29,6 +30,8 @@ type TIngredientProps = {
 };
 
 function Ingredient({ card, index, id, ingredients }: TIngredientProps) {
+  const { isMobile } = useResize();
+
   const dispatch = useAppDispatch();
 
   const ref = useRef<HTMLDivElement | null>(null);
@@ -107,7 +110,7 @@ function Ingredient({ card, index, id, ingredients }: TIngredientProps) {
       data-handler-id={handlerId}
       style={getStyles(isDragging)}
     >
-      <DragIcon type="primary" />
+      {!isMobile && <DragIcon type="primary" />}
       <ConstructorElement
         text={card.name}
         price={card.price}
