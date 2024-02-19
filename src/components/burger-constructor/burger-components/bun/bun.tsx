@@ -14,7 +14,7 @@ export default function Bun({ bun, type, text }: TBun) {
   const { isMobile } = useResize();
 
   return (
-    <div className={`${styles.component} ${isMobile ? 'ml-6' : 'ml-8'} mr-3`} data-test="bun">
+    <div className={`${styles.component} ${!isMobile && 'ml-8 mr-3'}`} data-test="bun">
       {bun && (
         <ConstructorElement
           type={type}

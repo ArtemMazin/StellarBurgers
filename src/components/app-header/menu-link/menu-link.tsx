@@ -12,9 +12,10 @@ type TLinkProps = {
   url: string;
   name: string;
   icon: string;
+  toggleHideMenu?: () => void;
 };
 
-function MenuLink({ url, name, icon }: TLinkProps) {
+function MenuLink({ url, name, icon, toggleHideMenu }: TLinkProps) {
   const { isMobile } = useResize();
 
   function renderIcon(isActive: boolean) {
@@ -40,6 +41,7 @@ function MenuLink({ url, name, icon }: TLinkProps) {
     <NavLink
       to={url}
       className={`${styles.link} ${isMobile ? 'pl-2 pr-2 pb-3 pt-3' : 'pl-5 pr-5 pb-4 pt-4'}`}
+      onClick={toggleHideMenu}
     >
       {({ isActive }) => (
         <>

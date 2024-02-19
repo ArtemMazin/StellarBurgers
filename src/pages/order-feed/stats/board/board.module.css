@@ -17,3 +17,11 @@
 .numbers_accent {
   color: var(--colors-interface-success);
 }
+
+@media (width < 992px) {
+  .numbers {
+    width: 160px;
+    height: 155px;
+    gap: 8px;
+  }
+}

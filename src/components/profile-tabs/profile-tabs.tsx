@@ -7,7 +7,11 @@ import { messages } from '@/utils/constants';
 import { useResize } from '@/hooks/useResize';
 import { useAppDispatch } from '@/redux-hooks';
 
-function ProfileTabs() {
+type ProfileTabsProps = {
+  toggleHideMenu?: () => void;
+};
+
+function ProfileTabs({ toggleHideMenu }: ProfileTabsProps) {
   const dispatch = useAppDispatch();
 
   const { isMobile } = useResize();
@@ -23,6 +27,8 @@ function ProfileTabs() {
           toast.error(err.message);
         }
       });
+
+    toggleHideMenu && toggleHideMenu();
   };
 
   return (
@@ -33,12 +39,12 @@ function ProfileTabs() {
         }`}
       >
         <li>
-          <NavLink to="/profile" className={styles.link}>
+          <NavLink to="/profile" className={styles.link} onClick={toggleHideMenu}>
             <span className={`${!profileMatch && 'text_color_inactive'}`}>Профиль</span>
           </NavLink>
         </li>
         <li>
-          <NavLink to="/profile/orders" className={styles.link}>
+          <NavLink to="/profile/orders" className={styles.link} onClick={toggleHideMenu}>
             {({ isActive }) => (
               <span className={`${!isActive && 'text_color_inactive'}`}>История заказов</span>
             )}

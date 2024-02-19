@@ -9,10 +9,13 @@ import { toast } from 'react-toastify';
 import { updateUser } from '@/services/user/actions';
 import { messages } from '@/utils/constants';
 import { useAppDispatch, useAppSelector } from '@/redux-hooks';
+import { useResize } from '@/hooks/useResize';
 
 function ProfileForm() {
   const [isVisibleButtons, setVisibleButtons] = useState(false);
   const { user } = useAppSelector(currentUser);
+
+  const { isMobile } = useResize();
 
   const dispatch = useAppDispatch();
 
@@ -34,11 +37,7 @@ function ProfileForm() {
 
   useEffect(() => {
     if (user !== null) {
-      if (
-        values.name.trim() !== user.name ||
-        values.email !== user.email ||
-        values.password
-      ) {
+      if (values.name.trim() !== user.name || values.email !== user.email || values.password) {
         setVisibleButtons(true);
       }
     }
@@ -69,7 +68,7 @@ function ProfileForm() {
   };
 
   return (
-    <div className="mt-30 ml-15">
+    <div className={`${!isMobile && 'mt-30 ml-15'}`}>
       <Form
         title={''}
         textButton={'Сохранить'}
